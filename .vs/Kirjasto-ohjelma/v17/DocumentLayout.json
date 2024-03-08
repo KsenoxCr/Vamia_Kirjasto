@@ -1,0 +1,114 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\kirjasto-ohjelma\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\kirjasto-ohjelma\\userhome.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:userhome.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\kirjasto-ohjelma\\staffhome.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:staffhome.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\kirjasto-ohjelma\\accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\kirjasto-ohjelma\\bookrecommendation.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:bookrecommendation.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BookRecommendation.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\BookRecommendation.Designer.cs",
+              "RelativeDocumentMoniker": "BookRecommendation.Designer.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\BookRecommendation.Designer.cs",
+              "RelativeToolTip": "BookRecommendation.Designer.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAQwAoAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T12:28:28.791Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LogIn.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\LogIn.cs",
+              "RelativeDocumentMoniker": "LogIn.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\LogIn.cs",
+              "RelativeToolTip": "LogIn.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAQwBYAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T12:45:17.565Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StaffHome.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\StaffHome.cs",
+              "RelativeDocumentMoniker": "StaffHome.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\StaffHome.cs",
+              "RelativeToolTip": "StaffHome.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAxwEsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T12:44:11.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserHome.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\UserHome.cs",
+              "RelativeDocumentMoniker": "UserHome.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\UserHome.cs",
+              "RelativeToolTip": "UserHome.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAYwDAAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T12:43:54.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AccountDetails.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\AccountDetails.cs",
+              "RelativeDocumentMoniker": "AccountDetails.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\Kirjasto-ohjelma\\AccountDetails.cs",
+              "RelativeToolTip": "AccountDetails.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAqwA0AAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T12:43:08.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

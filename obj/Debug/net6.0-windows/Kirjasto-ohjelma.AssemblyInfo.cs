@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kirjasto-ohjelma")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b15a30b32e43311b8ced37131f8ed0246a31f48")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kirjasto-ohjelma")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kirjasto-ohjelma")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

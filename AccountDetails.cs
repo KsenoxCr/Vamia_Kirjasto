@@ -74,11 +74,8 @@ namespace Kirjasto_ohjelma
 
         private void Form4_Load(object sender, EventArgs e)
         {
-            FormManager.ControlsAreClickable(sender, e, this, "kirja", "picturebox");
-            FormManager.ControlsAreClickable(sender, e, this, "lainaaBtn", "button");
-            FormManager.ControlsAreClickable(sender, e, this, "poistaBtn", "button");
 
-            if (LogIn.Instance.Height > 730)
+            if (this.Height > 730)
             {
                 AutoScroll = true;
             }
@@ -86,7 +83,8 @@ namespace Kirjasto_ohjelma
 
         private void kirjat_Click(object sender, EventArgs e)
         {
-            UserHome userHome = UserHome.Instance;
+
+            UserHome userHome = new UserHome(false); // keski miten selvittää onko staff vai ei kun luokan pitää olla singleton
             userHome.Show();
 
             this.Hide();

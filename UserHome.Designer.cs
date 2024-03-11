@@ -38,6 +38,7 @@
             pictureBox1 = new PictureBox();
             menuButton = new PictureBox();
             Menu = new Panel();
+            asiakkaat = new Label();
             oma_tili = new Label();
             kirjauduUlos = new Label();
             label2 = new Label();
@@ -238,17 +239,30 @@
             // Menu
             // 
             Menu.BackColor = Color.FromArgb(255, 241, 220);
+            Menu.Controls.Add(asiakkaat);
             Menu.Controls.Add(oma_tili);
             Menu.Controls.Add(kirjauduUlos);
             Menu.Controls.Add(label2);
             Menu.Controls.Add(ehdota_kirjaa);
             Menu.Controls.Add(palautteet);
             Menu.Controls.Add(tuki);
-            Menu.Location = new Point(-125, 79);
+            Menu.Location = new Point(0, 79);
             Menu.Name = "Menu";
             Menu.Size = new Size(125, 1600);
             Menu.TabIndex = 13;
             Menu.Tag = "Closed";
+            // 
+            // asiakkaat
+            // 
+            asiakkaat.AutoSize = true;
+            asiakkaat.Cursor = Cursors.Hand;
+            asiakkaat.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            asiakkaat.Location = new Point(10, 136);
+            asiakkaat.Name = "asiakkaat";
+            asiakkaat.Size = new Size(73, 20);
+            asiakkaat.TabIndex = 23;
+            asiakkaat.Text = "Asiakkaat";
+            asiakkaat.Click += asiakkaat_Click;
             // 
             // oma_tili
             // 
@@ -291,7 +305,7 @@
             ehdota_kirjaa.Size = new Size(95, 20);
             ehdota_kirjaa.TabIndex = 2;
             ehdota_kirjaa.Text = "Ehdota Kirjaa";
-            ehdota_kirjaa.Click += sijainti_Click;
+            ehdota_kirjaa.Click += ehdota_kirjaa_Click;
             // 
             // palautteet
             // 
@@ -381,7 +395,7 @@
             groupBox1.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox1.Location = new Point(163, 378);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(491, 1197);
+            groupBox1.Size = new Size(491, 1200);
             groupBox1.TabIndex = 20;
             groupBox1.TabStop = false;
             // 
@@ -1258,7 +1272,7 @@
             panel17.Size = new Size(80, 376);
             panel17.TabIndex = 3;
             // 
-            // Form3
+            // UserHome
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -1277,7 +1291,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Form3";
+            Name = "UserHome";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Kirjasto";
             Load += Form3_Load;
@@ -1427,5 +1441,6 @@
         private Label kirjauduUlos;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Label oma_tili;
+        private Label asiakkaat;
     }
 }

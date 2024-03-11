@@ -17,40 +17,23 @@ namespace Kirjasto_ohjelma
         {
             foreach (System.Windows.Forms.Label label in labels)
             {
-                label.MouseEnter += (sender, e) => FormManager.MouseEnterLabel(sender, e, label);
-                label.MouseLeave += (sender, e) => FormManager.MouseLeaveLabel(sender, e, label);
+                label.MouseEnter += (sender, e) => label.Font = new Font("Impact", 14F, FontStyle.Regular, GraphicsUnit.Point);
+                label.MouseLeave += (sender, e) => label.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
             }
         }
 
-        static void MouseEnterLabel(object sender, EventArgs e, Label label)
-        {
-            label.Font = new Font("Impact", 14F, FontStyle.Regular, GraphicsUnit.Point);
-        }
-
-        static void MouseLeaveLabel(object sender, EventArgs e, Label label)
-        {
-            label.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-        }
-
-        public static void controlClicked(object sender, EventArgs e, Control control)
+        public static void controlClicked(object sender, EventArgs e, Control control, bool isStaff)
         {
 
             if (control is PictureBox picbox)
             {
-                if (picbox.Tag.ToString() == "asiakas")
-                {
-                    BookInfo UserBookInfo = new BookInfo();
-                    UserBookInfo.Show();
-                }
-                else if (picbox.Tag.ToString() == "henkilökunta")
-                {
-                    BookInfoStaff staffBookInfo = new BookInfoStaff();
-                    staffBookInfo.Show();
-                }
+
+                openBookInfo(isStaff ? "staff" : "customer");
+
             } 
             else if (control is System.Windows.Forms.Button btn)
             {
-                if(btn.Name.ToString().Substring(0, 9) == "lainaaBtn" && btn.Name.ToString().Length > 9)
+                if(btn.Name.ToString().StartsWith("lainaaBtn"))
                 {
 
                     if (btn.Parent.Name.ToString().Substring(0, 10) == "kirjaPanel" && btn.Parent.Name.Length > 10)
@@ -59,124 +42,76 @@ namespace Kirjasto_ohjelma
                         foreach (Control _control in btn.Parent.Controls)
                         {
 
-                            if (_control.Name.Substring(0, 4).ToLower() == "nimi" && _control.Name.Length > 4 && _control is Label)
+                            if (_control.Name.StartsWith("nimi") && _control.Name.Length !< 6 && _control is Label)
                             {
-
-                                /*
-                                int kirjaNum = Convert.ToInt32(_control.Name.Substring(4));
-                                string kirjanNimi = "";
-
-
-                                switch(kirjaNum)
+                                if(isStaff)
                                 {
-                                    case 1: 
-
-                                        break;
-
-                                } */
-
-                                CreateNewLoan(_control.Text);
+                                    openBookInfo("staff");
+                                }
+                                else
+                                {
+                                    CreateNewLoan(_control.Text);
+                                    OkMessage("lainaus");
+                                }
                             }
                         }
                     }
-                    else if (btn.Parent.Name.ToString() == "Form5")
+                    else if (btn.Parent.Name.ToString() == "BookInfo")
                     {
                         foreach (Control _control in btn.Parent.Controls)
                         {
                             if (_control.Name.ToString().ToLower() == "kirjannimi") { }
                             {
                                 CreateNewLoan(_control.Name.ToString().ToLower());
+                                OkMessage("lainaus");
                             }
                         }
                     }
 
-                    ConfirmMessage lainausConfirmMSG = new ConfirmMessage("lainaaBtn");
-                    lainausConfirmMSG.Show();
-                    
                 }
-                else if (btn.Name.ToString().Substring(0, 9) == "poistaBtn" && btn.Name.ToString().Length > 9)
+                else if (btn.Name.StartsWith("poistaBtn"))
                 {
                     //Lisää: "haluatko varmasti poistaa kirjan valikomaista?" -varoitus
 
-                    ConfirmMessage poistoConfirmMSG = new ConfirmMessage("poistaBtn");
-                    poistoConfirmMSG.Show();
+                    OkMessage("varmistus");
                 }
             }
         }
-
-        public static void ControlsAreClickable(object sender, EventArgs e, Control control, string controlName, string controlType) 
+        private static void OkMessage(string msgType)
         {
-            List<Control> FindAllControls(Control control, string type)
-            {
-                List<Control> controls = new List<Control>();
-
-                if(type.ToLower() == "button")
-                {
-                    controls.AddRange(control.Controls.OfType<System.Windows.Forms.Button>());
-                }
-                else if(type.ToLower() == "picturebox")
-                {
-                    controls.AddRange(control.Controls.OfType<System.Windows.Forms.PictureBox>());
-                }
-
-                foreach (Control childControl in control.Controls)
-                {
-                    controls.AddRange(FindAllControls(childControl, type));
-                }
-
-                return controls;
-            }
-
-
-            var allSpecifiedControls = FindAllControls(control, controlType);
-
-            var clickableControls = allSpecifiedControls.Where(pb => pb.Name.StartsWith(controlName) && pb.Name.Length > controlName.Length);
-
-            if (clickableControls.Any())
-            {
-                //var bookNumbers = clickableControls.Select(pb => int.Parse(pb.Name.Substring(controlName.Length)));
-
-                //var bookArray = new PictureBox[bookNumbers.Max() + 1];
-
-                foreach (var clickableControl in clickableControls)
-                {
-                    //int index = int.Parse(clickableControl.Name.Substring(5)) - 1;
-                    //bookArray[index] = clickableControl;
-                    clickableControl.Click += (sender, e) => FormManager.controlClicked(sender, e, clickableControl);
-                }
-            }
+            ConfirmMessage OkMessage = new ConfirmMessage(msgType);
+            OkMessage.Show();
         }
+
+        private static void openBookInfo(string userType)
+        {
+            BookInfo bookInfo = new BookInfo(userType);
+            bookInfo.Show();
+        }
+
         private static void CreateNewLoan(string kirjanNimi)
         {
             AccountDetails accDetails = AccountDetails.Instance;
 
             Control lainauksetPanel = accDetails.Controls["lainauksetPanel"] as Control;
             Control footer = accDetails.Controls["footer"] as Control;
-            
-
-            int positionX = 25;
-            int positionY = 25;
 
             lainauksetPanel.Controls.Remove(lainauksetPanel.Controls["eiLainauksia"]);
 
+            Label kirjauduUlos = (Label)accDetails.Controls["Menu"].Controls["kirjaudu_ulos"];
+
             int loanCount = lainauksetPanel.Controls.Count;
 
-            if (loanCount >= 1)
+            int positionX = 25;
+            int positionY = loanCount * 100 + 25;
+
+            if (loanCount > 0)
             {
-
-                for (int i = lainauksetPanel.Controls.Count - 1; i >= 0; i--)
-                {
-                    positionY += 100;
-                    lainauksetPanel.Height += 100;
-                }
-
-                accDetails.Height += 125;
-
-
-                int footerNewy = footer.Location.Y + 125;
-                footer.Location = new Point(0, footerNewy);
-
                 lainauksetPanel.Height += 100;
+                footer.Location = new Point(0, footer.Location.Y + 125);
+                accDetails.Height += 50;
+
+                kirjauduUlos.Location = new Point(kirjauduUlos.Location.X, kirjauduUlos.Location.Y + 100);
             }
 
             GroupBox uusiLainaus = new GroupBox();
@@ -185,6 +120,7 @@ namespace Kirjasto_ohjelma
             uusiLainaus.Location = new Point(positionX, positionY);
             uusiLainaus.BackColor = Color.Beige;
             uusiLainaus.Visible = true;
+            uusiLainaus.Name = "lainaus" + (loanCount + 1);
 
             Label lainatunnus = new Label();
             lainatunnus.Text = "Kirjan isbn";

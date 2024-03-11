@@ -160,7 +160,7 @@
             Menu.Controls.Add(kirjaudu_ulos);
             Menu.Controls.Add(label2);
             Menu.Controls.Add(kirjat);
-            Menu.Location = new Point(-125, 79);
+            Menu.Location = new Point(0, 79);
             Menu.Name = "Menu";
             Menu.Size = new Size(125, 1600);
             Menu.TabIndex = 13;

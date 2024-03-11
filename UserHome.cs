@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,50 +18,71 @@ namespace Kirjasto_ohjelma
     {
         bool menuOpen = false;
 
-        private static UserHome _instance = null;
-        private static readonly object _lock = new object();
+        public bool IsStaff { get; }
 
-        public string formType  { get; set; }
+        public string formType { get; set; }
 
-        public UserHome()
+        public UserHome(bool isStaff)
         {
             InitializeComponent();
 
+            this.IsStaff = isStaff;
+
             this.FormClosing += FormManager.Form_FormClosing;
 
-            System.Windows.Forms.Label[] labels = { oma_tili, tuki, palautteet, ehdota_kirjaa, kirjauduUlos, };
+            System.Windows.Forms.Label[] labels = { oma_tili, tuki, palautteet, ehdota_kirjaa, kirjauduUlos, asiakkaat };
 
             FormManager.AddMouseEnterAndLeave(labels);
 
-            formType = "Main";
-        }
-
-        public static UserHome Instance
-        {
-            get
+            if (IsStaff) // or this.IsStaff?
             {
-                lock (_lock)
+
+                tuki.Visible = false;
+                palautteet.Visible = false;
+                ehdota_kirjaa.Visible = false;
+
+                asiakkaat.Visible = true;
+                asiakkaat.Location = tuki.Location;
+
+                
+                foreach (Control control in groupBox1.Controls)
                 {
-                    if (_instance == null)
+                    if (control is Panel kirjaPanel)
                     {
-                        _instance = new UserHome();
+                        foreach (Control innerControl in kirjaPanel.Controls)
+                        {
+                            if (innerControl is Button && innerControl.Name.StartsWith("lainaaBtn"))
+                            {
+                                innerControl.Text = IsStaff ? "Katso" : "Lainaa";
+                            }
+                        }
                     }
-                    return _instance;
                 }
             }
+            else
+            {
+
+                tuki.Visible = true;
+                palautteet.Visible = true;
+                ehdota_kirjaa.Visible = true;
+
+                asiakkaat.Visible = false;
+            }
+
+            //this.IsStaff = isStaff;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
-                FormManager.toggleMenu(Menu);
+            FormManager.toggleMenu(Menu);
 
         }
 
         private void Form3_Load(object sender, EventArgs e)
         {
-            FormManager.ControlsAreClickable(sender, e, this, "kirja", "picturebox");
-            FormManager.ControlsAreClickable(sender, e, this, "lainaaBtn", "button");
+            ControlsAreClickable(sender, e, this, "kirja", "picturebox");
+            ControlsAreClickable(sender, e, this, "lainaaBtn", "button");
         }
 
         private void kirjauduUlos_Click(object sender, EventArgs e)
@@ -70,7 +92,7 @@ namespace Kirjasto_ohjelma
             this.Hide();
         }
 
-        private void sijainti_Click(object sender, EventArgs e)
+        private void ehdota_kirjaa_Click(object sender, EventArgs e)
         {
             BookRecommendation bookRecom = new BookRecommendation();
             bookRecom.Show();
@@ -101,6 +123,54 @@ namespace Kirjasto_ohjelma
                 if (form.Name != accDetails.Name)
                 {
                     form.Hide();
+                }
+            }
+        }
+
+        private void asiakkaat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void ControlsAreClickable(object sender, EventArgs e, Control control, string controlName, string controlType)
+        {
+            List<Control> FindAllControls(Control control, string type)
+            {
+                List<Control> controls = new List<Control>();
+
+                if (type.ToLower() == "button")
+                {
+                    controls.AddRange(control.Controls.OfType<System.Windows.Forms.Button>());
+                }
+                else if (type.ToLower() == "picturebox")
+                {
+                    controls.AddRange(control.Controls.OfType<System.Windows.Forms.PictureBox>());
+                }
+
+                foreach (Control childControl in control.Controls)
+                {
+                    controls.AddRange(FindAllControls(childControl, type));
+                }
+
+                return controls;
+            }
+
+
+            var allSpecifiedControls = FindAllControls(control, controlType);
+
+            var clickableControls = allSpecifiedControls.Where(pb => pb.Name.StartsWith(controlName) && pb.Name.Length > controlName.Length);
+
+            if (clickableControls.Any())
+            {
+                //var bookNumbers = clickableControls.Select(pb => int.Parse(pb.Name.Substring(controlName.Length)));
+
+                //var bookArray = new PictureBox[bookNumbers.Max() + 1];
+
+                foreach (var clickableControl in clickableControls)
+                {
+                    //int index = int.Parse(clickableControl.Name.Substring(5)) - 1;
+                    //bookArray[index] = clickableControl;
+                    clickableControl.Click += (sender, e) => FormManager.controlClicked(sender, e, clickableControl, this.IsStaff);
                 }
             }
         }

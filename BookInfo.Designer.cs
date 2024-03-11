@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookInfo));
             pictureBox1 = new PictureBox();
-            kirjanNimi = new Label();
+            label1 = new Label();
             label2 = new Label();
             panel1 = new Panel();
             textBox1 = new TextBox();
             panel2 = new Panel();
-            tiedot = new Panel();
+            kirjanTiedot = new Panel();
             label12 = new Label();
             label13 = new Label();
             label11 = new Label();
@@ -43,15 +43,17 @@
             label9 = new Label();
             label6 = new Label();
             label8 = new Label();
-            label7 = new Label();
+            label5 = new Label();
             label4 = new Label();
             label3 = new Label();
             pictureBox2 = new PictureBox();
+            poistaBtn = new Button();
+            muokkaaBtn = new Button();
             lainaaBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            tiedot.SuspendLayout();
+            kirjanTiedot.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
@@ -64,15 +66,15 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // kirjanNimi
+            // label1
             // 
-            kirjanNimi.AutoSize = true;
-            kirjanNimi.Font = new Font("Impact", 25F, FontStyle.Regular, GraphicsUnit.Point);
-            kirjanNimi.Location = new Point(181, 9);
-            kirjanNimi.Name = "kirjanNimi";
-            kirjanNimi.Size = new Size(166, 42);
-            kirjanNimi.TabIndex = 1;
-            kirjanNimi.Text = "Womb City";
+            label1.AutoSize = true;
+            label1.Font = new Font("Impact", 25F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(181, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(166, 42);
+            label1.TabIndex = 1;
+            label1.Text = "Womb City";
             // 
             // label2
             // 
@@ -112,23 +114,23 @@
             panel2.Size = new Size(220, 280);
             panel2.TabIndex = 4;
             // 
-            // tiedot
+            // kirjanTiedot
             // 
-            tiedot.BackColor = Color.PeachPuff;
-            tiedot.Controls.Add(label12);
-            tiedot.Controls.Add(label13);
-            tiedot.Controls.Add(label11);
-            tiedot.Controls.Add(label10);
-            tiedot.Controls.Add(label9);
-            tiedot.Controls.Add(label6);
-            tiedot.Controls.Add(label8);
-            tiedot.Controls.Add(label7);
-            tiedot.Controls.Add(label4);
-            tiedot.Controls.Add(label3);
-            tiedot.Location = new Point(12, 370);
-            tiedot.Name = "tiedot";
-            tiedot.Size = new Size(220, 129);
-            tiedot.TabIndex = 5;
+            kirjanTiedot.BackColor = Color.PeachPuff;
+            kirjanTiedot.Controls.Add(label12);
+            kirjanTiedot.Controls.Add(label13);
+            kirjanTiedot.Controls.Add(label11);
+            kirjanTiedot.Controls.Add(label10);
+            kirjanTiedot.Controls.Add(label9);
+            kirjanTiedot.Controls.Add(label6);
+            kirjanTiedot.Controls.Add(label8);
+            kirjanTiedot.Controls.Add(label5);
+            kirjanTiedot.Controls.Add(label4);
+            kirjanTiedot.Controls.Add(label3);
+            kirjanTiedot.Location = new Point(12, 370);
+            kirjanTiedot.Name = "kirjanTiedot";
+            kirjanTiedot.Size = new Size(220, 129);
+            kirjanTiedot.TabIndex = 5;
             // 
             // label12
             // 
@@ -200,15 +202,15 @@
             label8.TabIndex = 11;
             label8.Text = "Dystopia";
             // 
-            // label7
+            // label5
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Impact", 8F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(77, 23);
-            label7.Name = "label7";
-            label7.Size = new Size(46, 15);
-            label7.TabIndex = 10;
-            label7.Text = "Fantasia";
+            label5.AutoSize = true;
+            label5.Font = new Font("Impact", 8F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(81, 23);
+            label5.Name = "label5";
+            label5.Size = new Size(46, 15);
+            label5.TabIndex = 8;
+            label5.Text = "Fantasia";
             // 
             // label4
             // 
@@ -241,6 +243,44 @@
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
             // 
+            // poistaBtn
+            // 
+            poistaBtn.BackColor = Color.OrangeRed;
+            poistaBtn.Cursor = Cursors.Hand;
+            poistaBtn.FlatAppearance.BorderColor = Color.DarkRed;
+            poistaBtn.FlatAppearance.BorderSize = 2;
+            poistaBtn.FlatAppearance.MouseDownBackColor = Color.Red;
+            poistaBtn.FlatAppearance.MouseOverBackColor = Color.OrangeRed;
+            poistaBtn.FlatStyle = FlatStyle.Flat;
+            poistaBtn.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            poistaBtn.Location = new Point(383, 505);
+            poistaBtn.Name = "poistaBtn";
+            poistaBtn.Size = new Size(139, 51);
+            poistaBtn.TabIndex = 11;
+            poistaBtn.Text = "Poista";
+            poistaBtn.UseVisualStyleBackColor = false;
+            poistaBtn.Visible = false;
+            poistaBtn.Click += button17_Click;
+            // 
+            // muokkaaBtn
+            // 
+            muokkaaBtn.BackColor = Color.Orange;
+            muokkaaBtn.Cursor = Cursors.Hand;
+            muokkaaBtn.FlatAppearance.BorderColor = Color.Goldenrod;
+            muokkaaBtn.FlatAppearance.BorderSize = 2;
+            muokkaaBtn.FlatAppearance.MouseDownBackColor = Color.Peru;
+            muokkaaBtn.FlatAppearance.MouseOverBackColor = Color.Orange;
+            muokkaaBtn.FlatStyle = FlatStyle.Flat;
+            muokkaaBtn.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            muokkaaBtn.Location = new Point(238, 505);
+            muokkaaBtn.Name = "muokkaaBtn";
+            muokkaaBtn.Size = new Size(139, 51);
+            muokkaaBtn.TabIndex = 12;
+            muokkaaBtn.Text = "Muokkaa";
+            muokkaaBtn.UseVisualStyleBackColor = false;
+            muokkaaBtn.Visible = false;
+            muokkaaBtn.Click += button1_Click;
+            // 
             // lainaaBtn
             // 
             lainaaBtn.BackColor = Color.Bisque;
@@ -250,18 +290,18 @@
             lainaaBtn.FlatAppearance.MouseDownBackColor = Color.BurlyWood;
             lainaaBtn.FlatAppearance.MouseOverBackColor = Color.Tan;
             lainaaBtn.FlatStyle = FlatStyle.Flat;
-            lainaaBtn.Font = new Font("Impact", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            lainaaBtn.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
             lainaaBtn.Location = new Point(12, 505);
-            lainaaBtn.MaximumSize = new Size(107, 51);
+            lainaaBtn.MaximumSize = new Size(300, 51);
             lainaaBtn.MinimumSize = new Size(107, 51);
             lainaaBtn.Name = "lainaaBtn";
-            lainaaBtn.Size = new Size(107, 51);
-            lainaaBtn.TabIndex = 15;
+            lainaaBtn.Size = new Size(220, 51);
+            lainaaBtn.TabIndex = 14;
             lainaaBtn.Text = "Lainaa";
-            lainaaBtn.UseVisualStyleBackColor = false;
+            lainaaBtn.UseVisualStyleBackColor = true;
             lainaaBtn.Click += button2_Click;
             // 
-            // Form5
+            // BookInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -269,24 +309,26 @@
             ClientSize = new Size(548, 568);
             ControlBox = false;
             Controls.Add(lainaaBtn);
+            Controls.Add(muokkaaBtn);
+            Controls.Add(poistaBtn);
             Controls.Add(pictureBox2);
-            Controls.Add(tiedot);
+            Controls.Add(kirjanTiedot);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(label2);
-            Controls.Add(kirjanNimi);
+            Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximumSize = new Size(550, 570);
             MinimumSize = new Size(550, 570);
-            Name = "Form5";
+            Name = "BookInfo";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
-            tiedot.ResumeLayout(false);
-            tiedot.PerformLayout();
+            kirjanTiedot.ResumeLayout(false);
+            kirjanTiedot.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -295,15 +337,16 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private Label kirjanNimi;
+        private Label label1;
         private Label label2;
         private Panel panel1;
         private TextBox textBox1;
         private Panel panel2;
-        private Panel tiedot;
+        private Panel kirjanTiedot;
         private Label label3;
         private Label label4;
         private Label label8;
+        private Label label5;
         private Label label10;
         private Label label9;
         private Label label6;
@@ -311,7 +354,8 @@
         private Label label13;
         private Label label11;
         private PictureBox pictureBox2;
-        private Label label7;
+        private Button poistaBtn;
+        private Button muokkaaBtn;
         private Button lainaaBtn;
     }
 }

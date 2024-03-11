@@ -55,13 +55,13 @@ namespace Kirjasto_ohjelma
             {
                 if (henkilokunta.Checked == true)
                 {
-                    StaffHome staffHome = StaffHome.Instance;
-                    staffHome.Show();
+                    UserHome userHome = new UserHome(true);
+                    userHome.Show();
 
                 }
                 else
                 {
-                    UserHome userHome = UserHome.Instance;
+                    UserHome userHome = new UserHome(false);
                     userHome.Show();
                 }
                 this.Hide();

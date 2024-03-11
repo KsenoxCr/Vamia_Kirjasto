@@ -63,7 +63,7 @@ namespace Kirjasto_ohjelma
             if (username != null & email != null & password != null & passwordAgain != null)
             {
 
-                UserHome userHome = UserHome.Instance;
+                UserHome userHome = new UserHome(false);
                 userHome.Show();
                 this.Hide();
 

@@ -16,11 +16,10 @@ C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto-o
 C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\ref\Kirjasto-ohjelma.dll
 C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.AccountDetails.resources
 C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.BookInfo.resources
-C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.BookInfoStaff.resources
 C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.BookRecommendation.resources
 C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.ConfirmMessage.resources
 C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.FeedBackForm.resources
 C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.LogIn.resources
 C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.Register.resources
-C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.StaffHome.resources
 C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.UserHome.resources
+C:\Users\aksum\source\repos\Kirjasto-ohjelma\obj\Debug\net6.0-windows\Kirjasto_ohjelma.basicButton.resources

@@ -25,16 +25,8 @@ namespace Kirjasto_ohjelma
         {
             base.OnLoad(e);
 
-            if (UserType.ToLower() == "staff")
-            {
-                muokkaaBtn.Visible = true;
-                poistaBtn.Visible = true;
-            } 
-            else if (UserType.ToLower() == "customer")
-            {
-                muokkaaBtn.Visible = false;
-                poistaBtn.Visible = false;
-            }
+            muokkaaBtn.Visible = UserType.ToLower() == "staff";
+            poistaBtn.Visible = UserType.ToLower() == "staff";
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -44,24 +36,24 @@ namespace Kirjasto_ohjelma
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ConfirmMessage lainausConfirmMSG = new ConfirmMessage("lainaus");
-            lainausConfirmMSG.Show();
+            ConfirmMessage lainausOk = new ConfirmMessage("lainaus");
+            lainausOk.Show();
 
             this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ConfirmMessage muokkausConfirmMSG = new ConfirmMessage("muokkaus");
-            muokkausConfirmMSG.Show();
+            ConfirmMessage muokkausOk = new ConfirmMessage("muokkaus");
+            muokkausOk.Show();
 
             this.Close();
         }
 
         private void button17_Click(object sender, EventArgs e)
         {
-            ConfirmMessage varmistusConfirmMSG = new ConfirmMessage("varmistus");
-            varmistusConfirmMSG.Show();
+            ConfirmMessage varmistus = new ConfirmMessage("varmistus");
+            varmistus.Show();
 
             this.Close();
         }

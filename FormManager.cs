@@ -24,27 +24,21 @@ namespace Kirjasto_ohjelma
 
         public static void controlClicked(object sender, EventArgs e, Control control, bool isStaff)
         {
-
             if (control is PictureBox picbox)
             {
-
                 openBookInfo(isStaff ? "staff" : "customer");
-
-            } 
+            }
             else if (control is System.Windows.Forms.Button btn)
             {
-                if(btn.Name.ToString().StartsWith("lainaaBtn"))
+                if (btn.Name.StartsWith("lainaaBtn"))
                 {
-
-                    if (btn.Parent.Name.ToString().Substring(0, 10) == "kirjaPanel" && btn.Parent.Name.Length > 10)
+                    if (btn.Parent.Name.StartsWith("kirjaPanel") && btn.Parent.Name.Length > 10)
                     {
-
                         foreach (Control _control in btn.Parent.Controls)
                         {
-
-                            if (_control.Name.StartsWith("nimi") && _control.Name.Length !< 6 && _control is Label)
+                            if (_control.Name.StartsWith("nimi") && _control is Label)
                             {
-                                if(isStaff)
+                                if (isStaff)
                                 {
                                     openBookInfo("staff");
                                 }
@@ -56,23 +50,20 @@ namespace Kirjasto_ohjelma
                             }
                         }
                     }
-                    else if (btn.Parent.Name.ToString() == "BookInfo")
+                    else if (btn.Parent.Name == "BookInfo")
                     {
                         foreach (Control _control in btn.Parent.Controls)
                         {
-                            if (_control.Name.ToString().ToLower() == "kirjannimi") { }
+                            if (_control.Name.ToLower() == "kirjannimi")
                             {
-                                CreateNewLoan(_control.Name.ToString().ToLower());
+                                CreateNewLoan(_control.Name.ToLower());
                                 OkMessage("lainaus");
                             }
                         }
                     }
-
                 }
                 else if (btn.Name.StartsWith("poistaBtn"))
                 {
-                    //Lisää: "haluatko varmasti poistaa kirjan valikomaista?" -varoitus
-
                     OkMessage("varmistus");
                 }
             }
@@ -102,44 +93,52 @@ namespace Kirjasto_ohjelma
 
             int loanCount = lainauksetPanel.Controls.Count;
 
-            int positionX = 25;
-            int positionY = loanCount * 100 + 25;
+            //function to find a specific number from array 
+
+            int x = 25;
+            int y = loanCount * 100 + 25;
 
             if (loanCount > 0)
             {
                 lainauksetPanel.Height += 100;
                 footer.Location = new Point(0, footer.Location.Y + 125);
                 accDetails.Height += 50;
-
                 kirjauduUlos.Location = new Point(kirjauduUlos.Location.X, kirjauduUlos.Location.Y + 100);
             }
 
-            GroupBox uusiLainaus = new GroupBox();
-            uusiLainaus.Size = new Size(441, 75);
-            uusiLainaus.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            uusiLainaus.Location = new Point(positionX, positionY);
-            uusiLainaus.BackColor = Color.Beige;
-            uusiLainaus.Visible = true;
-            uusiLainaus.Name = "lainaus" + (loanCount + 1);
+            GroupBox uusiLainaus = new GroupBox
+            {
+                Size = new Size(441, 75),
+                Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point),
+                Location = new Point(x, y),
+                BackColor = Color.Beige,
+                Visible = true,
+                Name = "lainaus" + (loanCount + 1)
+            };
 
-            Label lainatunnus = new Label();
-            lainatunnus.Text = "Kirjan isbn";
-            lainatunnus.Location = new Point(15, 25);
+            Label lainatunnus = new Label
+            {
+                Text = "Kirjan isbn",
+                Location = new Point(15, 25)
+            };
 
             Label lainatutKirjat = new Label();
-            lainatutKirjat.Text = "Kirjat (lista)";
-            lainatutKirjat.Location = new Point((uusiLainaus.Width / 2) - (lainatutKirjat.Width / 2), 25);
+            lainatutKirjat = new Label
+            {
+                Text = "Kirjat (lista)",
+                Location = new Point((uusiLainaus.Width / 2) - (lainatutKirjat.Width / 2), 25)
+            };
 
             Label pvm = new Label();
-            pvm.Text = "DD/MM/YYYY";
-            pvm.Location = new Point(uusiLainaus.Width - lainatunnus.Location.X - pvm.Width, lainatunnus.Location.Y);
-
+            pvm = new Label
+            {
+                Text = "DD/MM/YYYY",
+                Location = new Point(uusiLainaus.Width - lainatunnus.Location.X - pvm.Width, lainatunnus.Location.Y)
+            };
 
             uusiLainaus.Controls.Add(pvm);
             uusiLainaus.Controls.Add(lainatunnus);
             uusiLainaus.Controls.Add(lainatutKirjat);
-           
-
             lainauksetPanel.Controls.Add(uusiLainaus);
         }
 

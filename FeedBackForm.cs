@@ -44,8 +44,8 @@ namespace Kirjasto_ohjelma
         private void button2_Click(object sender, EventArgs e)
         {
 
-            ConfirmMessage confirmMsg = new ConfirmMessage(lähetäBtn.Name.ToString());
-            confirmMsg.Show();
+            ConfirmMessage lähetäOk = new ConfirmMessage(lähetäBtn.Name.ToString());
+            lähetäOk.Show();
 
             this.Close();
         }

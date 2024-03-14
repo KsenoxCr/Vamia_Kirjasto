@@ -25,9 +25,7 @@ namespace Kirjasto_ohjelma
 
             this.FormClosing += FormManager.Form_FormClosing;
 
-            System.Windows.Forms.Label[] labels = { tuki, palautteet };
-
-            FormManager.AddMouseEnterAndLeave(labels);
+            FormManager.AddMouseEnterAndLeave(new System.Windows.Forms.Label[] { tuki, palautteet });
 
         }
 
@@ -53,8 +51,8 @@ namespace Kirjasto_ohjelma
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            LogIn login1 = new LogIn();
-            login1.Show();
+            LogIn login = new LogIn();
+            login.Show();
             this.Hide();
         }
 
@@ -62,11 +60,9 @@ namespace Kirjasto_ohjelma
         {
             if (username != null & email != null & password != null & passwordAgain != null)
             {
-
                 UserHome userHome = new UserHome(false);
                 userHome.Show();
                 this.Hide();
-
             }
         }
 

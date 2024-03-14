@@ -42,23 +42,6 @@ namespace Kirjasto_ohjelma
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            if (menuOpen == false)
-            {
-                menuOpen = true;
-
-                Menu.Location = new Point(0, 79);
-
-            }
-            else
-            {
-                menuOpen = false;
-
-                Menu.Location = new Point(-120, 79);
-            }
-        }
-
         private void label28_Click(object sender, EventArgs e)
         {
             LogIn login = new LogIn();

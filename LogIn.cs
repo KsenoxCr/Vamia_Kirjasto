@@ -15,18 +15,7 @@ namespace Kirjasto_ohjelma
         {
             InitializeComponent();
 
-            System.Windows.Forms.Label[] labels = { tuki, palautteet };
-
-            FormManager.AddMouseEnterAndLeave(labels);
-
-            /*
-            kirjauduSis‰‰nBtn.MouseEnter += (sender, e) => FormManager.MouseEnterButton(sender, e, kirjauduSis‰‰nBtn);
-            kirjauduSis‰‰nBtn.MouseLeave += (sender, e) => FormManager.MouseLeaveButton(sender, e, kirjauduSis‰‰nBtn);
-
-            luoTunnusBtn.MouseEnter += (sender, e) => FormManager.MouseEnterButton(sender, e, luoTunnusBtn);
-            luoTunnusBtn.MouseLeave += (sender, e) => FormManager.MouseLeaveButton(sender, e, luoTunnusBtn); */
-
-            //string connectionString = 'SERVER="localhost; PORT=3306; DATABASE="kirjasto"; UID="root"; PASSWORD="AWPDl0re"';
+            FormManager.AddMouseEnterAndLeave(new System.Windows.Forms.Label[] { tuki, palautteet });
         }
 
         public static LogIn Instance
@@ -49,21 +38,15 @@ namespace Kirjasto_ohjelma
             FormManager.toggleMenu(Menu);
         }
 
-        private void kirjauduSis‰‰n_Click(object sender, EventArgs e)
+        private void kirjauduSis√§√§n_Click(object sender, EventArgs e)
         {
+            // Query database for username and password
+
             if (username != null & Password != null)
             {
-                if (henkilokunta.Checked == true)
-                {
-                    UserHome userHome = new UserHome(true);
-                    userHome.Show();
-
-                }
-                else
-                {
-                    UserHome userHome = new UserHome(false);
-                    userHome.Show();
-                }
+                UserHome userHome = new UserHome(henkilokunta.Checked ? true : false);
+                userHome.Show();
+                
                 this.Hide();
             }
         }

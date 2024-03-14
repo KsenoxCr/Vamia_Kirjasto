@@ -20,56 +20,36 @@ namespace Kirjasto_ohjelma
 
         public bool IsStaff { get; }
 
-        public string formType { get; set; }
-
         public UserHome(bool isStaff)
         {
             InitializeComponent();
 
             this.IsStaff = isStaff;
 
-            this.FormClosing += FormManager.Form_FormClosing;
+            this.FormClosing += FormManager.Form_FormClosing;           
 
-            System.Windows.Forms.Label[] labels = { oma_tili, tuki, palautteet, ehdota_kirjaa, kirjauduUlos, asiakkaat };
+            FormManager.AddMouseEnterAndLeave(new System.Windows.Forms.Label[] { oma_tili, tuki, palautteet, ehdota_kirjaa, kirjauduUlos, asiakkaat });
 
-            FormManager.AddMouseEnterAndLeave(labels);
+            tuki.Visible = !IsStaff;
+            palautteet.Visible = !IsStaff;
+            ehdota_kirjaa.Visible = !IsStaff;
 
-            if (IsStaff) // or this.IsStaff?
+            asiakkaat.Visible = IsStaff;
+            asiakkaat.Location = tuki.Location;
+
+            foreach (Control control in groupBox1.Controls)
             {
-
-                tuki.Visible = false;
-                palautteet.Visible = false;
-                ehdota_kirjaa.Visible = false;
-
-                asiakkaat.Visible = true;
-                asiakkaat.Location = tuki.Location;
-
-                
-                foreach (Control control in groupBox1.Controls)
+                if (control is Panel kirjaPanel)
                 {
-                    if (control is Panel kirjaPanel)
+                    foreach (Control innerControl in kirjaPanel.Controls)
                     {
-                        foreach (Control innerControl in kirjaPanel.Controls)
+                        if (innerControl is Button && innerControl.Name.StartsWith("lainaaBtn"))
                         {
-                            if (innerControl is Button && innerControl.Name.StartsWith("lainaaBtn"))
-                            {
-                                innerControl.Text = IsStaff ? "Katso" : "Lainaa";
-                            }
+                            innerControl.Text = IsStaff ? "Katso" : "Lainaa";
                         }
                     }
                 }
             }
-            else
-            {
-
-                tuki.Visible = true;
-                palautteet.Visible = true;
-                ehdota_kirjaa.Visible = true;
-
-                asiakkaat.Visible = false;
-            }
-
-            //this.IsStaff = isStaff;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -87,8 +67,8 @@ namespace Kirjasto_ohjelma
 
         private void kirjauduUlos_Click(object sender, EventArgs e)
         {
-            LogIn login1 = new LogIn();
-            login1.Show();
+            LogIn login = new LogIn();
+            login.Show();
             this.Hide();
         }
 
@@ -162,14 +142,8 @@ namespace Kirjasto_ohjelma
 
             if (clickableControls.Any())
             {
-                //var bookNumbers = clickableControls.Select(pb => int.Parse(pb.Name.Substring(controlName.Length)));
-
-                //var bookArray = new PictureBox[bookNumbers.Max() + 1];
-
                 foreach (var clickableControl in clickableControls)
                 {
-                    //int index = int.Parse(clickableControl.Name.Substring(5)) - 1;
-                    //bookArray[index] = clickableControl;
                     clickableControl.Click += (sender, e) => FormManager.controlClicked(sender, e, clickableControl, this.IsStaff);
                 }
             }

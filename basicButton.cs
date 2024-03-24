@@ -38,7 +38,7 @@ namespace Kirjasto_ohjelma
                 this.FlatAppearance.MouseOverBackColor = Color.Tan;
             }
 
-            this.Size = new Size(height, width);
+            this.Size = new Size(width, height);
             this.Font = new Font("Impact", fontSize, FontStyle.Regular, GraphicsUnit.Point);
 
             this.Name = text;

@@ -56,8 +56,8 @@ namespace Kirjasto_ohjelma
 
                     this.MaximumSize = new Size(this.Width, this.Height + 50);
                     this.MinimumSize = new Size(this.Width, this.Height + 50);
-                    basicButton kylla = new basicButton("Kyllä", "beige", 90, 45, 30, 135, 10F);
-                    basicButton ei = new basicButton("En", "red", 90, 45, 130, 135, 10F);
+                    basicButton kylla = new basicButton("Kyllä", "beige", 45, 90, 30, 135, 10F);
+                    basicButton ei = new basicButton("En", "red", 45, 90, 130, 135, 10F);
 
                     kylla.Click += button_Clicked;
                     ei.Click += button_Clicked;

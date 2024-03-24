@@ -12,21 +12,18 @@ namespace Kirjasto_ohjelma
 {
     public partial class BookInfo : Form
     {
-        public string UserType { get; set; }
 
-        public BookInfo(string userType)
+        public BookInfo()
         {
             InitializeComponent();
-
-            this.UserType = userType;
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            muokkaaBtn.Visible = UserType.ToLower() == "staff";
-            poistaBtn.Visible = UserType.ToLower() == "staff";
+            muokkaaBtn.Visible = User.IsStaff;
+            poistaBtn.Visible = User.IsStaff;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

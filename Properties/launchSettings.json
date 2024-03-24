@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Kirjasto-ohjelma": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\kseno\\OneDrive\\Documents\\GitHub\\Kirjasto-ohjelma-2",
+      "sqlDebugging": true,
+      "remoteDebugEnabled": false,
+      "nativeDebugging": false
+    }
+  }
+}

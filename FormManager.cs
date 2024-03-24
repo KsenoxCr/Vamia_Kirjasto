@@ -2,7 +2,6 @@
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Kirjasto_ohjelma
 {
@@ -22,47 +21,33 @@ namespace Kirjasto_ohjelma
             }
         }
 
-        public static void controlClicked(object sender, EventArgs e, Control control, bool isStaff)
+        public static void controlClicked(object sender, EventArgs e, Control control)
         {
-            if (control is PictureBox picbox)
+            if ((control is PictureBox picbox && picbox.Name.StartsWith("kirja")) || (control is Button && (control.Text == "Katso")))
             {
-                openBookInfo(isStaff ? "staff" : "customer");
+                openBookInfo();
             }
-            else if (control is System.Windows.Forms.Button btn)
+            else if (control is Button btn)
             {
-                if (btn.Name.StartsWith("lainaaBtn"))
+                if (btn.Text == "Lainaa")
                 {
-                    if (btn.Parent.Name.StartsWith("kirjaPanel") && btn.Parent.Name.Length > 10)
+                    string name = "";
+
+                    foreach (Control c in btn.Parent.Controls)
                     {
-                        foreach (Control _control in btn.Parent.Controls)
+                        if (c is Label label && label.Name.StartsWith("nimi"))
                         {
-                            if (_control.Name.StartsWith("nimi") && _control is Label)
-                            {
-                                if (isStaff)
-                                {
-                                    openBookInfo("staff");
-                                }
-                                else
-                                {
-                                    CreateNewLoan(_control.Text);
-                                    OkMessage("lainaus");
-                                }
-                            }
+                            name = label.Text;
                         }
                     }
-                    else if (btn.Parent.Name == "BookInfo")
+
+                    if (!string.IsNullOrEmpty(name))
                     {
-                        foreach (Control _control in btn.Parent.Controls)
-                        {
-                            if (_control.Name.ToLower() == "kirjannimi")
-                            {
-                                CreateNewLoan(_control.Name.ToLower());
-                                OkMessage("lainaus");
-                            }
-                        }
+                        CreateNewLoan(name);
+                        OkMessage("lainaus");
                     }
                 }
-                else if (btn.Name.StartsWith("poistaBtn"))
+                else if (btn.Text == "Poista")
                 {
                     OkMessage("varmistus");
                 }
@@ -74,9 +59,9 @@ namespace Kirjasto_ohjelma
             OkMessage.Show();
         }
 
-        private static void openBookInfo(string userType)
+        private static void openBookInfo()
         {
-            BookInfo bookInfo = new BookInfo(userType);
+            BookInfo bookInfo = new BookInfo();
             bookInfo.Show();
         }
 
@@ -157,6 +142,20 @@ namespace Kirjasto_ohjelma
                 menu.Tag = "Closed";
 
                 menu.Location = new Point(-125, 79);
+            }
+        }
+        public static IEnumerable<Control> EnumerateControls(this Control control)
+        {
+            yield return control;
+
+            foreach (Control childControl in control.Controls)
+            {
+                yield return childControl;
+
+                foreach (Control descendant in childControl.EnumerateControls())
+                {
+                    yield return descendant;
+                }
             }
         }
     }

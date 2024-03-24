@@ -67,7 +67,7 @@ namespace Kirjasto_ohjelma
         private void kirjat_Click(object sender, EventArgs e)
         {
 
-            UserHome userHome = new UserHome(false); // keski miten selvittää onko staff vai ei kun luokan pitää olla singleton
+            Home userHome = new Home(); // keski miten selvittää onko staff vai ei kun luokan pitää olla singleton
             userHome.Show();
 
             this.Hide();

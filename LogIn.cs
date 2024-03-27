@@ -47,6 +47,8 @@ namespace Kirjasto_ohjelma
 
         private void kirjauduSisään_Click(object sender, EventArgs e)
         {
+            string asnum = "";
+
             string hashedPassword = "";
             string saltHex = "";
 
@@ -57,9 +59,11 @@ namespace Kirjasto_ohjelma
 
                 InputUsername.Text = InputUsername.Text.Trim().ToLower();
 
+                string userPrimaryKey = isStaff ? "tyonum" : "asnum";
+
                 string userType = isStaff ? "henkilokunta" : "asiakas";
 
-                string query = $"SELECT salasana, salt FROM {userType} WHERE kayttajatunnus = @username";
+                string query = $"SELECT {userPrimaryKey}, salasana, salt FROM {userType} WHERE kayttajatunnus = @username";
 
                 try
                 {
@@ -67,15 +71,15 @@ namespace Kirjasto_ohjelma
 
                     using (MySqlCommand command = new MySqlCommand(query, db.connection))
                     {
-                        // Use parameters for security
                         command.Parameters.AddWithValue("@username", InputUsername.Text);
 
                         using (MySqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
-                                hashedPassword = reader.GetString(0);
-                                saltHex = reader.GetString(1);
+                                asnum = reader.GetString(0);
+                                hashedPassword = reader.GetString(1);
+                                saltHex = reader.GetString(2);
                             }
                             else
                             {
@@ -98,6 +102,7 @@ namespace Kirjasto_ohjelma
                     if (VerifyPassword(userType, InputPassword.Text, hashedPassword, saltHex))
                     {
                         User.Username = InputUsername.Text;
+                        User.Asnum = asnum;
                         User.IsStaff = isStaff;
 
                         Home userHome = new Home();

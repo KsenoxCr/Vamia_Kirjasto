@@ -129,8 +129,10 @@ namespace Kirjasto_ohjelma
                     {
                         db.CloseConnection();
 
-                        LogIn login = LogIn.Instance;
-                        login.Show();
+                        ConfirmMessage poistoConfirmMSG = new ConfirmMessage("tunnusLuotu");
+                        poistoConfirmMSG.Show();
+
+                        LogIn.Instance.Show();
                         this.Hide();
                     }
                 }
@@ -222,15 +224,20 @@ namespace Kirjasto_ohjelma
                                                                     "Sukunimi on liian lyhyt. \r\nSukunimen tulee olla vähintään 2 kirjainta";
                     MessageBox.Show(err);
                     return false;
-                case string s when name == etunimi.Text && s.Length > 15:
+                case string s when s == etunimi.Text && s.Length > 15:
                     MessageBox.Show("Etunimi on liian pitkä. \r\nEtunimen tulee olla enintään 15 kirjainta");
                     return false;
-                case string s when name == sukunimi.Text && s.Length > 30:
+                case string s when s == sukunimi.Text && s.Length > 30:
                     MessageBox.Show("Sukunimi on liian pitkä. \r\nSukunimen tulee olla enintään 30 kirjainta");
                     return false;
-                case string s when !Regex.IsMatch(s, "^[a-zA-Z]+$"):
-                    err = (name == etunimi.Text) ? "Virheellinen etunimi. \r\nNimi voi sisältää vain kirjaimia." :
-                                                                    "Virheellinen sukunimi. \r\nNimi voi sisältää vain kirjaimia.";
+                case string s when s.Contains(" "):
+                    err = (name == etunimi.Text) ? "Etunimi ei saa sisältää välilyöntejä" :
+                                                                    "Sukunimi ei saa sisältää välilyöntejä";
+                    MessageBox.Show(err);
+                    return false;
+                case string s when !Regex.IsMatch(s, "^[a-zA-Z-]+$"):
+                    err = (name == etunimi.Text) ? "Virheellinen etunimi. \r\nNimi voi sisältää vain kirjaimia sekä yhden väliviivan." :
+                                                                    "Virheellinen sukunimi. \r\nNimi voi sisältää vain kirjaimia sekä yhden väliviivan.";
                     MessageBox.Show(err);
                     return false;
                 default:
@@ -248,6 +255,8 @@ namespace Kirjasto_ohjelma
             string newCustomerNumber = "";
 
             string lastAsnum = "";
+
+            string lastAsnumYear = "";
 
             string currentYear = DateTime.Now.ToString("yy");
 
@@ -283,20 +292,32 @@ namespace Kirjasto_ohjelma
                 {
                     customerNumber = int.Parse(lastAsnum.Substring(2, 3));
 
+                    lastAsnumYear = lastAsnum.Substring(5);
+
                     if (customerNumber < 999)
                     {
-                        newCustomerNumber = (customerNumber + 1).ToString("D3");
+                        if (currentYear == lastAsnumYear)
+                        {
+                            newCustomerNumber = (customerNumber + 1).ToString("D3");
+                        } 
+                        else if (int.Parse(currentYear) > int.Parse(lastAsnumYear))
+                        {
+                            newCustomerNumber = "001";
+                        }
+                        
 
                         newAsnum = "AS" + newCustomerNumber + currentYear;
                     }
-                    else if (customerNumber == 999)
+                    else
                     {
-                        MessageBox.Show("Tietokantavirhe: Vuoden käyttäjätili määrä täynnä");
+                        MessageBox.Show("Tietokantavirhe: Vuoden asiakas määrä on ylittynyt");
                     }
                 } 
                 else
                 {
                     MessageBox.Show("Tietokantavirhe: Yhtäkään asnum ei löytynyt");
+
+                    newAsnum = "AS001" + currentYear;
                 }
             }
 

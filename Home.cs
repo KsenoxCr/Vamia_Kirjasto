@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using Org.BouncyCastle.Crypto;
+using System.Collections.Generic;
 using System.Data;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 //using System.Reflection.Emit;
@@ -97,8 +98,6 @@ namespace Kirjasto_ohjelma
 
         private void jarjestysCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            kirjaFlowLayoutPanel.Controls.Clear();
-
             string OrderBy = "";
 
             switch (jarjestysCB.SelectedIndex)
@@ -152,15 +151,22 @@ namespace Kirjasto_ohjelma
 
             int rowCount = 0;
 
+            List<Panel> panelsToAdd = new List<Panel>();
+
             try
             {
-                db.OpenConnection();
+                db.OpenConnection();    
 
                 using (MySqlCommand command = new MySqlCommand(query, db.connection))
                 {
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
+                        kirjaFlowLayoutPanel.SuspendLayout();
+                        kirjaFlowLayoutPanel.Controls.Clear();
+
+
+
                         while (reader.Read())
                         {
                             rowCount++;
@@ -182,14 +188,17 @@ namespace Kirjasto_ohjelma
                                 Margin = new Padding(5)
                             };
 
-                            PictureBox bookCover = new PictureBox();
-                            bookCover.Size = new Size(110, 165);
+                            PictureBox bookCover = new PictureBox
+                            {
+                                Size = new Size(110, 165),
+                                SizeMode = PictureBoxSizeMode.Zoom,
+                                Top = 15,
+                                Name = "kirja" + rowCount
+                            };
+
                             bookCover.Left = (kirjaPanel.Width - bookCover.Width) / 2;
-                            bookCover.Top = 15;
-                            bookCover.SizeMode = PictureBoxSizeMode.Zoom;
-                            //bookCover.SizeMode = PictureBoxSizeMode.StretchImage;
-                            bookCover.Name = "kirja" + rowCount;
                             bookCover.Click += (s, args) => FormManager.controlClicked(s, args, bookCover);
+
 
                             string imagePath = Path.Combine("Images", imageName);
 
@@ -205,22 +214,27 @@ namespace Kirjasto_ohjelma
 
                             kirjaPanel.Controls.Add(bookCover);
 
-                            Label bookName = new Label();
-                            bookName.Width = kirjaPanel.Width;
-                            bookName.Top = bookCover.Bottom + 15;
-                            bookName.Left = 0;
-                            bookName.Text = nimi;
-                            bookName.TextAlign = ContentAlignment.MiddleCenter;
+                            Label bookName = new Label
+                            {
+                                Width = kirjaPanel.Width,
+                                Top = bookCover.Bottom + 15,
+                                Left = 0,
+                                Text = nimi,
+                                TextAlign = ContentAlignment.MiddleCenter,
+                                Name = "nimi" + rowCount,
+                            };
 
                             kirjaPanel.Controls.Add(bookName);
 
-                            Label bookAuthor = new Label();
-                            bookAuthor.Width = kirjaPanel.Width;
-                            bookAuthor.Top = bookName.Bottom + 10;
-                            bookAuthor.Left = 0;
-                            bookAuthor.Text = kirjailija;
-                            bookAuthor.TextAlign = ContentAlignment.MiddleCenter;
-                            bookAuthor.Font = new Font("Impact", 8);
+                            Label bookAuthor = new Label 
+                            {
+                                Width = kirjaPanel.Width,
+                                Top = bookName.Bottom + 10,
+                                Left = 0,
+                                Text = kirjailija,
+                                TextAlign = ContentAlignment.MiddleCenter,
+                                Font = new Font("Impact", 8)
+                            };
 
                             kirjaPanel.Controls.Add(bookAuthor);
 
@@ -230,8 +244,11 @@ namespace Kirjasto_ohjelma
 
                             kirjaPanel.Controls.Add(lainaaButton);
 
-                            kirjaFlowLayoutPanel.Controls.Add(kirjaPanel);
+                            panelsToAdd.Add(kirjaPanel);
                         }
+
+                        kirjaFlowLayoutPanel.Controls.AddRange(panelsToAdd.ToArray());
+                        kirjaFlowLayoutPanel.ResumeLayout();
                     }
                 }
             }

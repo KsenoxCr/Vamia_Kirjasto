@@ -7,19 +7,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Kirjasto_ohjelma
 {
-
     public partial class ConfirmMessage : Form
     {
+        private DatabaseAccess db = DatabaseAccess.GetInstance();
+
         private string? _type;
+        private string? _bookName = "";
 
         public ConfirmMessage(string type)
         {
             InitializeComponent();
 
             this._type = type;
+        }
+        public ConfirmMessage(string type, string bookName)
+        {
+            InitializeComponent();
+
+            this._type = type;
+            this._bookName = bookName;
         }
 
         private void Form8_Load(object sender, EventArgs e)
@@ -49,6 +59,10 @@ namespace Kirjasto_ohjelma
                 case "palautelähetys":
                     label1.Text = "Kiitos palautteesta!";
                     label2.Text = "Mielipiteesi on tärkeä";
+                    break;
+                case "tunnusLuotu":
+                    label1.Text = "Tunnus luotu!";
+                    label2.Text = "Voit nyt kirjautua sisään";
                     break;
                 case "varmistus":
                     label1.Text = "Oletko varma?";
@@ -85,13 +99,33 @@ namespace Kirjasto_ohjelma
 
             if (clickedButton.Name == "Kyllä")
             {
+                try
+                {
+                    db.OpenConnection();
+
+                    string query = $"DELETE FROM kirja WHERE nimi = {_bookName}";
+
+                    using (MySqlCommand command = new MySqlCommand(query, db.connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Tietokantavirhe: {ex.Message}");
+                }
+                finally
+                {
+                    db.CloseConnection();
+                }
+
                 ConfirmMessage poistoConfirmMSG = new ConfirmMessage("poisto");
                 poistoConfirmMSG.Show();
 
                 this.Close();
 
             }
-            else if (clickedButton.Name == "En")
+            else 
             {
                 this.Close();
             }

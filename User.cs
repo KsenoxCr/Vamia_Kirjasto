@@ -9,6 +9,8 @@ namespace Kirjasto_ohjelma
     public class User
     {
         public static string Username { get; set; }
+
+        public static string Asnum { get; set; }
         public static bool IsStaff { get; set; }
     }
 }

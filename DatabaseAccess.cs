@@ -11,7 +11,7 @@ namespace Kirjasto_ohjelma
     public class DatabaseAccess
     {
         public MySqlConnection connection;
-        private string connectionString = "SERVER=LOCALHOST;PORT=3306;DATABASE=kirjasto;UID=root;PASSWORD=AWPDl0re";
+        private string connectionString = "SERVER=LOCALHOST;PORT=3306;DATABASE=kirjasto;UID=root;PASSWORD=AWPDl0re;";
         private static readonly object _lock = new object();
         private static DatabaseAccess instance;
 

@@ -76,64 +76,69 @@ namespace Kirjasto_ohjelma
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string username = kayttajatunnus.Text.ToLower();
-            string firstname = etunimi.Text.ToLower();
-            string surname = sukunimi.Text.ToLower();
-            string password = salasana.Text;
+            string username = FormManager.ValidateUsername(kayttajatunnus.Text.ToLower());
+            string firstname = FormManager.ValidateName(etunimi.Text.ToLower(), "etunimi");
+            string surname = FormManager.ValidateName(sukunimi.Text.ToLower(), "sukunimi");
+            string password = FormManager.ValidatePassword(salasana.Text);
             string passwordAgain = salasanaUudelleen.Text;
 
-            if (ValidateUsername(username) && ValidateName(firstname) && ValidateName(surname) && ValidatePasswords(password, passwordAgain))
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(firstname) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(username))
             {
-                //MessageBox.Show("Test: kaikki tiedot hyväksytty");
-
-
-                string passwordHash = HashPasword(salasana.Text, out var salt);
-                string saltToHex = Convert.ToHexString(salt);
-
-                string asnum = CreateAsnum();
-
-                if (!string.IsNullOrEmpty(asnum))
+                if (password != passwordAgain)
                 {
-                    string query = "INSERT INTO Asiakas (asnum, enimi, snimi, loso, pno, ptp, puh, kayttajatunnus, salasana, salt) " +
-            "VALUES (@asnum, @enimi, @snimi, @loso, @pno, @ptp, @puh, @kayttajatunnus, @salasana, @salt)";
+                    MessageBox.Show("Salasanat eivät täsmää");
+                }
+                else
+                {
+                    string passwordHash = HashPasword(salasana.Text, out var salt);
+                    string saltToHex = Convert.ToHexString(salt);
 
+                    string asnum = CreateAsnum();
 
-                    //MessageBox.Show($"Test: Query: {query}");
-
-                    try
+                    if (!string.IsNullOrEmpty(asnum))
                     {
-                        db.OpenConnection();
+                        string query = "INSERT INTO Asiakas (asnum, enimi, snimi, loso, pno, ptp, puh, kayttajatunnus, salasana, salt) " +
+                "VALUES (@asnum, @enimi, @snimi, @loso, @pno, @ptp, @puh, @kayttajatunnus, @salasana, @salt)";
 
-                        MySqlCommand command = new MySqlCommand(query, db.connection);
 
-                        command.Parameters.AddWithValue("@asnum", asnum);
-                        command.Parameters.AddWithValue("@enimi", FirstCharToUpper(firstname));
-                        command.Parameters.AddWithValue("@snimi", FirstCharToUpper(surname));
-                        command.Parameters.AddWithValue("@loso", "NotSpecified");
-                        command.Parameters.AddWithValue("@pno", "00000");
-                        command.Parameters.AddWithValue("@ptp", "NotSpecified");
-                        command.Parameters.AddWithValue("@puh", "NotSpecified");
-                        command.Parameters.AddWithValue("@kayttajatunnus", username);
-                        command.Parameters.AddWithValue("@salasana", passwordHash);
-                        command.Parameters.AddWithValue("@salt", saltToHex);
+                        //MessageBox.Show($"Test: Query: {query}");
 
-                        command.ExecuteNonQuery();
+                        try
+                        {
+                            db.OpenConnection();
 
-                        //MessageBox.Show("Test: Tili lisätty tietokantaan");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Tietokantavirhe: {ex.Message}");
-                    }
-                    finally
-                    {
-                        db.CloseConnection();
+                            MySqlCommand command = new MySqlCommand(query, db.connection);
 
-                        ConfirmMessage poistoConfirmMSG = new ConfirmMessage("tunnusLuotu");
-                        poistoConfirmMSG.Show();
+                            command.Parameters.AddWithValue("@asnum", asnum);
+                            command.Parameters.AddWithValue("@enimi", FirstCharToUpper(firstname));
+                            command.Parameters.AddWithValue("@snimi", FirstCharToUpper(surname));
+                            command.Parameters.AddWithValue("@loso", "NotSpecified");
+                            command.Parameters.AddWithValue("@pno", "00000");
+                            command.Parameters.AddWithValue("@ptp", "NotSpecified");
+                            command.Parameters.AddWithValue("@puh", "NotSpecified");
+                            command.Parameters.AddWithValue("@kayttajatunnus", username);
+                            command.Parameters.AddWithValue("@salasana", passwordHash);
+                            command.Parameters.AddWithValue("@salt", saltToHex);
 
-                        LogIn.Instance.Show();
-                        this.Hide();
+                            command.ExecuteNonQuery();
+
+                            //MessageBox.Show("Test: Tili lisätty tietokantaan");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Tietokantavirhe: {ex.Message}");
+                        }
+                        finally
+                        {
+                            db.CloseConnection();
+
+                            LogIn.Instance.Show();
+
+                            ConfirmMessage poistoConfirmMSG = new ConfirmMessage("tunnusLuotu");
+                            poistoConfirmMSG.Show();
+
+                            this.Hide();
+                        }
                     }
                 }
             }
@@ -158,92 +163,6 @@ namespace Kirjasto_ohjelma
             FeedBackForm palauteForm = new FeedBackForm(palautteet.Name);
             palauteForm.Show();
         }
-
-        public bool ValidateUsername(string username)
-        {
-            switch (username)
-            {
-                /*
-                case null:
-                case "":
-                    MessageBox.Show("Käyttäjätunnus on on tyhjä");
-                    return false; */
-                case string s when s.Contains(" "):
-                    MessageBox.Show("Käyttäjätunnus ei saa sisältää välilyöntejä");
-                    return false;
-                case string s when s.Length < 5:
-                    MessageBox.Show("Käyttäjätunnus on liian lyhyt.\r\nKäyttäjätunnuksen tulee olla 5-20 merkkiä pitkä.");
-                    return false;
-                case string s when s.Length > 20:
-                    MessageBox.Show("Käyttäjätunnus on liian pitkä.\r\nKäyttäjätunnuksen tulee olla 5-20 merkkiä pitkä.");
-                    return false;
-                case string s when !Regex.IsMatch(s, "^[a-zA-Z0-9_]+$"):
-                    MessageBox.Show("Käyttäjätunnus on virheellinen.\r\nKäyttäjätunnus saa sisältää vain kirjaimia, numeroita ja alaviivoja.");
-                    return false;
-            }
-            //MessageBox.Show("Test: käyttäjätunnus OK");
-            return true;
-        }
-        public bool ValidatePasswords(string password, string passwordAgain)
-        {
-            switch(password)
-            {
-                case null:
-                case "":
-                    MessageBox.Show("Salasana on tyhjä");
-                    return false;
-                case string s when s.Contains(" "):
-                    MessageBox.Show("Salasana ei saa sisältää välilyöntejä");
-                    return false;   
-                case string s when s.Length < 8:
-                    MessageBox.Show("Salasana on liian lyhyt.\r\nSalasanan tulee olla vähintään 8 merkkiä pitkä.");
-                    return false;
-                case string s when s.Length > 30:
-                    MessageBox.Show("Salasana on liian pitkä.\r\nSalasanan tulee olla enintään 30 merkkiä pitkä.");
-                    return false;
-                case string s when !s.Any(c => c == '!' || c == '?') && !s.Any(char.IsSymbol):
-                    MessageBox.Show("Salasana on liian heikko.\r\nSalasanan tulee sisältää vähintään yksi erikoismerkki");
-                    return false;
-                case string s when s != passwordAgain:
-                    MessageBox.Show("Salasanat eivät täsmää");
-                    return false;
-                default:
-                    return true;
-            }
-
-            return true;
-        }
-        public bool ValidateName(string name)
-        {
-            string err = "";
-
-            switch (name)
-            {
-                case string s when s.Length < 2:
-                    err = (name == etunimi.Text) ? "Etunimi on liian lyhyt. \r\nEtunimen tulee olla vähintään 2 kirjainta" :
-                                                                    "Sukunimi on liian lyhyt. \r\nSukunimen tulee olla vähintään 2 kirjainta";
-                    MessageBox.Show(err);
-                    return false;
-                case string s when s == etunimi.Text && s.Length > 15:
-                    MessageBox.Show("Etunimi on liian pitkä. \r\nEtunimen tulee olla enintään 15 kirjainta");
-                    return false;
-                case string s when s == sukunimi.Text && s.Length > 30:
-                    MessageBox.Show("Sukunimi on liian pitkä. \r\nSukunimen tulee olla enintään 30 kirjainta");
-                    return false;
-                case string s when s.Contains(" "):
-                    err = (name == etunimi.Text) ? "Etunimi ei saa sisältää välilyöntejä" :
-                                                                    "Sukunimi ei saa sisältää välilyöntejä";
-                    MessageBox.Show(err);
-                    return false;
-                case string s when !Regex.IsMatch(s, "^[a-zA-Z-]+$"):
-                    err = (name == etunimi.Text) ? "Virheellinen etunimi. \r\nNimi voi sisältää vain kirjaimia sekä yhden väliviivan." :
-                                                                    "Virheellinen sukunimi. \r\nNimi voi sisältää vain kirjaimia sekä yhden väliviivan.";
-                    MessageBox.Show(err);
-                    return false;
-                default:
-                    return true;
-            }
-        }
         public string CreateAsnum()
         {
             //Finding last asnum from database
@@ -262,7 +181,7 @@ namespace Kirjasto_ohjelma
 
             if (db.connection.State != ConnectionState.Open)
             {
-                string query = "SELECT asnum FROM Asiakas ORDER BY SUBSTRING(asnum, -2) DESC, CAST(SUBSTRING(asnum, 3) AS UNSIGNED) DESC LIMIT 1;";
+                string query = "SELECT asnum FROM Asiakas WHERE asnum <> \"XXXXXXX\" ORDER BY SUBSTRING(asnum, -2) DESC, CAST(SUBSTRING(asnum, 3) AS UNSIGNED) DESC LIMIT 1;";
 
                 try
                 {

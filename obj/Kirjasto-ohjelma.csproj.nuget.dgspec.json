@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kseno\\OneDrive\\Documents\\GitHub\\Kirjasto-ohjelma-2\\Kirjasto-ohjelma.csproj": {}
+    "C:\\Users\\aksum\\Source\\Repos\\kirjasto-Ohjelma-3\\Kirjasto-ohjelma.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kseno\\OneDrive\\Documents\\GitHub\\Kirjasto-ohjelma-2\\Kirjasto-ohjelma.csproj": {
+    "C:\\Users\\aksum\\Source\\Repos\\kirjasto-Ohjelma-3\\Kirjasto-ohjelma.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kseno\\OneDrive\\Documents\\GitHub\\Kirjasto-ohjelma-2\\Kirjasto-ohjelma.csproj",
+        "projectUniqueName": "C:\\Users\\aksum\\Source\\Repos\\kirjasto-Ohjelma-3\\Kirjasto-ohjelma.csproj",
         "projectName": "Kirjasto-ohjelma",
-        "projectPath": "C:\\Users\\kseno\\OneDrive\\Documents\\GitHub\\Kirjasto-ohjelma-2\\Kirjasto-ohjelma.csproj",
-        "packagesPath": "C:\\Users\\kseno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kseno\\OneDrive\\Documents\\GitHub\\Kirjasto-ohjelma-2\\obj\\",
+        "projectPath": "C:\\Users\\aksum\\Source\\Repos\\kirjasto-Ohjelma-3\\Kirjasto-ohjelma.csproj",
+        "packagesPath": "C:\\Users\\aksum\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\aksum\\Source\\Repos\\kirjasto-Ohjelma-3\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\kseno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\aksum\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -66,24 +66,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.27, 6.0.27]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.27, 6.0.27]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.27, 6.0.27]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.27, 6.0.27]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"

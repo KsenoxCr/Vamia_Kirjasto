@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FeedBackForm));
             otsikko = new Label();
             pictureBox2 = new PictureBox();
-            textBox1 = new TextBox();
+            aiheTB = new TextBox();
             label2 = new Label();
-            textBox2 = new TextBox();
+            sisaltoTB = new TextBox();
             label3 = new Label();
             panel1 = new Panel();
-            lähetäBtn = new Button();
+            lahetaBtn = new Button();
             label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -52,7 +52,7 @@
             otsikko.Name = "otsikko";
             otsikko.Size = new Size(300, 30);
             otsikko.TabIndex = 0;
-            otsikko.Text = "Anna Palautetta";
+            otsikko.Text = "Ota Yhteyttä";
             otsikko.TextAlign = ContentAlignment.TopCenter;
             // 
             // pictureBox2
@@ -66,12 +66,12 @@
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
             // 
-            // textBox1
+            // aiheTB
             // 
-            textBox1.Location = new Point(15, 33);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(170, 23);
-            textBox1.TabIndex = 10;
+            aiheTB.Location = new Point(15, 33);
+            aiheTB.Name = "aiheTB";
+            aiheTB.Size = new Size(170, 23);
+            aiheTB.TabIndex = 10;
             // 
             // label2
             // 
@@ -83,15 +83,15 @@
             label2.TabIndex = 11;
             label2.Text = "Aihe";
             // 
-            // textBox2
+            // sisaltoTB
             // 
-            textBox2.Location = new Point(15, 87);
-            textBox2.MaxLength = 250;
-            textBox2.MinimumSize = new Size(170, 170);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(170, 170);
-            textBox2.TabIndex = 12;
+            sisaltoTB.Location = new Point(15, 87);
+            sisaltoTB.MaxLength = 250;
+            sisaltoTB.MinimumSize = new Size(170, 170);
+            sisaltoTB.Multiline = true;
+            sisaltoTB.Name = "sisaltoTB";
+            sisaltoTB.Size = new Size(170, 170);
+            sisaltoTB.TabIndex = 12;
             // 
             // label3
             // 
@@ -106,36 +106,36 @@
             // panel1
             // 
             panel1.BackColor = Color.PeachPuff;
-            panel1.Controls.Add(lähetäBtn);
+            panel1.Controls.Add(lahetaBtn);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(sisaltoTB);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(aiheTB);
             panel1.Location = new Point(27, 65);
             panel1.Name = "panel1";
             panel1.Size = new Size(200, 312);
             panel1.TabIndex = 14;
             // 
-            // lähetäBtn
+            // lahetaBtn
             // 
-            lähetäBtn.BackColor = Color.NavajoWhite;
-            lähetäBtn.Cursor = Cursors.Hand;
-            lähetäBtn.FlatAppearance.BorderColor = Color.Tan;
-            lähetäBtn.FlatAppearance.BorderSize = 2;
-            lähetäBtn.FlatAppearance.MouseDownBackColor = Color.BurlyWood;
-            lähetäBtn.FlatAppearance.MouseOverBackColor = Color.Tan;
-            lähetäBtn.FlatStyle = FlatStyle.Flat;
-            lähetäBtn.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lähetäBtn.Location = new Point(57, 263);
-            lähetäBtn.MaximumSize = new Size(80, 40);
-            lähetäBtn.MinimumSize = new Size(80, 40);
-            lähetäBtn.Name = "lähetäBtn";
-            lähetäBtn.Size = new Size(80, 40);
-            lähetäBtn.TabIndex = 15;
-            lähetäBtn.Text = "Lähetä";
-            lähetäBtn.UseVisualStyleBackColor = false;
-            lähetäBtn.Click += button2_Click;
+            lahetaBtn.BackColor = Color.NavajoWhite;
+            lahetaBtn.Cursor = Cursors.Hand;
+            lahetaBtn.FlatAppearance.BorderColor = Color.Tan;
+            lahetaBtn.FlatAppearance.BorderSize = 2;
+            lahetaBtn.FlatAppearance.MouseDownBackColor = Color.BurlyWood;
+            lahetaBtn.FlatAppearance.MouseOverBackColor = Color.Tan;
+            lahetaBtn.FlatStyle = FlatStyle.Flat;
+            lahetaBtn.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lahetaBtn.Location = new Point(57, 263);
+            lahetaBtn.MaximumSize = new Size(80, 40);
+            lahetaBtn.MinimumSize = new Size(80, 40);
+            lahetaBtn.Name = "lahetaBtn";
+            lahetaBtn.Size = new Size(80, 40);
+            lahetaBtn.TabIndex = 15;
+            lahetaBtn.Text = "Lähetä";
+            lahetaBtn.UseVisualStyleBackColor = false;
+            lahetaBtn.Click += button2_Click;
             // 
             // label4
             // 
@@ -148,7 +148,7 @@
             label4.TabIndex = 14;
             label4.Text = "Max 250 merkkiä";
             // 
-            // Form9
+            // FeedBackForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -161,7 +161,7 @@
             FormBorderStyle = FormBorderStyle.None;
             MaximumSize = new Size(250, 400);
             MinimumSize = new Size(250, 400);
-            Name = "Form9";
+            Name = "FeedBackForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form6";
             Load += Form9_Load;
@@ -176,12 +176,12 @@
 
         private Label otsikko;
         private PictureBox pictureBox2;
-        private TextBox textBox1;
+        private TextBox aiheTB;
         private Label label2;
-        private TextBox textBox2;
+        private TextBox sisaltoTB;
         private Label label3;
         private Panel panel1;
-        private Button lähetäBtn;
+        private Button lahetaBtn;
         private Label label4;
     }
 }

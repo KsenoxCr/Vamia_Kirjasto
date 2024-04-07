@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookRecommendation));
             label1 = new Label();
-            textBox1 = new TextBox();
+            ehdotusTB = new TextBox();
             ehdotaBtn = new Button();
             pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -46,12 +46,12 @@
             label1.TabIndex = 0;
             label1.Text = "Ehdota kirjaa ";
             // 
-            // textBox1
+            // ehdotusTB
             // 
-            textBox1.Location = new Point(44, 83);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(161, 23);
-            textBox1.TabIndex = 1;
+            ehdotusTB.Location = new Point(44, 83);
+            ehdotusTB.Name = "ehdotusTB";
+            ehdotusTB.Size = new Size(161, 23);
+            ehdotusTB.TabIndex = 1;
             // 
             // ehdotaBtn
             // 
@@ -82,7 +82,7 @@
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
             // 
-            // Form6
+            // BookRecommendation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -91,12 +91,12 @@
             ControlBox = false;
             Controls.Add(pictureBox2);
             Controls.Add(ehdotaBtn);
-            Controls.Add(textBox1);
+            Controls.Add(ehdotusTB);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
             MaximumSize = new Size(250, 175);
             MinimumSize = new Size(250, 175);
-            Name = "Form6";
+            Name = "BookRecommendation";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form6";
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -107,7 +107,7 @@
         #endregion
 
         private Label label1;
-        private TextBox textBox1;
+        private TextBox ehdotusTB;
         private Button ehdotaBtn;
         private PictureBox pictureBox2;
     }

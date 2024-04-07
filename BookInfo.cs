@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Kirjasto_ohjelma
 {
@@ -15,11 +16,15 @@ namespace Kirjasto_ohjelma
     {
         private DatabaseAccess db = DatabaseAccess.GetInstance();
 
+        private string _bookName;
+
         public BookInfo(string bookName)
         {
             InitializeComponent();
 
-            loadBookInfo(bookName);
+            this._bookName = bookName;
+
+            loadBookInfo(_bookName);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -37,6 +42,16 @@ namespace Kirjasto_ohjelma
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (FormManager.CreateNewLoan(_bookName))
+            {
+
+                FormManager.OkMessage("lainaus", _bookName);
+            }
+            else
+            {
+                MessageBox.Show("Virhe lainauksessa. Yritä myöhemmin uudelleen.");
+            }
+
             ConfirmMessage lainausOk = new ConfirmMessage("lainaus");
             lainausOk.Show();
 
@@ -75,13 +90,18 @@ namespace Kirjasto_ohjelma
                         if (reader.Read())
                         {
                             nimi.Text = booksName;
+                            nimi.Left = (this.Width - nimi.Width) / 2;
                             kirjailija.Text = reader.GetString(0) + " " + reader.GetString(1);
+                            kirjailija.Left = (this.Width - kirjailija.Width) / 2;
                             genre.Text = reader.GetString(2);
+                            genre.Left = ((kirjanTiedot.Width + genreLabel.Width) - genre.Width) / 2;
                             julkaistu.Text = reader.GetInt32(3).ToString();
                             kustantaja.Text = reader.GetString(4);
                             sivumaara.Text = reader.GetInt32(5).ToString();
 
-                            string imagePath = Path.Combine("Images", reader.GetString(6)+".png");
+
+                            string rootPath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..");
+                            string imagePath = Path.GetFullPath(Path.Combine(rootPath, "Images", reader.GetString(6) + ".png"));
 
                             try
                             {
@@ -109,9 +129,10 @@ namespace Kirjasto_ohjelma
 
             string description = "";
 
-            string descPath = Path.Combine("BookDescriptions", descFileName);
+            string root = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..");
+            string descPath = Path.Combine(root, "BookDescriptions", descFileName);
 
-            if(descFileName != "")
+            if (descFileName != "")
             {
                 try
                 {

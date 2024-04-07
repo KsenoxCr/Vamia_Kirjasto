@@ -1,22 +1,48 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using Org.BouncyCastle.Crypto;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Reflection.Metadata.BlobBuilder;
 //using System.Reflection.Emit;
 
 namespace Kirjasto_ohjelma
 {
     public partial class Home : Form
     {
-        bool menuOpen = false;
-
         private DatabaseAccess db = DatabaseAccess.GetInstance();
+        private string orderBy = "nimi ASC";
+        private bool menuOpen = false;
 
         public Home()
         {
             InitializeComponent();
+
+            //DESIGN {
+            haeKirjoja.Location = new Point((this.Width - haeKirjoja.Width) / 2, 75);
+
+            kirjaFlowLayoutPanel.Size = new Size(560, 292);
+            kirjaFlowLayoutPanel.Location = new Point(Menu.Width + 30, 342);
+
+            selausAsetukset.Location = new Point(kirjaFlowLayoutPanel.Left, kirjaFlowLayoutPanel.Top - selausAsetukset.Height);
+            selausAsetukset.Size = new Size(560, 94);
+
+            selaaKirjoja.Location = new Point((selaaKirjoja.Parent.Width - selaaKirjoja.Width) / 2, 20);
+            jarjestysCB.Location = new Point((jarjestysCB.Parent.Width - jarjestysCB.Width - 10), jarjestysCB.Parent.Height - jarjestysCB.Height - 10);
+            jarjestys.Location = new Point(jarjestysCB.Location.X - jarjestys.Width - 10, jarjestysCB.Location.Y);
+
+            Menu.Size = new Size(125, 715);
+            Menu.Location = new Point(0, 0);
+
+            footer.Location = new Point(0, Menu.Height);
+            footer.BringToFront();
+
+            kirjauduUlos.Location = new Point(12, Menu.Height - 50);
+
+            //} DESIGN
 
             bool isStaff = User.IsStaff;
 
@@ -28,8 +54,12 @@ namespace Kirjasto_ohjelma
             palautteet.Visible = !isStaff;
             ehdota_kirjaa.Visible = !isStaff;
 
-            asiakkaat.Visible = isStaff;
-            asiakkaat.Location = tuki.Location;
+            if (isStaff)
+            {
+                asiakkaat.Visible = true;
+                asiakkaat.Location = ehdota_kirjaa.Location;
+                lisaa_kirja.Location = tuki.Location;
+            }
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -41,9 +71,7 @@ namespace Kirjasto_ohjelma
 
         private void Form3_Load(object sender, EventArgs e)
         {
-            string query = "SELECT k.nimi, kir.enimi, kir.snimi, k.img FROM kirja k INNER JOIN kirjailija kir ON k.kirtu = kir.kirtunnus ORDER BY k.nimi ASC";
-
-            LoadBooksFromDatabase(query);
+            LoadBooksFromDatabase();
 
             ControlsAreClickable(this, "kirja", "picturebox");
             ControlsAreClickable(this, "lainaaBtn", "button");
@@ -76,62 +104,51 @@ namespace Kirjasto_ohjelma
 
         private void label3_Click(object sender, EventArgs e)
         {
+            string userType = User.IsStaff ? "staff" : "customer";
 
-            AccountDetails accDetails = AccountDetails.Instance;
-
-            accDetails.Show();
-
-            foreach (Form form in Application.OpenForms)
-            {
-
-                if (form.Name != accDetails.Name)
-                {
-                    form.Hide();
-                }
-            }
+            FormManager.openAccountDetails(User.Username, userType);
         }
 
         private void asiakkaat_Click(object sender, EventArgs e)
         {
+            UserList userList = UserList.GetInstance();
+            userList.Show();
 
+            this.Hide();
         }
 
         private void jarjestysCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string OrderBy = "";
-
             switch (jarjestysCB.SelectedIndex)
             {
                 case 0:
                 default:
-                    OrderBy = "nimi ASC";
+                    orderBy = "nimi ASC";
                     break;
                 case 1:
-                    OrderBy = "nimi DESC";
+                    orderBy = "nimi DESC";
                     break;
                 case 2:
-                    OrderBy = "snimi, enimi ASC";
+                    orderBy = "snimi, enimi ASC";
                     break;
                 case 3:
-                    OrderBy = "snimi, enimi DESC";
+                    orderBy = "snimi, enimi DESC";
                     break;
                 case 4:
-                    OrderBy = "sivut ASC";
+                    orderBy = "sivut ASC";
                     break;
                 case 5:
-                    OrderBy = "sivut DESC";
+                    orderBy = "sivut DESC";
                     break;
                 case 6:
-                    OrderBy = "sivut ASC";
+                    orderBy = "sivut ASC";
                     break;
                 case 7:
-                    OrderBy = "sivut DESC";
+                    orderBy = "sivut DESC";
                     break;
             }
 
-            string query = $"SELECT k.nimi, kir.enimi, kir.snimi, k.img, k.julkaistu, k.sivut FROM kirja k INNER JOIN kirjailija kir ON k.kirtu = kir.kirtunnus ORDER BY {OrderBy}";
-
-            LoadBooksFromDatabase(query);
+            LoadBooksFromDatabase();
         }
 
         public void ControlsAreClickable(Control control, string controlName, string controlType)
@@ -143,112 +160,51 @@ namespace Kirjasto_ohjelma
                 controlToClick.Click += (s, args) => FormManager.controlClicked(s, args, controlToClick);
             }
         }
-        public void LoadBooksFromDatabase(string query)
+        public void LoadBooksFromDatabase()
         {
+            kirjaFlowLayoutPanel.Height = 292;
+            Menu.Height = 715;
+            footer.Top = 715;
+            this.Height = 715;
+
             string nimi = "";
             string kirjailija = "";
             string imageName = "";
 
-            int rowCount = 0;
+            int bookCount = 0;
+            int booksOnRow = 0;
+
+            const int moreHeight = 350;
+
+            int rows = 1;
 
             List<Panel> panelsToAdd = new List<Panel>();
 
+            List<string[]> books = new List<string[]>();
+
             try
             {
-                db.OpenConnection();    
+                db.OpenConnection();
+
+                string query = $"SELECT k.nimi, kir.enimi, kir.snimi, k.img FROM kirja k INNER JOIN kirjailija kir ON k.kirtu = kir.kirtunnus ORDER BY {orderBy}";
 
                 using (MySqlCommand command = new MySqlCommand(query, db.connection))
                 {
-
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        kirjaFlowLayoutPanel.SuspendLayout();
-                        kirjaFlowLayoutPanel.Controls.Clear();
-
-
-
                         while (reader.Read())
                         {
-                            rowCount++;
-                            if (rowCount % 4 == 1)
-                            {
-                                kirjaFlowLayoutPanel.Height *= 2;
-                            }
 
-                            nimi = reader.GetString(0);
-                            kirjailija = reader.GetString(1)+" "+reader.GetString(2);
-                            imageName = reader.GetString(3) + ".png";
-
-                            Panel kirjaPanel = new Panel
+                            string[] bookInfo = new string[]
                             {
-                                Size = new Size(130, 330),
-                                BackColor = Color.FromArgb(255, 241, 220),
-                                Font = new Font("Impact", 12),
-                                Name = "kirjaPanel" + rowCount,
-                                Margin = new Padding(5)
+                                reader.GetString(0),
+                                reader.GetString(1),
+                                reader.GetString(2),
+                                reader.GetString(3)
                             };
 
-                            PictureBox bookCover = new PictureBox
-                            {
-                                Size = new Size(110, 165),
-                                SizeMode = PictureBoxSizeMode.Zoom,
-                                Top = 15,
-                                Name = "kirja" + rowCount
-                            };
-
-                            bookCover.Left = (kirjaPanel.Width - bookCover.Width) / 2;
-                            bookCover.Click += (s, args) => FormManager.controlClicked(s, args, bookCover);
-
-
-                            string imagePath = Path.Combine("Images", imageName);
-
-                            try
-                            {
-                                bookCover.Image = Image.FromFile(imagePath);
-                            }
-                            catch (Exception ex)
-                            {
-
-                                MessageBox.Show("Virhe ladatessa kuvaa: " + ex.Message);
-                            }
-
-                            kirjaPanel.Controls.Add(bookCover);
-
-                            Label bookName = new Label
-                            {
-                                Width = kirjaPanel.Width,
-                                Top = bookCover.Bottom + 15,
-                                Left = 0,
-                                Text = nimi,
-                                TextAlign = ContentAlignment.MiddleCenter,
-                                Name = "nimi" + rowCount,
-                            };
-
-                            kirjaPanel.Controls.Add(bookName);
-
-                            Label bookAuthor = new Label 
-                            {
-                                Width = kirjaPanel.Width,
-                                Top = bookName.Bottom + 10,
-                                Left = 0,
-                                Text = kirjailija,
-                                TextAlign = ContentAlignment.MiddleCenter,
-                                Font = new Font("Impact", 8)
-                            };
-
-                            kirjaPanel.Controls.Add(bookAuthor);
-
-                            basicButton lainaaButton = new basicButton(User.IsStaff ? "Katso" : "Lainaa", "beige", 45, 90, (kirjaPanel.Width - 90) / 2, bookAuthor.Bottom + 15, 10F);
-                            lainaaButton.Name = "lainaaBtn" + rowCount;
-                            lainaaButton.Click += (s, args) => FormManager.controlClicked(s, args, lainaaButton);
-
-                            kirjaPanel.Controls.Add(lainaaButton);
-
-                            panelsToAdd.Add(kirjaPanel);
+                            books.Add(bookInfo);   
                         }
-
-                        kirjaFlowLayoutPanel.Controls.AddRange(panelsToAdd.ToArray());
-                        kirjaFlowLayoutPanel.ResumeLayout();
                     }
                 }
             }
@@ -260,6 +216,122 @@ namespace Kirjasto_ohjelma
             {
                 db.CloseConnection();
             }
+
+            displayBooks(books);
+        }
+
+        private void displayBooks(List<string[]> bookList)
+        {
+            //Arvojen nollaus
+            kirjaFlowLayoutPanel.SuspendLayout();
+            kirjaFlowLayoutPanel.Controls.Clear();
+
+            kirjaFlowLayoutPanel.Height = 292;
+            Menu.Height = 715;
+            footer.Top = 715;
+            this.Height = 715;
+
+            int booksOnRow = 0;
+            int rows = 1;
+
+            const int moreHeight = 350;
+
+            List<Panel> panelsToAdd = new List<Panel>();
+
+            for (int i = 0; i < bookList.Count; i++)
+            {
+                string[] bookInfo = bookList[i];
+
+                string nimi = bookInfo[0];
+                string kirjailija = bookInfo[1] + " " + bookInfo[2];
+                string imageName = bookInfo[3] + ".png";
+
+                booksOnRow++;
+
+                if (booksOnRow > 4)
+                {
+                    kirjaFlowLayoutPanel.Height += moreHeight;
+                    footer.Top += moreHeight;
+                    Menu.Height += moreHeight;
+                    booksOnRow = 1;
+                    rows++;
+                }
+
+                Panel kirjaPanel = new Panel
+                {
+                    Size = new Size(130, 330),
+                    BackColor = Color.FromArgb(255, 241, 220),
+                    Font = new Font("Impact", 12),
+                    Name = "kirjaPanel" + (i + 1),
+                    Margin = new Padding(5)
+                };
+
+                PictureBox bookCover = new PictureBox
+                {
+                    Size = new Size(110, 165),
+                    SizeMode = PictureBoxSizeMode.Zoom,
+                    Top = 15,
+                    Name = "kirja" + (i + 1)
+                };
+
+                bookCover.Left = (kirjaPanel.Width - bookCover.Width) / 2;
+                bookCover.Click += (s, args) => FormManager.controlClicked(s, args, bookCover);
+
+
+                string rootPath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..");
+                string imagePath = Path.GetFullPath(Path.Combine(rootPath, "Images", imageName));
+
+                try
+                {
+                    bookCover.Image = Image.FromFile(imagePath);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Virhe ladatessa kuvaa: " + ex.Message);
+                }
+
+                kirjaPanel.Controls.Add(bookCover);
+
+                Label bookName = new Label
+                {
+                    Width = kirjaPanel.Width,
+                    Top = bookCover.Bottom + 15,
+                    Left = 0,
+                    Text = nimi,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Name = "nimi" + (i + 1),
+                };
+
+                kirjaPanel.Controls.Add(bookName);
+
+                Label bookAuthor = new Label
+                {
+                    Width = kirjaPanel.Width,
+                    Top = bookName.Bottom + 10,
+                    Left = 0,
+                    Text = kirjailija,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = new Font("Impact", 8)
+                };
+
+                kirjaPanel.Controls.Add(bookAuthor);
+
+                basicButton lainaaButton = new basicButton(User.IsStaff ? "Katso" : "Lainaa", "beige", 45, 90, (kirjaPanel.Width - 90) / 2, bookAuthor.Bottom + 15, 10F);
+                lainaaButton.Name += (i + 1);
+                lainaaButton.Click += (s, args) => FormManager.controlClicked(s, args, lainaaButton);
+
+                kirjaPanel.Controls.Add(lainaaButton);
+
+                panelsToAdd.Add(kirjaPanel);
+            }
+
+            kirjaFlowLayoutPanel.Controls.AddRange(panelsToAdd.ToArray());
+            kirjaFlowLayoutPanel.ResumeLayout();
+        }
+        private void lisaaKirja_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

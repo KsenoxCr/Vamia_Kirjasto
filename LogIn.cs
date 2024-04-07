@@ -105,12 +105,10 @@ namespace Kirjasto_ohjelma
                         User.Asnum = asnum;
                         User.IsStaff = isStaff;
 
-                        Home userHome = new Home();
-                        userHome.Show();
-
-                        //MessageBox.Show(InputUsername.Text + " Kirjautui sisään");
-
-                        this.Hide();
+                        FormManager.backToHome(this);
+                    } else
+                    {
+                        MessageBox.Show("Virheellinen salasana");
                     }
                 }
             }
@@ -140,8 +138,6 @@ namespace Kirjasto_ohjelma
         }
         private bool VerifyPassword(string userType, string password, string hashedPassword, string saltHex)
         {
-           
-
             if (hashedPassword.Length == keySize * 2 && saltHex.Length == keySize * 2)
             {
                 // Convert salt from hexadecimal string to byte array
@@ -178,12 +174,6 @@ namespace Kirjasto_ohjelma
                                 if (password == storedPassword)
                                 {
                                     return true;
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Virheellinen salasana");
-
-                                    return false;
                                 }
                             }
                         }

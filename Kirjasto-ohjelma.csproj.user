@@ -4,9 +4,6 @@
     <Compile Update="AccountDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="basicButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Update="BookInfo.cs">
       <SubType>Form</SubType>
     </Compile>

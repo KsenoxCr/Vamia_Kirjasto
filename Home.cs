@@ -292,11 +292,19 @@ namespace Kirjasto_ohjelma
                 };
 
                 kirjaPanel.Controls.Add(bookAuthor);
+                Button lainaaButton = new() 
+                { 
+                    Name = "lainaaBtn" + (i + 1),
+                    Text = User.IsStaff ? "Katso" : "Lainaa",
+                    BackColor = Color.Beige,
+                    FlatStyle = FlatStyle.Flat,
+                    Height = 45,
+                    Width = 90,
+                    Location = new Point((kirjaPanel.Width - 90) / 2, bookAuthor.Bottom + 15),
+                    Font = new Font("Impact", 10F)
+                };
 
-                basicButton lainaaButton = new basicButton(User.IsStaff ? "Katso" : "Lainaa", "beige", 45, 90, (kirjaPanel.Width - 90) / 2, bookAuthor.Bottom + 15, 10F);
-                lainaaButton.Name += (i + 1);
                 lainaaButton.Click += (s, args) => controlClicked(s, args, lainaaButton);
-
                 kirjaPanel.Controls.Add(lainaaButton);
 
                 panelsToAdd.Add(kirjaPanel);

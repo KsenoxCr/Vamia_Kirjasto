@@ -1799,11 +1799,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aksum\\Source\\Repos\\kirjasto-Ohjelma-3\\Kirjasto-ohjelma.csproj",
+      "projectUniqueName": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\Kirjasto-ohjelma.csproj",
       "projectName": "Kirjasto-ohjelma",
-      "projectPath": "C:\\Users\\aksum\\Source\\Repos\\kirjasto-Ohjelma-3\\Kirjasto-ohjelma.csproj",
+      "projectPath": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\Kirjasto-ohjelma.csproj",
       "packagesPath": "C:\\Users\\aksum\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aksum\\Source\\Repos\\kirjasto-Ohjelma-3\\obj\\",
+      "outputPath": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

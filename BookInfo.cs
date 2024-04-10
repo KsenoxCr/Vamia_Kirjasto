@@ -17,6 +17,7 @@ namespace Kirjasto_ohjelma
         private DatabaseAccess db = DatabaseAccess.GetInstance();
 
         private string _bookName;
+        private string isbn;
 
         public BookInfo(string bookName)
         {
@@ -45,37 +46,34 @@ namespace Kirjasto_ohjelma
             if (FormManager.CreateNewLoan(_bookName))
             {
 
-                FormManager.OkMessage("lainaus", _bookName);
+                FormManager.openConfirmMessage("lainaus", _bookName);
             }
             else
             {
                 MessageBox.Show("Virhe lainauksessa. Yritä myöhemmin uudelleen.");
             }
 
-            ConfirmMessage lainausOk = new ConfirmMessage("lainaus");
-            lainausOk.Show();
+            FormManager.openConfirmMessage("lainaus");
 
             this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ConfirmMessage muokkausOk = new ConfirmMessage("muokkaus");
-            muokkausOk.Show();
+            FormManager.openConfirmMessage("muokkaus");
 
             this.Close();
         }
 
         private void button17_Click(object sender, EventArgs e)
         {
-            ConfirmMessage varmistus = new ConfirmMessage("varmistus");
-            varmistus.Show();
+            FormManager.openConfirmMessage("varmistus", _bookName, isbn);
 
             this.Close();
         }
         private void loadBookInfo(string booksName)
         {
-            string query = $"SELECT kir.enimi, kir.snimi, k.genre, k.julkaistu, k.kustantaja, k.sivut, k.img FROM kirja k INNER JOIN kirjailija kir ON k.kirtu = kir.kirtunnus WHERE k.nimi = \"{booksName}\"";
+            string query = $"SELECT kir.isbn, kir.enimi, kir.snimi, k.genre, k.julkaistu, k.kustantaja, k.sivut, k.img FROM kirja k INNER JOIN kirjailija kir ON k.kirtu = kir.kirtunnus WHERE k.nimi = \"{booksName}\"";
 
             string descFileName = "";
 
@@ -89,19 +87,22 @@ namespace Kirjasto_ohjelma
                     {
                         if (reader.Read())
                         {
+                            isbn = reader.GetString(0);
+
                             nimi.Text = booksName;
                             nimi.Left = (this.Width - nimi.Width) / 2;
-                            kirjailija.Text = reader.GetString(0) + " " + reader.GetString(1);
+                            kirjailija.Text = reader.GetString(1) + " " + reader.GetString(2);
                             kirjailija.Left = (this.Width - kirjailija.Width) / 2;
-                            genre.Text = reader.GetString(2);
+                            genre.Text = reader.GetString(3);
                             genre.Left = ((kirjanTiedot.Width + genreLabel.Width) - genre.Width) / 2;
-                            julkaistu.Text = reader.GetInt32(3).ToString();
-                            kustantaja.Text = reader.GetString(4);
-                            sivumaara.Text = reader.GetInt32(5).ToString();
+                            julkaistu.Text = reader.GetInt32(4).ToString();
+                            kustantaja.Text = reader.GetString(5);
+                            sivumaara.Text = reader.GetInt32(6).ToString();
 
+                            string image = reader.GetString(7) + ".png";
 
-                            string rootPath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..");
-                            string imagePath = Path.GetFullPath(Path.Combine(rootPath, "Images", reader.GetString(6) + ".png"));
+                            string rootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..");
+                            string imagePath = Path.GetFullPath(Path.Combine(rootPath, "Images", image));
 
                             try
                             {
@@ -114,7 +115,7 @@ namespace Kirjasto_ohjelma
                             }
                             kansikuva.SizeMode = PictureBoxSizeMode.Zoom;
 
-                            descFileName = reader.GetString(6)+".txt";
+                            descFileName = reader.GetString(7)+".txt";
                         }
                     }
                 }

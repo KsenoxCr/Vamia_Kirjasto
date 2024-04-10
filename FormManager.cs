@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
@@ -12,13 +13,12 @@ namespace Kirjasto_ohjelma
 {
     public static class FormManager
     {
-        private static DatabaseAccess db = DatabaseAccess.GetInstance();
-
-        private static int lainausCount = 0;
+        private static readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
         private static string lainanum = findLastLainanum();
-
         private static string currentLainanum = "";
+        private static string asnum = User.Asnum;
+        private static bool isStaff = User.IsStaff;
 
         public static void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -32,57 +32,57 @@ namespace Kirjasto_ohjelma
                 label.MouseLeave += (sender, e) => label.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
             }
         }
-
-        public static void controlClicked(object sender, EventArgs e, Control control)
+        public static void openLogin(Form callerForm)
         {
-            string name = "";
+            Login login = Login.Instance;
+            login.Show();
 
-            name = "";
-
-            foreach (Control c in control.Parent.Controls)
+            callerForm.Close();
+        }
+        public static void openConfirmMessage(string msgType, string bookName = "", string ktun = "")
+        {
+            if (msgType == "poistettu" || msgType == "lainaus" || msgType == "poistettu" || msgType == "määritys" || msgType == "vaihto")
             {
-                if (c is Label label && label.Name.StartsWith("nimi"))
-                {
-                    name = label.Text;
-                }
+                ConfirmMessage msg = new(msgType, bookName);
+                msg.Show();
+            } 
+            else if (msgType == "poisto") 
+            {
+                ConfirmMessage msg = new(msgType, bookName, ktun);
+                msg.Show();
             }
-
-            if ((control is PictureBox picbox && picbox.Name.StartsWith("kirja")) || (control is Button && (control.Text == "Katso")))
+            else 
             {
-                openBookInfo(name);
-            }
-            else if (control is Button btn)
-            {
-                if (!string.IsNullOrEmpty(name))
-                {
-                    if (btn.Text == "Lainaa")
-                    {
-                        CreateNewLoan(name);
-                    }
-                    else if (btn.Text == "Poista")
-                    {
-                        OkMessage("varmistus", name);
-                    }
-                }
+                ConfirmMessage msg = new(msgType);
+                msg.Show();
             }
         }
-        public static void OkMessage(string msgType, string bookName = "")
+        public static void openContact(string type)
         {
-            if (msgType == "varmistus" || msgType == "lainaus" || msgType == "poisto")
+            if (type == "tuki")
             {
-                ConfirmMessage OkMessage = new ConfirmMessage(msgType, bookName);
-                OkMessage.Show();
-            } else
+                ContactUs contactUs = new("tuki");
+                contactUs.Show();
+            }
+            else
             {
-                ConfirmMessage OkMessage = new ConfirmMessage(msgType);
-                OkMessage.Show();
+                ContactUs contactUs = new("palaute");
+                contactUs.Show();
             }
         }
 
-        private static void openBookInfo(string bookName)
+        public static void openBookInfo(string bookName)
         {
-            BookInfo bookInfo = new BookInfo(bookName);
+            BookInfo bookInfo = new(bookName);
             bookInfo.Show();
+        }
+
+        public static void openUserList(Form callerForm)
+        {
+            UserList userList = UserList.GetInstance();
+            userList.Show();
+
+            callerForm.Hide();
         }
 
         public static bool CreateNewLoan(string kirjanNimi)
@@ -91,22 +91,22 @@ namespace Kirjasto_ohjelma
             {
                 db.OpenConnection();
 
-                //Check if user has defined their posting address
+                //Tarkistetaan onko käyttäjän profiili viimeistelty
+
                 if (!checkUserDetails())
                 {
                     ConfirmMessage confirmMessage = new ConfirmMessage("viimeistele");
                     confirmMessage.Show();
 
                     return false;
-                } 
+                }
                 else
                 {
-                    string newLainanum = "";
+                    string astun = isStaff ? "XXXXXXX" : asnum;
 
-                    bool isStaff = User.IsStaff;
-                    string astun = isStaff ? "XXXXXXX" : User.Asnum;
+                    string tyonum = isStaff ? asnum : "XXXXXX";
 
-                    string tyonum = isStaff ? User.Asnum : "XXXXXX";
+                    // Luodaan uusi lainaus
 
                     if (string.IsNullOrEmpty(currentLainanum))
                     {
@@ -121,9 +121,11 @@ namespace Kirjasto_ohjelma
                         }
                     }
 
+                    // Lisätään lainarivi lainatulle kirjalle
+
                     addLainarivi(kirjanNimi);
 
-                    OkMessage("lainaus", kirjanNimi);
+                    openConfirmMessage("lainaus", kirjanNimi);
 
                     return true;
                 }
@@ -145,8 +147,6 @@ namespace Kirjasto_ohjelma
             string pno = "";
             string ptp = "";
 
-            bool isStaff = User.IsStaff;
-
             if (db.connection.State == ConnectionState.Open)
             {
                 try
@@ -161,7 +161,7 @@ namespace Kirjasto_ohjelma
                     //    { false, "loso, pno, ptp" }
                     //};
 
-                    string query = $"SELECT {details}, puh FROM {userType} WHERE {astun} = \"{User.Asnum}\"";
+                    string query = $"SELECT {details}, puh FROM {userType} WHERE {astun} = \"{asnum}\"";
 
                     using (MySqlCommand command = new MySqlCommand(query, db.connection))
                     {
@@ -201,7 +201,7 @@ namespace Kirjasto_ohjelma
         }
         public static string createLainanum()
         {
-            string lastLainanum = lainanum;
+            //Luodaan uusi lainanumero
 
             string newLoanCount = "";
 
@@ -209,17 +209,17 @@ namespace Kirjasto_ohjelma
 
             string currentMonth = DateTime.Now.ToString("MM");
 
-            if (!string.IsNullOrEmpty(lastLainanum))
+            if (!string.IsNullOrEmpty(lainanum))
             {
-                int loanCount = int.Parse(lastLainanum.Substring(lastLainanum.Length - 3)); //check debug
+                int loanCount = int.Parse(lainanum.Substring(lainanum.Length - 3)); //check debug
 
                 if (loanCount < 999)
                 {
-                    string lastLainanumYear = lastLainanum.Substring(0, 2);
+                    string lastLainanumYear = lainanum.Substring(0, 2);
 
                     if (currentYear == lastLainanumYear)
                     {
-                        string lastLainanumMonth = lastLainanum.Substring(2, 2);
+                        string lastLainanumMonth = lainanum.Substring(2, 2);
 
                         if(currentMonth == lastLainanumMonth)
                         {
@@ -242,7 +242,7 @@ namespace Kirjasto_ohjelma
             }
             else
             {
-                MessageBox.Show("Tietokantavirhe: Yhtäkään aikaisempaa lainausta ei löytynyt");
+                MessageBox.Show("Tietokantavirhe: Yhtäkään aikaisempaa lainausta ei löytynyt"); //Jos käyttäjällä ei ole aikaisempia lainauksia, Etsi tietokannasta viimeisin lainaus (ei käyttäjä specifi) ja tee uusi lainaus sen perusteella
 
                 newLoanCount = "001";
             }
@@ -253,53 +253,46 @@ namespace Kirjasto_ohjelma
         {
             string tunnus = "";
 
-            if (db.connection.State == ConnectionState.Open)
+            try
             {
-                try
+                string query = $"SELECT lainakohde.tunnus FROM Lainakohde INNER JOIN Kirja ON Lainakohde.ktun = Kirja.isbn WHERE Kirja.nimi = \"{bookName}\" AND Lainakohde.tila = 'lainattavissa' LIMIT 1";
+
+                using (MySqlCommand command = new MySqlCommand(query, db.connection))
                 {
-                    string query = $"SELECT lainakohde.tunnus FROM Lainakohde INNER JOIN Kirja ON Lainakohde.ktun = Kirja.isbn WHERE Kirja.nimi = \"{bookName}\" AND Lainakohde.tila = 'lainattavissa' LIMIT 1";
-
-                    using (MySqlCommand command = new MySqlCommand(query, db.connection))
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        using (MySqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                tunnus = reader.GetString(0);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Kirja on jo lainassa");
+                            tunnus = reader.GetString(0);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Kirja on jo lainassa");
 
-                                return false;
-                            }
+                            return false;
                         }
                     }
-
-                    string insertLainariviQuery = $"INSERT INTO lainarivi (ltunnus, kohdetun) VALUES (\"{currentLainanum}\", \"{tunnus}\")"; //lainanum can now be wrong users if two users make a new loan at the same time
-
-                    using (MySqlCommand insertLainariviCommand = new MySqlCommand(insertLainariviQuery, db.connection))
-                    {
-                        insertLainariviCommand.ExecuteNonQuery();
-                    }
-
-                    string updateLainakohdeQuery = $"UPDATE lainakohde SET tila = 'lainattu' WHERE tunnus = \"{tunnus}\"";
-
-                    using (MySqlCommand updateLainakohdeCommand = new MySqlCommand(updateLainakohdeQuery, db.connection))
-                    {
-                        updateLainakohdeCommand.ExecuteNonQuery();
-
-                        return true;
-                    }
                 }
-                catch (Exception ex)
+
+                string insertLainariviQuery = $"INSERT INTO lainarivi (ltunnus, kohdetun) VALUES (\"{currentLainanum}\", \"{tunnus}\")"; //lainanum can now be wrong users if two users make a new loan at the same time
+
+                using (MySqlCommand insertLainariviCommand = new MySqlCommand(insertLainariviQuery, db.connection))
                 {
-                    MessageBox.Show($"Tietokantavirhe: {ex.Message}");
+                    insertLainariviCommand.ExecuteNonQuery();
                 }
-                finally
+
+                string updateLainakohdeQuery = $"UPDATE lainakohde SET tila = 'lainattu' WHERE tunnus = \"{tunnus}\"";
+
+                using (MySqlCommand updateLainakohdeCommand = new MySqlCommand(updateLainakohdeQuery, db.connection))
                 {
-                    db.CloseConnection();
+                    updateLainakohdeCommand.ExecuteNonQuery();
+
+                    return true;
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Tietokantavirhe: {ex.Message}");
             }
 
             return false;
@@ -308,33 +301,32 @@ namespace Kirjasto_ohjelma
         {
             string lastLainanum = "";
 
-            if (db.connection.State != ConnectionState.Open)
+            string userNumType = isStaff ? "tyonum" : "astun";
+            
+            string query = $"SELECT lainanum FROM lainaus WHERE {userNumType} = \"{asnum}\" ORDER BY lainanum DESC LIMIT 1;";
+
+            try
             {
-                string query = "SELECT lainanum FROM lainaus ORDER BY lainanum DESC LIMIT 1;";
+                db.OpenConnection();
 
-                try
+                using (MySqlCommand command = new MySqlCommand(query, db.connection))
                 {
-                    db.OpenConnection();
-
-                    using (MySqlCommand command = new MySqlCommand(query, db.connection))
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        using (MySqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                lastLainanum = reader.GetString(0);
-                            }
+                            lastLainanum = reader.GetString(0);
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Tietokantavirhe: {ex.Message}");
-                }
-                finally
-                {
-                    db.CloseConnection();
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Tietokantavirhe: {ex.Message}");
+            }
+            finally
+            {
+                db.CloseConnection();
             }
 
             return lastLainanum;
@@ -343,7 +335,7 @@ namespace Kirjasto_ohjelma
         public static void toggleMenu(Panel menu)
         {
 
-            if (menu.Tag == "Closed")
+            if (menu.Tag.ToString() == "Closed")
             {
                 menu.Tag = "Open";
 
@@ -357,12 +349,12 @@ namespace Kirjasto_ohjelma
                 menu.Location = new Point(-125, 79);
             }
         }
-        public static void backToHome(Form form)
+        public static void toHome(Form callerForm)
         {
-            Home home = new Home();
+            Home home = Home.Instance;
             home.Show();
 
-            form.Hide();
+            callerForm.Hide();
         }
 
         public static void openAccountDetails(string username, string userType)
@@ -397,12 +389,11 @@ namespace Kirjasto_ohjelma
         {
             switch (username)
             {
-                /*
                 case null:
                 case "":
                     MessageBox.Show("Käyttäjätunnus on on tyhjä");
-                    return false; */
-                case string s when s.Contains(" "):
+                    return "";
+                case string s when s.Contains(' '):
                     MessageBox.Show("Käyttäjätunnus ei saa sisältää välilyöntejä");
                     return "";
                 case string s when s.Length < 5:
@@ -415,7 +406,6 @@ namespace Kirjasto_ohjelma
                     MessageBox.Show("Käyttäjätunnus on virheellinen.\r\nKäyttäjätunnus saa sisältää vain kirjaimia, numeroita ja alaviivoja.");
                     return "";
             }
-            //MessageBox.Show("Test: käyttäjätunnus OK");
             return username;
         }
         public static string ValidatePassword(string password)
@@ -426,7 +416,7 @@ namespace Kirjasto_ohjelma
                 case "":
                     MessageBox.Show("Salasana on tyhjä");
                     return "";
-                case string s when s.Contains(" "):
+                case string s when s.Contains(' '):
                     MessageBox.Show("Salasana ei saa sisältää välilyöntejä");
                     return "";
                 case string s when s.Length < 8:
@@ -444,7 +434,7 @@ namespace Kirjasto_ohjelma
         }
         public static string ValidateName(string name, string nameType)
         {
-            string err = "";
+            string err;
 
             switch (name)
             {
@@ -459,7 +449,7 @@ namespace Kirjasto_ohjelma
                 case string s when nameType == "sukunimi" && s.Length > 30:
                     MessageBox.Show("Sukunimi on liian pitkä. \r\nSukunimen tulee olla enintään 30 kirjainta");
                     return "";
-                case string s when s.Contains(" "):
+                case string s when s.Contains(' '):
                     err = nameType == "etunimi" ? "Etunimi ei saa sisältää välilyöntejä" :
                                                                     "Sukunimi ei saa sisältää välilyöntejä";
                     MessageBox.Show(err);

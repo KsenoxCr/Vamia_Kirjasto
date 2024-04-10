@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -17,14 +18,16 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace Kirjasto_ohjelma
 {
     public partial class UserList : Form
-    {
+    { 
         private static UserList instance = null;
-        private static readonly object _lock = new object();
+        private static readonly object _lock = new();
 
-        private DatabaseAccess db = DatabaseAccess.GetInstance();
+        private readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
         private string order = "ASC";
         private string orderBy = "asnum";
+        private string limit = "";
+        private decimal totalCount = 0;
 
         private UserList()
         {
@@ -48,7 +51,7 @@ namespace Kirjasto_ohjelma
         }
         private void logo_Click(object sender, EventArgs e)
         {
-            FormManager.backToHome(this);
+            FormManager.toHome(this);
         }
         private void menuButton_Click(object sender, EventArgs e)
         {
@@ -57,7 +60,7 @@ namespace Kirjasto_ohjelma
 
         private void kirjaudu_ulos_Click(object sender, EventArgs e)
         {
-            FormManager.backToHome(this);
+            FormManager.toHome(this);
         }
         private void UserList_Load(object sender, EventArgs e)
         {
@@ -71,8 +74,6 @@ namespace Kirjasto_ohjelma
         }
         private void jarjestysCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string query = "";
-
             switch (jarjestysCB.SelectedIndex)
             {
                 case 0:
@@ -95,6 +96,33 @@ namespace Kirjasto_ohjelma
                     break;
                 case 6:
                     orderBy = "palautteiden_maara";
+                    break;
+            }
+
+            loadUsersFromDatabase();
+        }
+        private void naytaCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (naytaCB.SelectedIndex)
+            {
+                case 1:
+                    if (totalCount > 0)
+                    {
+                        totalCount /= 2;
+                        limit = $"LIMIT {(int)Math.Round(totalCount / 2, MidpointRounding.AwayFromZero) * 2}";
+                    }
+                    break;
+                case 2:
+                    limit = "LIMIT 10";
+                    break;
+                case 3:
+                    limit = "LIMIT 20";
+                    break;
+                case 4:
+                    limit = "LIMIT 50";
+                    break;
+                case 5:
+                    limit = "LIMIT 100";
                     break;
             }
 
@@ -137,7 +165,7 @@ namespace Kirjasto_ohjelma
                         + "(SELECT COUNT(*) FROM Lainarivi WHERE ltunnus IN (SELECT lainanum FROM Lainaus WHERE astun = a.asnum)) AS kirjojen_maara, "
                         + "(SELECT COUNT(*) FROM Palautteet WHERE astun = a.asnum) AS palautteiden_maara "
                         + "FROM Asiakas AS a WHERE asnum <> \"XXXXXXX\""
-                        + $"ORDER BY {orderBy} {order}";
+                        + $"ORDER BY {orderBy} {order} " + limit;
 
                 using (MySqlCommand command = new MySqlCommand(query, db.connection))
                 {
@@ -163,6 +191,8 @@ namespace Kirjasto_ohjelma
                             };
 
                             users.Add(userInfo);
+
+                            totalCount++;
                         }
 
                     }
@@ -187,7 +217,7 @@ namespace Kirjasto_ohjelma
             asiakkaatPanel.SuspendLayout();
 
             if (asiakkaatPanel.Controls.Count != 0)
-            {                
+            {
                 asiakkaatPanel.Controls.Clear();
             }
 
@@ -236,12 +266,12 @@ namespace Kirjasto_ohjelma
                     infoLabels.Add(control); //dependant on the creation order of the labels in the infoPanel
                 }
                 infoLabels.Reverse();
-                    
+
                 int labelHeight = 35;
 
                 for (int k = 0; k < info.Length; k++)
                 {
-                    Label label = new Label() 
+                    Label label = new Label()
                     {
                         //label.Name = labelsTopRow[i] + (i + 1);
                         Text = info[k],
@@ -276,7 +306,7 @@ namespace Kirjasto_ohjelma
 
         private void pictureBox15_Click(object sender, EventArgs e)
         {
-            FormManager.backToHome(this);
+            FormManager.toHome(this);
         }
     }
 }

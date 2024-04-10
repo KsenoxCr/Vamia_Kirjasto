@@ -46,6 +46,8 @@
             panel16 = new Panel();
             panel17 = new Panel();
             hakuPanel = new GroupBox();
+            naytaCB = new ComboBox();
+            label7 = new Label();
             infoPanel = new Panel();
             Palautteet = new Label();
             label3 = new Label();
@@ -241,6 +243,8 @@
             // hakuPanel
             // 
             hakuPanel.BackColor = Color.FromArgb(125, 255, 241, 220);
+            hakuPanel.Controls.Add(naytaCB);
+            hakuPanel.Controls.Add(label7);
             hakuPanel.Controls.Add(infoPanel);
             hakuPanel.Controls.Add(orderBox);
             hakuPanel.Controls.Add(jarjestys);
@@ -254,6 +258,31 @@
             hakuPanel.Size = new Size(872, 115);
             hakuPanel.TabIndex = 20;
             hakuPanel.TabStop = false;
+            // 
+            // naytaCB
+            // 
+            naytaCB.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            naytaCB.FormattingEnabled = true;
+            naytaCB.Items.AddRange(new object[] { "Kaikki", "Puolet", "10", "20", "50", "100 " });
+            naytaCB.Location = new Point(560, 24);
+            naytaCB.Margin = new Padding(3, 2, 3, 2);
+            naytaCB.Name = "naytaCB";
+            naytaCB.Size = new Size(58, 24);
+            naytaCB.TabIndex = 19;
+            naytaCB.Text = "Kaikki";
+            naytaCB.SelectedIndexChanged += naytaCB_SelectedIndexChanged;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.Transparent;
+            label7.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.Location = new Point(498, 24);
+            label7.Name = "label7";
+            label7.Size = new Size(46, 20);
+            label7.TabIndex = 18;
+            label7.Text = "Näytä";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // infoPanel
             // 
@@ -497,7 +526,6 @@
         private PictureBox pictureBox15;
         private Label kirjaudu_ulos;
         private Label kirjat;
-        private Button button1;
         private Label label1;
         private GroupBox asiakkaatPanel;
         private Label jarjestys;
@@ -516,5 +544,7 @@
         private Label kirjatLabel;
         private Label label3;
         private Label Palautteet;
+        private ComboBox naytaCB;
+        private Label label7;
     }
 }

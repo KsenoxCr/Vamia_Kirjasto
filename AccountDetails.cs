@@ -18,8 +18,6 @@ namespace Kirjasto_ohjelma
     {
         DatabaseAccess db = DatabaseAccess.GetInstance();
 
-        private bool menuOpen = false;
-
         private string _username;
         private string _userType;
         private bool isStaff;
@@ -45,18 +43,9 @@ namespace Kirjasto_ohjelma
             information = new Label[] { enimi, snimi, kayttajatunnus, salasana, loso, pno, ptp, puh };
             infoButtons = new Button[] { vaihdaEnimi, vaihdaSnimi, vaihdaKtunnus, vaihdaSalasana, vaihdaLoso, vaihdaPno, vaihdaPtp, vaihdaPuh };
         }
-
-        private void label28_Click(object sender, EventArgs e)
+        private void kirjauduUlos_Click(object sender, EventArgs e)
         {
-            LogIn login = new LogIn();
-            login.Show();
-            this.Hide();
-        }
-
-        private void Ehdota_kirjaa_Click(object sender, EventArgs e)
-        {
-            BookRecommendation bookRecom = new BookRecommendation();
-            bookRecom.Show();
+            FormManager.openLogin(this);
         }
         public void info_buttonClick(object sender, EventArgs e)
         {
@@ -104,7 +93,7 @@ namespace Kirjasto_ohjelma
 
         private void kirjat_Click(object sender, EventArgs e)
         {
-            FormManager.backToHome(this);
+            FormManager.toHome(this);
         }
 
         private void menuButton_Click(object sender, EventArgs e)
@@ -175,7 +164,7 @@ namespace Kirjasto_ohjelma
 
             for (int i = 0; i < information.Length; i++)
             {
-                if (information[i].Text == "NotSpecified" || information[i].Text == "00000")
+                if (information[i].Text == "NotSpecified" || information[i].Text == "Ei Määritetty" || information[i].Text == "00000")
                 {
                     information[i].Text = "ei määritetty";
 
@@ -338,15 +327,12 @@ namespace Kirjasto_ohjelma
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            FormManager.backToHome(this);
+            FormManager.toHome(this);
         }
 
         private void asiakkaat_Click(object sender, EventArgs e)
         {
-            UserList userList = UserList.GetInstance();
-            userList.Show();
-
-            this.Hide();
+            FormManager.openUserList(this);
         }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LeSR9Ws/0ViU9W/qmaJKxHnIGIr8A/OHmZJjFM6D2DKYVcyhC4VBvgAgHoRsfrV2G5fTOs6HgxuEcZTeUT9o0g==",
+  "dgSpecHash": "jCTNPPaN4Xl5HkhB0Hru6NQq/YHpMDU6+cM1dDWm1TETlvikGOpFzCxYe6C7mOl2fO9g0DzupqH4ehsZxrQp1Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\aksum\\Source\\Repos\\kirjasto-Ohjelma-3\\Kirjasto-ohjelma.csproj",
+  "projectFilePath": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\Kirjasto-ohjelma.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aksum\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\aksum\\.nuget\\packages\\google.protobuf\\3.25.1\\google.protobuf.3.25.1.nupkg.sha512",

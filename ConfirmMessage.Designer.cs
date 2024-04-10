@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfirmMessage));
             label1 = new Label();
-            pictureBox2 = new PictureBox();
+            closeButton = new PictureBox();
             label2 = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)closeButton).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -47,16 +47,16 @@
             label1.Text = "x";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
-            // pictureBox2
+            // closeButton
             // 
-            pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
-            pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox2.Location = new Point(208, 12);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(30, 30);
-            pictureBox2.TabIndex = 9;
-            pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+            closeButton.BackgroundImage = (Image)resources.GetObject("closeButton.BackgroundImage");
+            closeButton.BackgroundImageLayout = ImageLayout.Zoom;
+            closeButton.Location = new Point(208, 12);
+            closeButton.Name = "closeButton";
+            closeButton.Size = new Size(30, 30);
+            closeButton.TabIndex = 9;
+            closeButton.TabStop = false;
+            closeButton.Click += closeButton_Click;
             // 
             // label2
             // 
@@ -70,7 +70,7 @@
             label2.Text = "x";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // Form8
+            // ConfirmMessage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -78,16 +78,16 @@
             ClientSize = new Size(250, 150);
             ControlBox = false;
             Controls.Add(label2);
-            Controls.Add(pictureBox2);
+            Controls.Add(closeButton);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
             MaximumSize = new Size(250, 150);
             MinimumSize = new Size(250, 150);
-            Name = "Form8";
+            Name = "ConfirmMessage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form6";
             Load += Form8_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)closeButton).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -95,7 +95,7 @@
         #endregion
 
         private Label label1;
-        private PictureBox pictureBox2;
+        private PictureBox closeButton;
         private Label label2;
     }
 }

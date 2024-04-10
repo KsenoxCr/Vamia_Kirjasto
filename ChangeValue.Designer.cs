@@ -119,7 +119,6 @@
 
         #endregion
 
-        private Label label1;
         private PictureBox closeBtn;
         private Label uusiLabel;
         private Button vaihdaBtn;

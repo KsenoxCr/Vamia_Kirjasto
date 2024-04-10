@@ -32,7 +32,7 @@
             Header = new Panel();
             panel2 = new Panel();
             panel3 = new Panel();
-            pictureBox1 = new PictureBox();
+            logo = new PictureBox();
             menuButton = new PictureBox();
             label2 = new Label();
             panel1 = new Panel();
@@ -42,7 +42,7 @@
             salasanaUudelleen = new TextBox();
             emailLabel = new Label();
             etunimi = new TextBox();
-            button1 = new Button();
+            luoTunnusBtn = new Button();
             usernameLabel = new Label();
             passwordLabel = new Label();
             kayttajatunnus = new TextBox();
@@ -53,7 +53,7 @@
             tuki = new Label();
             Header.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)logo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
             panel1.SuspendLayout();
             Menu.SuspendLayout();
@@ -63,61 +63,56 @@
             // 
             Header.BackColor = Color.FromArgb(255, 241, 220);
             Header.Controls.Add(panel2);
-            Header.Controls.Add(pictureBox1);
+            Header.Controls.Add(logo);
             Header.Controls.Add(menuButton);
             Header.Location = new Point(0, 0);
-            Header.Margin = new Padding(3, 4, 3, 4);
             Header.Name = "Header";
-            Header.Size = new Size(914, 107);
+            Header.Size = new Size(800, 80);
             Header.TabIndex = 8;
             // 
             // panel2
             // 
             panel2.Controls.Add(panel3);
-            panel2.Location = new Point(35, 105);
-            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Location = new Point(31, 79);
             panel2.Name = "panel2";
-            panel2.Size = new Size(138, 501);
+            panel2.Size = new Size(121, 376);
             panel2.TabIndex = 3;
             // 
             // panel3
             // 
             panel3.Location = new Point(0, 0);
-            panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(91, 501);
+            panel3.Size = new Size(80, 376);
             panel3.TabIndex = 3;
             // 
-            // pictureBox1
+            // logo
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(327, 27);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(345, 51);
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            logo.Image = (Image)resources.GetObject("logo.Image");
+            logo.Location = new Point(286, 20);
+            logo.Name = "logo";
+            logo.Size = new Size(302, 38);
+            logo.TabIndex = 3;
+            logo.TabStop = false;
+            logo.Click += logo_Click;
             // 
             // menuButton
             // 
             menuButton.Image = (Image)resources.GetObject("menuButton.Image");
-            menuButton.Location = new Point(61, 31);
-            menuButton.Margin = new Padding(3, 4, 3, 4);
+            menuButton.Location = new Point(53, 23);
             menuButton.Name = "menuButton";
-            menuButton.Size = new Size(40, 47);
+            menuButton.Size = new Size(35, 35);
             menuButton.TabIndex = 3;
             menuButton.TabStop = false;
-            menuButton.Click += pictureBox2_Click;
+            menuButton.Click += menuButton_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Impact", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(354, 147);
+            label2.Location = new Point(310, 110);
             label2.Name = "label2";
-            label2.Size = new Size(251, 42);
+            label2.Size = new Size(202, 34);
             label2.TabIndex = 12;
             label2.Text = "Luo uusi käyttäjä";
             // 
@@ -130,15 +125,14 @@
             panel1.Controls.Add(salasanaUudelleen);
             panel1.Controls.Add(emailLabel);
             panel1.Controls.Add(etunimi);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(luoTunnusBtn);
             panel1.Controls.Add(usernameLabel);
             panel1.Controls.Add(passwordLabel);
             panel1.Controls.Add(kayttajatunnus);
             panel1.Controls.Add(salasana);
-            panel1.Location = new Point(327, 221);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Location = new Point(286, 166);
             panel1.Name = "panel1";
-            panel1.Size = new Size(297, 337);
+            panel1.Size = new Size(260, 253);
             panel1.TabIndex = 13;
             // 
             // label1
@@ -146,19 +140,18 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(27, 110);
+            label1.Location = new Point(24, 82);
             label1.Name = "label1";
-            label1.Size = new Size(77, 21);
+            label1.Size = new Size(61, 18);
             label1.TabIndex = 14;
             label1.Text = "Sukunimi";
             // 
             // sukunimi
             // 
             sukunimi.Cursor = Cursors.Hand;
-            sukunimi.Location = new Point(142, 109);
-            sukunimi.Margin = new Padding(3, 4, 3, 4);
+            sukunimi.Location = new Point(124, 82);
             sukunimi.Name = "sukunimi";
-            sukunimi.Size = new Size(114, 27);
+            sukunimi.Size = new Size(100, 23);
             sukunimi.TabIndex = 13;
             // 
             // passwordAgainLabel
@@ -166,20 +159,19 @@
             passwordAgainLabel.AutoSize = true;
             passwordAgainLabel.BackColor = Color.Transparent;
             passwordAgainLabel.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            passwordAgainLabel.Location = new Point(27, 189);
+            passwordAgainLabel.Location = new Point(24, 142);
             passwordAgainLabel.Name = "passwordAgainLabel";
-            passwordAgainLabel.Size = new Size(86, 42);
+            passwordAgainLabel.Size = new Size(68, 36);
             passwordAgainLabel.TabIndex = 12;
             passwordAgainLabel.Text = "Salasana \r\nuudelleen:";
             // 
             // salasanaUudelleen
             // 
             salasanaUudelleen.Cursor = Cursors.Hand;
-            salasanaUudelleen.Location = new Point(142, 199);
-            salasanaUudelleen.Margin = new Padding(3, 4, 3, 4);
+            salasanaUudelleen.Location = new Point(124, 149);
             salasanaUudelleen.Name = "salasanaUudelleen";
             salasanaUudelleen.PasswordChar = '*';
-            salasanaUudelleen.Size = new Size(114, 27);
+            salasanaUudelleen.Size = new Size(100, 23);
             salasanaUudelleen.TabIndex = 11;
             // 
             // emailLabel
@@ -187,48 +179,46 @@
             emailLabel.AutoSize = true;
             emailLabel.BackColor = Color.Transparent;
             emailLabel.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            emailLabel.Location = new Point(27, 64);
+            emailLabel.Location = new Point(24, 48);
             emailLabel.Name = "emailLabel";
-            emailLabel.Size = new Size(63, 21);
+            emailLabel.Size = new Size(50, 18);
             emailLabel.TabIndex = 10;
             emailLabel.Text = "Etunimi";
             // 
             // etunimi
             // 
             etunimi.Cursor = Cursors.Hand;
-            etunimi.Location = new Point(142, 63);
-            etunimi.Margin = new Padding(3, 4, 3, 4);
+            etunimi.Location = new Point(124, 47);
             etunimi.Name = "etunimi";
-            etunimi.Size = new Size(114, 27);
+            etunimi.Size = new Size(100, 23);
             etunimi.TabIndex = 15;
             // 
-            // button1
+            // luoTunnusBtn
             // 
-            button1.BackColor = Color.Bisque;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderColor = Color.Tan;
-            button1.FlatAppearance.BorderSize = 3;
-            button1.FlatAppearance.MouseDownBackColor = Color.BurlyWood;
-            button1.FlatAppearance.MouseOverBackColor = Color.Tan;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(79, 250);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(114, 67);
-            button1.TabIndex = 6;
-            button1.Text = "Luo uusi tunnus";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            luoTunnusBtn.BackColor = Color.Bisque;
+            luoTunnusBtn.Cursor = Cursors.Hand;
+            luoTunnusBtn.FlatAppearance.BorderColor = Color.Tan;
+            luoTunnusBtn.FlatAppearance.BorderSize = 3;
+            luoTunnusBtn.FlatAppearance.MouseDownBackColor = Color.BurlyWood;
+            luoTunnusBtn.FlatAppearance.MouseOverBackColor = Color.Tan;
+            luoTunnusBtn.FlatStyle = FlatStyle.Flat;
+            luoTunnusBtn.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            luoTunnusBtn.Location = new Point(69, 188);
+            luoTunnusBtn.Name = "luoTunnusBtn";
+            luoTunnusBtn.Size = new Size(100, 50);
+            luoTunnusBtn.TabIndex = 6;
+            luoTunnusBtn.Text = "Luo uusi tunnus";
+            luoTunnusBtn.UseVisualStyleBackColor = false;
+            luoTunnusBtn.Click += luoTunnusBtn_Click;
             // 
             // usernameLabel
             // 
             usernameLabel.AutoSize = true;
             usernameLabel.BackColor = Color.Transparent;
             usernameLabel.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            usernameLabel.Location = new Point(27, 20);
+            usernameLabel.Location = new Point(24, 15);
             usernameLabel.Name = "usernameLabel";
-            usernameLabel.Size = new Size(121, 21);
+            usernameLabel.Size = new Size(97, 18);
             usernameLabel.TabIndex = 7;
             usernameLabel.Text = "Käyttäjätunnus:";
             // 
@@ -237,29 +227,27 @@
             passwordLabel.AutoSize = true;
             passwordLabel.BackColor = Color.Transparent;
             passwordLabel.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            passwordLabel.Location = new Point(27, 158);
+            passwordLabel.Location = new Point(24, 118);
             passwordLabel.Name = "passwordLabel";
-            passwordLabel.Size = new Size(80, 21);
+            passwordLabel.Size = new Size(64, 18);
             passwordLabel.TabIndex = 8;
             passwordLabel.Text = "Salasana:";
             // 
             // kayttajatunnus
             // 
             kayttajatunnus.Cursor = Cursors.Hand;
-            kayttajatunnus.Location = new Point(142, 19);
-            kayttajatunnus.Margin = new Padding(3, 4, 3, 4);
+            kayttajatunnus.Location = new Point(124, 14);
             kayttajatunnus.Name = "kayttajatunnus";
-            kayttajatunnus.Size = new Size(114, 27);
+            kayttajatunnus.Size = new Size(100, 23);
             kayttajatunnus.TabIndex = 4;
             // 
             // salasana
             // 
             salasana.Cursor = Cursors.Hand;
-            salasana.Location = new Point(142, 156);
-            salasana.Margin = new Padding(3, 4, 3, 4);
+            salasana.Location = new Point(124, 117);
             salasana.Name = "salasana";
             salasana.PasswordChar = '*';
-            salasana.Size = new Size(114, 27);
+            salasana.Size = new Size(100, 23);
             salasana.TabIndex = 5;
             // 
             // Menu
@@ -268,10 +256,9 @@
             Menu.Controls.Add(label3);
             Menu.Controls.Add(palautteet);
             Menu.Controls.Add(tuki);
-            Menu.Location = new Point(-143, 105);
-            Menu.Margin = new Padding(3, 4, 3, 4);
+            Menu.Location = new Point(-125, 79);
             Menu.Name = "Menu";
-            Menu.Size = new Size(143, 497);
+            Menu.Size = new Size(125, 373);
             Menu.TabIndex = 14;
             Menu.Tag = "Closed";
             // 
@@ -279,9 +266,9 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(11, 447);
+            label3.Location = new Point(10, 335);
             label3.Name = "label3";
-            label3.Size = new Size(63, 19);
+            label3.Size = new Size(48, 16);
             label3.TabIndex = 3;
             label3.Text = "Vamia ©";
             // 
@@ -289,9 +276,9 @@
             // 
             palautteet.AutoSize = true;
             palautteet.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            palautteet.Location = new Point(11, 73);
+            palautteet.Location = new Point(10, 55);
             palautteet.Name = "palautteet";
-            palautteet.Size = new Size(139, 25);
+            palautteet.Size = new Size(110, 20);
             palautteet.TabIndex = 1;
             palautteet.Text = "Anna Palautetta";
             palautteet.Click += palautteet_Click;
@@ -300,30 +287,29 @@
             // 
             tuki.AutoSize = true;
             tuki.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            tuki.Location = new Point(11, 35);
+            tuki.Location = new Point(10, 26);
             tuki.Name = "tuki";
-            tuki.Size = new Size(46, 25);
+            tuki.Size = new Size(36, 20);
             tuki.TabIndex = 0;
             tuki.Text = "Tuki";
             tuki.Click += tuki_Click;
             // 
             // Register
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(Menu);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(Header);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Register";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Uusi käyttäjä";
             Header.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)logo).EndInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -337,11 +323,11 @@
         private Panel Header;
         private Panel panel2;
         private Panel panel3;
-        private PictureBox pictureBox1;
+        private PictureBox logo;
         private PictureBox menuButton;
         private Label label2;
         private Panel panel1;
-        private Button button1;
+        private Button luoTunnusBtn;
         private Label usernameLabel;
         private Label passwordLabel;
         private TextBox kayttajatunnus;

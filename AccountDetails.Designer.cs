@@ -223,7 +223,7 @@
             kirjaudu_ulos.Size = new Size(96, 20);
             kirjaudu_ulos.TabIndex = 22;
             kirjaudu_ulos.Text = "Kirjaudu Ulos";
-            kirjaudu_ulos.Click += label28_Click;
+            kirjaudu_ulos.Click += kirjauduUlos_Click;
             // 
             // footer
             // 
@@ -898,7 +898,6 @@
         private Panel salasanaPanel;
         private Button vaihdaSalasana;
         private Panel kayttajatunnusPanel;
-        private Button button1;
         private Panel snimiPanel;
         private Button vaihdaSnimi;
         private Panel enimiPanel;

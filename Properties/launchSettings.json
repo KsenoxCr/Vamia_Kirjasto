@@ -2,6 +2,7 @@
   "profiles": {
     "Kirjasto-ohjelma": {
       "commandName": "Project",
+      "workingDirectory": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto",
       "sqlDebugging": true,
       "remoteDebugEnabled": false,
       "nativeDebugging": false

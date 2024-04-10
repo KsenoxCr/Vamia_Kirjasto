@@ -1,122 +1,86 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\",
+  "WorkspaceRootPath": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\kirjasto-ohjelma-3\\formmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:formmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\userlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:userlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\userlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:userlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\basicbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:basicbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\changevalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:changevalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\bookinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:bookinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\confirmmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:confirmmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\confirmmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:confirmmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\userlist.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:userlist.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\bookinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:bookinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\accountdetails.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:accountdetails.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\changevalue.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:changevalue.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\changevalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:changevalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\confirmmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:confirmmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\feedbackform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:feedbackform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\formmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:formmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\register.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:register.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:register.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\bookrecommendation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:bookrecommendation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:accountdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\feedbackform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:feedbackform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\userlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:userlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\confirmmessage.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:confirmmessage.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\userlist.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:userlist.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\bookrecommendation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:bookrecommendation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\changevalue.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:changevalue.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\databaseaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:databaseaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\bookinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:bookinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\home.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:home.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\basicbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:basicbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\confirmmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:confirmmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|c:\\users\\aksum\\source\\repos\\ksenoxcr\\vamia_kirjasto\\contactus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:contactus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{1FD9CF82-3307-47DB-B2FF-93E11E41BCDC}|Kirjasto-ohjelma.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -126,21 +90,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ChangeValue.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ChangeValue.cs",
-              "RelativeDocumentMoniker": "ChangeValue.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ChangeValue.cs",
-              "RelativeToolTip": "ChangeValue.cs",
-              "ViewState": "AQIAAH4AAAAAAAAAAAAYwJAAAABXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T14:41:07.336Z",
-              "IsPinned": true
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
@@ -150,331 +101,263 @@
               "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ConfirmMessage.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ConfirmMessage.cs",
-              "RelativeDocumentMoniker": "ConfirmMessage.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ConfirmMessage.cs",
-              "RelativeToolTip": "ConfirmMessage.cs",
-              "ViewState": "AQIAAEAAAAAAAAAAAADwv0wAAABLAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-10T13:56:14.14Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FormManager.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\FormManager.cs",
-              "RelativeDocumentMoniker": "FormManager.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\FormManager.cs",
-              "RelativeToolTip": "FormManager.cs",
-              "ViewState": "AQIAAJcAAAAAAAAAAADwv7UAAAA4AAAA",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-21T23:16:53.112Z",
+              "WhenOpened": "2024-04-10T09:13:57.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Home.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Home.cs",
+              "RelativeDocumentMoniker": "Home.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Home.cs [Design]",
+              "RelativeToolTip": "Home.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T09:10:27.949Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Register.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Register.cs",
+              "RelativeDocumentMoniker": "Register.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Register.cs [Design]",
+              "RelativeToolTip": "Register.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T08:45:40.512Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FormManager.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\FormManager.cs",
+              "RelativeDocumentMoniker": "FormManager.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\FormManager.cs",
+              "RelativeToolTip": "FormManager.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAowCkAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T00:13:50.098Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Home.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Home.cs",
-              "RelativeDocumentMoniker": "Home.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Home.cs",
-              "RelativeToolTip": "Home.cs",
-              "ViewState": "AQIAAFsAAAAAAAAAAAAYwG0AAABCAAAA",
+              "Title": "Register.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Register.cs",
+              "RelativeDocumentMoniker": "Register.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Register.cs",
+              "RelativeToolTip": "Register.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-09T11:31:21.317Z"
+              "WhenOpened": "2024-04-09T11:26:33.209Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UserList.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\UserList.cs",
-              "RelativeDocumentMoniker": "UserList.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\UserList.cs [Design]",
-              "RelativeToolTip": "UserList.cs [Design]",
+              "DocumentIndex": 7,
+              "Title": "Login.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\Login.cs",
+              "RelativeDocumentMoniker": "Login.cs",
+              "ToolTip": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\Login.cs",
+              "RelativeToolTip": "Login.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-04T17:12:04.286Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserList.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\UserList.cs",
-              "RelativeDocumentMoniker": "UserList.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\UserList.cs",
-              "RelativeToolTip": "UserList.cs",
-              "ViewState": "AQIAAPoAAAAAAAAAAAAswAwBAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-04T16:42:12.651Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AccountDetails.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\AccountDetails.cs",
-              "RelativeDocumentMoniker": "AccountDetails.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\AccountDetails.cs",
-              "RelativeToolTip": "AccountDetails.cs",
-              "ViewState": "AQIAADsAAAAAAAAAAAAWwJEAAABKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T16:04:38.628Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AccountDetails.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\AccountDetails.cs",
-              "RelativeDocumentMoniker": "AccountDetails.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\AccountDetails.cs [Design]",
-              "RelativeToolTip": "AccountDetails.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T14:27:34.608Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Home.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Home.cs",
-              "RelativeDocumentMoniker": "Home.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Home.cs [Design]",
-              "RelativeToolTip": "Home.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-29T18:15:23.986Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "BookInfo.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\BookInfo.cs",
-              "RelativeDocumentMoniker": "BookInfo.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\BookInfo.cs",
-              "RelativeToolTip": "BookInfo.cs",
-              "ViewState": "AQIAADcAAAAAAAAAAAAgwCIAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-08T14:22:27.6Z"
+              "WhenOpened": "2024-04-09T00:17:02.04Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "basicButton.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\basicButton.cs",
-              "RelativeDocumentMoniker": "basicButton.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\basicButton.cs",
-              "RelativeToolTip": "basicButton.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAwBkAAAAkAAAA",
+              "Title": "AccountDetails.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\AccountDetails.cs",
+              "RelativeDocumentMoniker": "AccountDetails.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\AccountDetails.cs",
+              "RelativeToolTip": "AccountDetails.cs",
+              "ViewState": "AQIAAIkAAAAAAAAAAAApwKwAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:17:34.028Z"
+              "WhenOpened": "2024-04-09T00:15:09.533Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ConfirmMessage.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ConfirmMessage.cs",
+              "DocumentIndex": 9,
+              "Title": "Register.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\Register.Designer.cs",
+              "RelativeDocumentMoniker": "Register.Designer.cs",
+              "ToolTip": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\Register.Designer.cs",
+              "RelativeToolTip": "Register.Designer.cs",
+              "ViewState": "AQIAABkBAAAAAAAAAAAQwE0BAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T12:46:43.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LogIn.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\LogIn.Designer.cs",
+              "RelativeDocumentMoniker": "LogIn.Designer.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\LogIn.Designer.cs",
+              "RelativeToolTip": "LogIn.Designer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T11:16:26.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Home.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Home.cs",
+              "RelativeDocumentMoniker": "Home.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\Home.cs",
+              "RelativeToolTip": "Home.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABQAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T10:50:46.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConfirmMessage.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\ConfirmMessage.cs",
               "RelativeDocumentMoniker": "ConfirmMessage.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ConfirmMessage.cs [Design]",
-              "RelativeToolTip": "ConfirmMessage.cs [Design]",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\ConfirmMessage.cs",
+              "RelativeToolTip": "ConfirmMessage.cs",
+              "ViewState": "AQIAADoAAAAAAAAAAAApwEgAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:18:25.723Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "UserList.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\UserList.Designer.cs",
-              "RelativeDocumentMoniker": "UserList.Designer.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\UserList.Designer.cs",
-              "RelativeToolTip": "UserList.Designer.cs",
-              "ViewState": "AQIAALYAAAAAAAAAAIAwwMUAAABEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T15:28:53.981Z"
+              "WhenOpened": "2024-04-09T11:34:16.677Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "LogIn.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\LogIn.cs",
-              "RelativeDocumentMoniker": "LogIn.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\LogIn.cs [Design]",
-              "RelativeToolTip": "LogIn.cs [Design]",
+              "Title": "UserList.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\UserList.Designer.cs",
+              "RelativeDocumentMoniker": "UserList.Designer.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\UserList.Designer.cs",
+              "RelativeToolTip": "UserList.Designer.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAQwBACAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-30T18:44:27.981Z"
+              "WhenOpened": "2024-04-09T00:14:59.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UserList.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\UserList.cs",
+              "RelativeDocumentMoniker": "UserList.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\UserList.cs",
+              "RelativeToolTip": "UserList.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAACYAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T11:16:03.226Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AccountDetails.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\AccountDetails.cs",
+              "RelativeDocumentMoniker": "AccountDetails.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\AccountDetails.cs [Design]",
+              "RelativeToolTip": "AccountDetails.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T12:38:28.72Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 14,
-              "Title": "BookInfo.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\BookInfo.cs",
-              "RelativeDocumentMoniker": "BookInfo.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\BookInfo.cs [Design]",
-              "RelativeToolTip": "BookInfo.cs [Design]",
+              "Title": "ChangeValue.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\ChangeValue.Designer.cs",
+              "RelativeDocumentMoniker": "ChangeValue.Designer.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\ChangeValue.Designer.cs",
+              "RelativeToolTip": "ChangeValue.Designer.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAAAHcAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-06T20:12:04.877Z"
+              "WhenOpened": "2024-04-09T11:15:59.016Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "LogIn.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\LogIn.cs",
-              "RelativeDocumentMoniker": "LogIn.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\LogIn.cs",
-              "RelativeToolTip": "LogIn.cs",
-              "ViewState": "AQIAAFIAAAAAAAAAAAAqwGgAAAArAAAA",
+              "Title": "BookInfo.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\BookInfo.cs",
+              "RelativeDocumentMoniker": "BookInfo.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\BookInfo.cs",
+              "RelativeToolTip": "BookInfo.cs",
+              "ViewState": "AQIAADAAAAAAAAAAAAAqwEMAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-30T22:19:23.77Z"
+              "WhenOpened": "2024-04-09T11:11:47.541Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 16,
-              "Title": "AccountDetails.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\AccountDetails.Designer.cs",
-              "RelativeDocumentMoniker": "AccountDetails.Designer.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\AccountDetails.Designer.cs",
-              "RelativeToolTip": "AccountDetails.Designer.cs",
-              "ViewState": "AQIAAF0DAAAAAAAAAAAiwI0DAAABAAAA",
+              "Title": "basicButton.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\basicButton.cs",
+              "RelativeDocumentMoniker": "basicButton.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\basicButton.cs",
+              "RelativeToolTip": "basicButton.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAgwBgAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-30T17:50:44.365Z"
+              "WhenOpened": "2024-04-09T12:14:32.257Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 17,
-              "Title": "ChangeValue.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ChangeValue.Designer.cs",
-              "RelativeDocumentMoniker": "ChangeValue.Designer.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ChangeValue.Designer.cs",
-              "RelativeToolTip": "ChangeValue.Designer.cs",
-              "ViewState": "AQIAAGEAAAAAAAAAAAAnwHkAAAAWAAAA",
+              "Title": "ConfirmMessage.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\ConfirmMessage.cs",
+              "RelativeDocumentMoniker": "ConfirmMessage.cs",
+              "ToolTip": "C:\\Users\\aksum\\source\\repos\\KsenoxCr\\Vamia_Kirjasto\\ConfirmMessage.cs [Design]",
+              "RelativeToolTip": "ConfirmMessage.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T14:32:45.633Z"
+              "WhenOpened": "2024-04-09T12:11:30.865Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 18,
-              "Title": "Register.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Register.cs",
-              "RelativeDocumentMoniker": "Register.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Register.cs",
-              "RelativeToolTip": "Register.cs",
-              "ViewState": "AQIAAOgAAAAAAAAAAAAwwAYBAAAAAAAA",
+              "Title": "ContactUs.cs",
+              "DocumentMoniker": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\ContactUs.cs",
+              "RelativeDocumentMoniker": "ContactUs.cs",
+              "ToolTip": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\ContactUs.cs",
+              "RelativeToolTip": "ContactUs.cs",
+              "ViewState": "AQIAAEQAAAAAAAAAAAAUwFgAAABEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T16:06:55.168Z"
+              "WhenOpened": "2024-04-09T11:31:17.262Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 19,
-              "Title": "ChangeValue.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ChangeValue.cs",
-              "RelativeDocumentMoniker": "ChangeValue.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ChangeValue.cs [Design]",
-              "RelativeToolTip": "ChangeValue.cs [Design]",
+              "Title": "Login.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\Login.cs",
+              "RelativeDocumentMoniker": "Login.cs",
+              "ToolTip": "C:\\Users\\aksum\\Source\\Repos\\KsenoxCr\\Vamia_Kirjasto\\Login.cs [Design]",
+              "RelativeToolTip": "Login.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T14:31:50.61Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "FeedBackForm.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\FeedBackForm.cs",
-              "RelativeDocumentMoniker": "FeedBackForm.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\FeedBackForm.cs",
-              "RelativeToolTip": "FeedBackForm.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAbAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T14:55:50.413Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\User.cs",
-              "RelativeDocumentMoniker": "User.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\User.cs",
-              "RelativeToolTip": "User.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-30T18:19:59.422Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "Register.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Register.cs",
-              "RelativeDocumentMoniker": "Register.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Register.cs [Design]",
-              "RelativeToolTip": "Register.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T16:15:45.009Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "BookRecommendation.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\BookRecommendation.cs",
-              "RelativeDocumentMoniker": "BookRecommendation.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\BookRecommendation.cs",
-              "RelativeToolTip": "BookRecommendation.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAbAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-29T17:29:34.235Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "FeedBackForm.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\FeedBackForm.cs",
-              "RelativeDocumentMoniker": "FeedBackForm.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\FeedBackForm.cs [Design]",
-              "RelativeToolTip": "FeedBackForm.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T14:55:54.162Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "ConfirmMessage.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ConfirmMessage.Designer.cs",
-              "RelativeDocumentMoniker": "ConfirmMessage.Designer.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\ConfirmMessage.Designer.cs",
-              "RelativeToolTip": "ConfirmMessage.Designer.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T14:27:24.461Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "BookRecommendation.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\BookRecommendation.cs",
-              "RelativeDocumentMoniker": "BookRecommendation.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\BookRecommendation.cs [Design]",
-              "RelativeToolTip": "BookRecommendation.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T14:13:45.208Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Home.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Home.Designer.cs",
-              "RelativeDocumentMoniker": "Home.Designer.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\Home.Designer.cs",
-              "RelativeToolTip": "Home.Designer.cs",
-              "ViewState": "AQIAAIgAAAAAAAAAAAAUwJcAAAAPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-30T15:44:04.299Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "DatabaseAccess.cs",
-              "DocumentMoniker": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\DatabaseAccess.cs",
-              "RelativeDocumentMoniker": "DatabaseAccess.cs",
-              "ToolTip": "C:\\Users\\aksum\\source\\repos\\kirjasto-Ohjelma-3\\DatabaseAccess.cs",
-              "RelativeToolTip": "DatabaseAccess.cs",
-              "ViewState": "AQIAACYAAAAAAAAAAAA6wAwAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-30T22:49:50.08Z"
+              "WhenOpened": "2024-04-09T00:22:01.037Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

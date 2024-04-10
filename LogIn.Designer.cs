@@ -2,7 +2,7 @@
 
 namespace Kirjasto_ohjelma
 {
-    partial class LogIn
+    partial class Login
     {
         /// <summary>
         ///  Required designer variable.
@@ -31,7 +31,7 @@ namespace Kirjasto_ohjelma
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogIn));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             Header = new Panel();
             panel2 = new Panel();
             panel3 = new Panel();
@@ -333,7 +333,7 @@ namespace Kirjasto_ohjelma
             tervetuloa.Text = "Laaja valikoima kirjoja,\r\naina mukanasi\r\n\r\n";
             tervetuloa.TextAlign = ContentAlignment.TopCenter;
             // 
-            // LogIn
+            // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -349,7 +349,7 @@ namespace Kirjasto_ohjelma
             Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "LogIn";
+            Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Etusivu";
             Header.ResumeLayout(false);
@@ -387,8 +387,6 @@ namespace Kirjasto_ohjelma
         private Label tervetuloa;
         private Button kirjauduSisäänBtn;
         private Label palautteet;
-        private Label lbl_varjoteksti1;
-        private Label lbl_varjoteksti2;
         private Label label2;
         private Label label3;
         private CheckBox henkilokunta;

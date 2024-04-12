@@ -1,6 +1,5 @@
 C:\Users\aksum\Source\Repos\KsenoxCr\Vamia_Kirjasto\obj\Debug\net6.0-windows\Kirjasto-ohjelma.csproj.AssemblyReference.cache
 C:\Users\aksum\Source\Repos\KsenoxCr\Vamia_Kirjasto\obj\Debug\net6.0-windows\Kirjasto_ohjelma.AccountDetails.resources
-C:\Users\aksum\Source\Repos\KsenoxCr\Vamia_Kirjasto\obj\Debug\net6.0-windows\Kirjasto_ohjelma.basicButton.resources
 C:\Users\aksum\Source\Repos\KsenoxCr\Vamia_Kirjasto\obj\Debug\net6.0-windows\Kirjasto_ohjelma.BookInfo.resources
 C:\Users\aksum\Source\Repos\KsenoxCr\Vamia_Kirjasto\obj\Debug\net6.0-windows\Kirjasto_ohjelma.BookRecommendation.resources
 C:\Users\aksum\Source\Repos\KsenoxCr\Vamia_Kirjasto\obj\Debug\net6.0-windows\Kirjasto_ohjelma.ChangeValue.resources

@@ -14,7 +14,7 @@ namespace Kirjasto_ohjelma
 {
     public partial class ConfirmMessage : Form
     {
-        private DatabaseAccess db = DatabaseAccess.GetInstance();
+        private readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
         private string? _type;
         private string? _value;
@@ -178,7 +178,7 @@ namespace Kirjasto_ohjelma
                     db.CloseConnection();
                 }
 
-                FormManager.openConfirmMessage("poisto", _value);
+                FormManager.OpenConfirmMessage("poisto", _value);
 
                 this.Close();
             }

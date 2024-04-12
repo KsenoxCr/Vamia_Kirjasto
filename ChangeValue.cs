@@ -15,11 +15,10 @@ namespace Kirjasto_ohjelma
 {
     public partial class ChangeValue : Form
     {
-        private DatabaseAccess db = DatabaseAccess.GetInstance();
+        private readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
-        private string _action;
-        private string _valueType;
-        private bool isStaff = User.IsStaff;
+        private readonly string _action;
+        private readonly string _valueType;
 
         public ChangeValue(string action, string valueType)
         {
@@ -75,13 +74,11 @@ namespace Kirjasto_ohjelma
 
             int spacing = 10;
 
-            // Set the location of vaihdaLabel
             vaihdaLabel.Location = new Point(
                 (this.Width - vaihdaLabel.Width) / 2,
                 20
             );
 
-            // Set the location and size of uusiLabel and vaihdaTB
             uusiLabel.Location = new Point(
                 (this.Width - uusiLabel.Width - vaihdaTB.Width - spacing) / 2,
                 this.Height / 2 - uusiLabel.Height / 2
@@ -92,7 +89,6 @@ namespace Kirjasto_ohjelma
                 uusiLabel.Location.Y  
             );
 
-            // Set the location of vaihdaBtn
             vaihdaBtn.Location = new Point(
                 (this.Width - vaihdaBtn.Width) / 2,
                 this.Height - vaihdaBtn.Height - 15
@@ -100,7 +96,7 @@ namespace Kirjasto_ohjelma
 
         }
 
-        private void vaihdaBtn_Click(object sender, EventArgs e)
+        private void Change_Click(object sender, EventArgs e)
         {
             string valueToChange = "";
 
@@ -144,13 +140,11 @@ namespace Kirjasto_ohjelma
 
                     string query = $"UPDATE {userType} SET {_valueType} = @value WHERE {asnumType} = @asnum";
 
-                    using (MySqlCommand command = new MySqlCommand(query, db.connection))
-                    {
-                        command.Parameters.AddWithValue("@value", valueToChange);
-                        command.Parameters.AddWithValue("@asnum", User.Asnum);
+                    using MySqlCommand command = new(query, db.connection);
+                    command.Parameters.AddWithValue("@value", valueToChange);
+                    command.Parameters.AddWithValue("@asnum", User.Asnum);
 
-                        command.ExecuteNonQuery();
-                    }
+                    command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -162,19 +156,18 @@ namespace Kirjasto_ohjelma
                 }
                 string action = _action == "set" ? "määritys" : "vaihto";
 
-                ConfirmMessage confirmMessage = new ConfirmMessage(action, _valueType);
-                confirmMessage.Show();
+                FormManager.OpenConfirmMessage(action, _valueType);
 
                 this.Close();
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        public string ValidateLoso(string loso)
+        public static string ValidateLoso(string loso)
         {
             if (loso.Length > 45)
             {
@@ -189,7 +182,7 @@ namespace Kirjasto_ohjelma
 
             return loso;
         }
-        public string ValidatePno(string pno)
+        public static string ValidatePno(string pno)
         {
             if (pno.Any(c => !char.IsDigit(c)))
             {
@@ -204,7 +197,7 @@ namespace Kirjasto_ohjelma
 
             return pno;
         }
-        public string ValidatePtp(string ptp)
+        public static string ValidatePtp(string ptp)
         {
             if (ptp.Length > 30)
             {
@@ -219,7 +212,7 @@ namespace Kirjasto_ohjelma
 
             return ptp;
         }
-        public string ValidatePuh(string puh)
+        public static string ValidatePuh(string puh)
         {
             if (puh.Any(c => !char.IsDigit(c)))
             {

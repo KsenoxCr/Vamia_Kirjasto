@@ -149,7 +149,7 @@
             menuButton.Size = new Size(35, 35);
             menuButton.TabIndex = 3;
             menuButton.TabStop = false;
-            menuButton.Click += pictureBox2_Click;
+            menuButton.Click += MenuButton_Click;
             // 
             // Menu
             // 
@@ -178,7 +178,7 @@
             lisaa_kirja.Size = new Size(76, 20);
             lisaa_kirja.TabIndex = 24;
             lisaa_kirja.Text = "Lisää kirja";
-            lisaa_kirja.Click += lisaaKirja_Click;
+            lisaa_kirja.Click += AddBook_Click;
             // 
             // asiakkaat
             // 
@@ -190,7 +190,7 @@
             asiakkaat.Size = new Size(73, 20);
             asiakkaat.TabIndex = 23;
             asiakkaat.Text = "Asiakkaat";
-            asiakkaat.Click += asiakkaat_Click;
+            asiakkaat.Click += Customers_Click;
             // 
             // oma_tili
             // 
@@ -201,7 +201,7 @@
             oma_tili.Size = new Size(58, 20);
             oma_tili.TabIndex = 22;
             oma_tili.Text = "Oma tili";
-            oma_tili.Click += label3_Click;
+            oma_tili.Click += Profile_Click;
             // 
             // kirjauduUlos
             // 
@@ -212,7 +212,7 @@
             kirjauduUlos.Size = new Size(96, 20);
             kirjauduUlos.TabIndex = 21;
             kirjauduUlos.Text = "Kirjaudu Ulos";
-            kirjauduUlos.Click += kirjauduUlos_Click;
+            kirjauduUlos.Click += LogOut_Click;
             // 
             // label2
             // 
@@ -233,7 +233,7 @@
             ehdota_kirjaa.Size = new Size(95, 20);
             ehdota_kirjaa.TabIndex = 2;
             ehdota_kirjaa.Text = "Ehdota Kirjaa";
-            ehdota_kirjaa.Click += ehdota_kirjaa_Click;
+            ehdota_kirjaa.Click += SuggestBook_Click;
             // 
             // palautteet
             // 
@@ -244,7 +244,7 @@
             palautteet.Size = new Size(110, 20);
             palautteet.TabIndex = 1;
             palautteet.Text = "Anna Palautetta";
-            palautteet.Click += palautteet_Click;
+            palautteet.Click += Feedback_Click;
             // 
             // tuki
             // 
@@ -255,7 +255,7 @@
             tuki.Size = new Size(36, 20);
             tuki.TabIndex = 0;
             tuki.Text = "Tuki";
-            tuki.Click += tuki_Click;
+            tuki.Click += Support_Click;
             // 
             // label4
             // 
@@ -389,7 +389,7 @@
             jarjestysCB.Size = new Size(116, 23);
             jarjestysCB.TabIndex = 3;
             jarjestysCB.Text = "A-Z";
-            jarjestysCB.SelectedIndexChanged += jarjestysCB_SelectedIndexChanged;
+            jarjestysCB.SelectedIndexChanged += JarjestysCB_SelectedIndexChanged;
             // 
             // Home
             // 
@@ -414,7 +414,7 @@
             Name = "Home";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Kirjasto";
-            Load += Form3_Load;
+            Load += Home_Load;
             Header.ResumeLayout(false);
             Header.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();

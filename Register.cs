@@ -39,7 +39,7 @@ namespace Kirjasto_ohjelma
         {
             InitializeComponent();
 
-            this.FormClosing += FormManager.Form_FormClosing;
+            this.FormClosing += FormManager.FormClosing;
 
             FormManager.AddMouseEnterAndLeave(new System.Windows.Forms.Label[] { tuki, palautteet });
 
@@ -62,12 +62,12 @@ namespace Kirjasto_ohjelma
 
         private void menuButton_Click(object sender, EventArgs e)
         {
-            FormManager.toggleMenu(Menu);
+            FormManager.ToggleMenu(Menu);
         }
 
         private void logo_Click(object sender, EventArgs e)
         {
-            FormManager.openLogin(this);
+            FormManager.OpenLogin(this);
         }
 
         private void luoTunnusBtn_Click(object sender, EventArgs e)
@@ -122,8 +122,8 @@ namespace Kirjasto_ohjelma
                         {
                             db.CloseConnection();
 
-                            FormManager.openLogin(this);
-                            FormManager.openConfirmMessage("tunnusLuotu");
+                            FormManager.OpenLogin(this);
+                            FormManager.OpenConfirmMessage("tunnusLuotu");
                         }
                     }
                 }
@@ -137,12 +137,12 @@ namespace Kirjasto_ohjelma
 
         private void tuki_Click(object sender, EventArgs e)
         {
-            FormManager.openContact("tuki");
+            FormManager.OpenContact("tuki");
         }
 
         private void palautteet_Click(object sender, EventArgs e)
         {
-            FormManager.openContact("palaute");
+            FormManager.OpenContact("palaute");
         }
         public string CreateAsnum()
         {

@@ -15,12 +15,12 @@ namespace Kirjasto_ohjelma
     {
         private static readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
-        private static string lainanum = findLastLainanum();
+        private static readonly string asnum = User.Asnum;
+        private static readonly bool isStaff = User.IsStaff;
+        private static readonly string lainanum = FindLastLainanum();
         private static string currentLainanum = "";
-        private static string asnum = User.Asnum;
-        private static bool isStaff = User.IsStaff;
 
-        public static void Form_FormClosing(object sender, FormClosingEventArgs e)
+        public static void FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
@@ -28,18 +28,20 @@ namespace Kirjasto_ohjelma
         {
             foreach (System.Windows.Forms.Label label in labels)
             {
-                label.MouseEnter += (sender, e) => label.Font = new Font("Impact", 14F, FontStyle.Regular, GraphicsUnit.Point);
-                label.MouseLeave += (sender, e) => label.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
+                float fontSize = label.Font.SizeInPoints;
+
+                label.MouseEnter += (sender, e) => label.Font = new Font("Impact", fontSize + 2);
+                label.MouseLeave += (sender, e) => label.Font = new Font("Impact", fontSize);
             }
         }
-        public static void openLogin(Form callerForm)
+        public static void OpenLogin(Form callerForm)
         {
             Login login = Login.Instance;
             login.Show();
 
-            callerForm.Close();
+            callerForm.Hide();
         }
-        public static void openConfirmMessage(string msgType, string bookName = "", string ktun = "")
+        public static void OpenConfirmMessage(string msgType, string bookName = "", string ktun = "")
         {
             if (msgType == "poistettu" || msgType == "lainaus" || msgType == "poistettu" || msgType == "määritys" || msgType == "vaihto")
             {
@@ -57,27 +59,19 @@ namespace Kirjasto_ohjelma
                 msg.Show();
             }
         }
-        public static void openContact(string type)
+        public static void OpenContact(string type)
         {
-            if (type == "tuki")
-            {
-                ContactUs contactUs = new("tuki");
-                contactUs.Show();
-            }
-            else
-            {
-                ContactUs contactUs = new("palaute");
-                contactUs.Show();
-            }
+            ContactUs contactUs = new(type);
+            contactUs.Show();
         }
 
-        public static void openBookInfo(string bookName)
+        public static void OpenBookInfo(string bookName)
         {
             BookInfo bookInfo = new(bookName);
             bookInfo.Show();
         }
 
-        public static void openUserList(Form callerForm)
+        public static void OpenUserList(Form callerForm)
         {
             UserList userList = UserList.GetInstance();
             userList.Show();
@@ -93,9 +87,9 @@ namespace Kirjasto_ohjelma
 
                 //Tarkistetaan onko käyttäjän profiili viimeistelty
 
-                if (!checkUserDetails())
+                if (!CheckUserDetails())
                 {
-                    ConfirmMessage confirmMessage = new ConfirmMessage("viimeistele");
+                    ConfirmMessage confirmMessage = new("viimeistele");
                     confirmMessage.Show();
 
                     return false;
@@ -111,28 +105,26 @@ namespace Kirjasto_ohjelma
                     if (string.IsNullOrEmpty(currentLainanum))
                     {
 
-                        currentLainanum = createLainanum();
+                        currentLainanum = CreateLainanum();
 
                         string insertLainausQuery = $"INSERT INTO lainaus (lainanum, astun, tyonum) VALUES ({currentLainanum}, \"{astun}\", \"{tyonum}\")";
 
-                        using (MySqlCommand insertLainausCommand = new MySqlCommand(insertLainausQuery, db.connection))
-                        {
-                            insertLainausCommand.ExecuteNonQuery();
-                        }
+                        using MySqlCommand insertLainausCommand = new(insertLainausQuery, db.connection);
+
+                        insertLainausCommand.ExecuteNonQuery();
                     }
 
                     // Lisätään lainarivi lainatulle kirjalle
 
-                    addLainarivi(kirjanNimi);
-
-                    openConfirmMessage("lainaus", kirjanNimi);
+                    AddLainarivi(kirjanNimi);
 
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Virhe lainauksessa. Yritä myöhemmin uudelleen.");
+                MessageBox.Show("Tietokantavirhe: " + ex.Message);
 
                 return false;
             }
@@ -141,7 +133,7 @@ namespace Kirjasto_ohjelma
                 db.CloseConnection();
             }
         }
-        public static bool checkUserDetails()
+        public static bool CheckUserDetails()
         {
             string loso = "";
             string pno = "";
@@ -199,7 +191,7 @@ namespace Kirjasto_ohjelma
 
             return false;
         }
-        public static string createLainanum()
+        public static string CreateLainanum()
         {
             //Luodaan uusi lainanumero
 
@@ -217,7 +209,7 @@ namespace Kirjasto_ohjelma
                 {
                     string lastLainanumYear = lainanum.Substring(0, 2);
 
-                    if (currentYear == lastLainanumYear)
+                    if (currentYear == lastLainanumYear) 
                     {
                         string lastLainanumMonth = lainanum.Substring(2, 2);
 
@@ -249,76 +241,69 @@ namespace Kirjasto_ohjelma
             
             return currentYear + currentMonth + newLoanCount;
         }    
-        public static bool addLainarivi(string bookName)
+        public static bool AddLainarivi(string bookName)
         {
-            string tunnus = "";
-
             try
             {
-                string query = $"SELECT lainakohde.tunnus FROM Lainakohde INNER JOIN Kirja ON Lainakohde.ktun = Kirja.isbn WHERE Kirja.nimi = \"{bookName}\" AND Lainakohde.tila = 'lainattavissa' LIMIT 1";
+                string tunnus = "";
 
-                using (MySqlCommand command = new MySqlCommand(query, db.connection))
+                string querySelectLainakohde = $"SELECT lainakohde.tunnus FROM Lainakohde INNER JOIN Kirja ON Lainakohde.ktun = Kirja.isbn WHERE Kirja.nimi = \"{bookName}\" AND Lainakohde.tila = 'lainattavissa' LIMIT 1";
+
+                using MySqlCommand command = new(querySelectLainakohde, db.connection);
+                using MySqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
                 {
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            tunnus = reader.GetString(0);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Kirja on jo lainassa");
+                    tunnus = reader.GetString(0);
 
-                            return false;
-                        }
-                    }
+                    OpenConfirmMessage("lainaus", bookName);
+                }
+                else
+                {
+                    MessageBox.Show("Kirja on jo lainassa");
+
+                    return false;
                 }
 
-                string insertLainariviQuery = $"INSERT INTO lainarivi (ltunnus, kohdetun) VALUES (\"{currentLainanum}\", \"{tunnus}\")"; //lainanum can now be wrong users if two users make a new loan at the same time
+                string queryInsertLainarivi = $"INSERT INTO lainarivi (ltunnus, kohdetun) VALUES (\"{currentLainanum}\", \"{tunnus}\")"; //lainanum can now be wrong users if two users make a new loan at the same time
 
-                using (MySqlCommand insertLainariviCommand = new MySqlCommand(insertLainariviQuery, db.connection))
-                {
-                    insertLainariviCommand.ExecuteNonQuery();
-                }
+                using MySqlCommand insertLainariviCommand = new(queryInsertLainarivi, db.connection);
+                insertLainariviCommand.ExecuteNonQuery();
 
                 string updateLainakohdeQuery = $"UPDATE lainakohde SET tila = 'lainattu' WHERE tunnus = \"{tunnus}\"";
 
-                using (MySqlCommand updateLainakohdeCommand = new MySqlCommand(updateLainakohdeQuery, db.connection))
-                {
-                    updateLainakohdeCommand.ExecuteNonQuery();
+                using MySqlCommand updateLainakohdeCommand = new(updateLainakohdeQuery, db.connection);
+                updateLainakohdeCommand.ExecuteNonQuery();
 
-                    return true;
-                }
+                return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Tietokantavirhe: {ex.Message}");
+                MessageBox.Show("Lainausta tehdessä tapahtui virhe. Yritä myöhemmin uudelleen");
+                MessageBox.Show($"Tietokantavirhe: {ex.Message}"); //Dont show to user
             }
 
             return false;
         }
-        public static string findLastLainanum()
+        public static string FindLastLainanum()
         {
             string lastLainanum = "";
 
             string userNumType = isStaff ? "tyonum" : "astun";
             
-            string query = $"SELECT lainanum FROM lainaus WHERE {userNumType} = \"{asnum}\" ORDER BY lainanum DESC LIMIT 1;";
+            string queryLainanum = $"SELECT lainanum FROM lainaus ORDER BY lainanum DESC LIMIT 1;";
 
             try
             {
                 db.OpenConnection();
 
-                using (MySqlCommand command = new MySqlCommand(query, db.connection))
+                using MySqlCommand command = new(queryLainanum, db.connection);
+                using MySqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
                 {
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            lastLainanum = reader.GetString(0);
-                        }
-                    }
-                }
+                    lastLainanum = reader.GetString(0);
+                }  
             }
             catch (Exception ex)
             {
@@ -332,7 +317,7 @@ namespace Kirjasto_ohjelma
             return lastLainanum;
         }
 
-        public static void toggleMenu(Panel menu)
+        public static void ToggleMenu(Panel menu)
         {
 
             if (menu.Tag.ToString() == "Closed")
@@ -349,7 +334,7 @@ namespace Kirjasto_ohjelma
                 menu.Location = new Point(-125, 79);
             }
         }
-        public static void toHome(Form callerForm)
+        public static void ToHome(Form callerForm)
         {
             Home home = Home.Instance;
             home.Show();
@@ -357,7 +342,7 @@ namespace Kirjasto_ohjelma
             callerForm.Hide();
         }
 
-        public static void openAccountDetails(string username, string userType)
+        public static void OpenAccountDetails(string username, string userType)
         {
             AccountDetails accountDetails= new AccountDetails(username, userType);
             accountDetails.Show();
@@ -368,20 +353,6 @@ namespace Kirjasto_ohjelma
                 if (form.Name != accountDetails.Name)
                 {
                     form.Hide();
-                }
-            }
-        }
-        public static IEnumerable<Control> EnumerateControls(this Control control)
-        {
-            yield return control;
-
-            foreach (Control childControl in control.Controls)
-            {
-                yield return childControl;
-
-                foreach (Control descendant in childControl.EnumerateControls())
-                {
-                    yield return descendant;
                 }
             }
         }

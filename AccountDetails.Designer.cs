@@ -175,7 +175,7 @@
             pictureBox1.Size = new Size(302, 38);
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            pictureBox1.Click += Logo_Click;
             // 
             // menuButton
             // 
@@ -185,7 +185,7 @@
             menuButton.Size = new Size(35, 35);
             menuButton.TabIndex = 3;
             menuButton.TabStop = false;
-            menuButton.Click += menuButton_Click;
+            menuButton.Click += MenuButton_Click;
             // 
             // Menu
             // 
@@ -211,7 +211,7 @@
             asiakkaat.Size = new Size(73, 20);
             asiakkaat.TabIndex = 23;
             asiakkaat.Text = "Asiakkaat";
-            asiakkaat.Click += asiakkaat_Click;
+            asiakkaat.Click += Customers_Click;
             // 
             // kirjaudu_ulos
             // 
@@ -223,7 +223,7 @@
             kirjaudu_ulos.Size = new Size(96, 20);
             kirjaudu_ulos.TabIndex = 22;
             kirjaudu_ulos.Text = "Kirjaudu Ulos";
-            kirjaudu_ulos.Click += kirjauduUlos_Click;
+            kirjaudu_ulos.Click += LogOut_Click;
             // 
             // footer
             // 
@@ -280,7 +280,7 @@
             kirjat.Size = new Size(45, 20);
             kirjat.TabIndex = 1;
             kirjat.Text = "Kirjat";
-            kirjat.Click += kirjat_Click;
+            kirjat.Click += Books_Click;
             // 
             // groupBox1
             // 
@@ -433,6 +433,7 @@
             vaihdaKtunnus.TabIndex = 48;
             vaihdaKtunnus.Text = "Vaihda";
             vaihdaKtunnus.UseVisualStyleBackColor = false;
+            vaihdaKtunnus.Click += ChangeUsername_Click;
             // 
             // label3
             // 
@@ -558,7 +559,7 @@
             vaihdaPuh.TabIndex = 50;
             vaihdaPuh.Text = "Vaihda";
             vaihdaPuh.UseVisualStyleBackColor = false;
-            vaihdaPuh.Click += vaihdaPuh_Click;
+            vaihdaPuh.Click += ChangePhoneNumber_Click;
             // 
             // ptpPanel
             // 
@@ -610,6 +611,7 @@
             vaihdaPtp.TabIndex = 49;
             vaihdaPtp.Text = "Vaihda";
             vaihdaPtp.UseVisualStyleBackColor = false;
+            vaihdaPtp.Click += ChangeCity_Click;
             // 
             // label1
             // 
@@ -672,6 +674,7 @@
             vaihdaPno.TabIndex = 48;
             vaihdaPno.Text = "Vaihda";
             vaihdaPno.UseVisualStyleBackColor = false;
+            vaihdaPno.Click += ChangePostalCode_Click;
             // 
             // losoPanel
             // 
@@ -723,6 +726,7 @@
             vaihdaLoso.TabIndex = 47;
             vaihdaLoso.Text = "Vaihda";
             vaihdaLoso.UseVisualStyleBackColor = false;
+            vaihdaLoso.Click += ChangeAddress_Click;
             // 
             // tyonim
             // 
@@ -811,7 +815,7 @@
             Name = "AccountDetails";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Kirjasto";
-            Load += Form4_Load;
+            Load += Form_Load;
             Header.ResumeLayout(false);
             Header.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();

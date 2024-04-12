@@ -69,7 +69,7 @@
             ehdotaBtn.TabIndex = 8;
             ehdotaBtn.Text = "Ehdota";
             ehdotaBtn.UseVisualStyleBackColor = false;
-            ehdotaBtn.Click += button2_Click;
+            ehdotaBtn.Click += Suggest_Click;
             // 
             // pictureBox2
             // 
@@ -80,7 +80,7 @@
             pictureBox2.Size = new Size(30, 30);
             pictureBox2.TabIndex = 9;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+            pictureBox2.Click += Close_Click;
             // 
             // BookRecommendation
             // 

@@ -12,7 +12,7 @@ namespace Kirjasto_ohjelma
     {
         public MySqlConnection connection;
         private string connectionString = "SERVER=LOCALHOST;PORT=3306;DATABASE=kirjasto;UID=root;PASSWORD=AWPDl0re;";
-        private static readonly object _lock = new object();
+        private static readonly object _lock = new();
         private static DatabaseAccess instance;
 
         private DatabaseAccess()
@@ -43,10 +43,9 @@ namespace Kirjasto_ohjelma
                 try
                 {
                     connection.Open();
-                    //MessageBox.Show("Yhteyden muodostaminen onnistui");
                 } catch
                 {
-                    MessageBox.Show("Yhteyttä ei muodostettu");
+                    MessageBox.Show("Yhteyttä tietokantaan ei muodostettu");
                 }
             }
         }

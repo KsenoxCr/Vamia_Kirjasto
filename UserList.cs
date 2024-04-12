@@ -49,22 +49,22 @@ namespace Kirjasto_ohjelma
                 return instance;
             }
         }
-        private void logo_Click(object sender, EventArgs e)
+        private void Logo_Click(object sender, EventArgs e)
         {
-            FormManager.toHome(this);
+            FormManager.ToHome(this);
         }
-        private void menuButton_Click(object sender, EventArgs e)
+        private void MenuButton_Click(object sender, EventArgs e)
         {
-            FormManager.toggleMenu(Menu);
+            FormManager.ToggleMenu(Menu);
         }
 
-        private void kirjaudu_ulos_Click(object sender, EventArgs e)
+        private void LogOut_Click(object sender, EventArgs e)
         {
-            FormManager.toHome(this);
+            FormManager.ToHome(this);
         }
         private void UserList_Load(object sender, EventArgs e)
         {
-            loadUsersFromDatabase();
+            LoadUsersFromDatabase();
 
             if (this.Height > 800)
             {
@@ -72,7 +72,7 @@ namespace Kirjasto_ohjelma
                 this.Width += SystemInformation.VerticalScrollBarWidth;
             }
         }
-        private void jarjestysCB_SelectedIndexChanged(object sender, EventArgs e)
+        private void JarjestysCB_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (jarjestysCB.SelectedIndex)
             {
@@ -99,9 +99,9 @@ namespace Kirjasto_ohjelma
                     break;
             }
 
-            loadUsersFromDatabase();
+            LoadUsersFromDatabase();
         }
-        private void naytaCB_SelectedIndexChanged(object sender, EventArgs e)
+        private void NaytaCB_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (naytaCB.SelectedIndex)
             {
@@ -126,9 +126,9 @@ namespace Kirjasto_ohjelma
                     break;
             }
 
-            loadUsersFromDatabase();
+            LoadUsersFromDatabase();
         }
-        private void orderByBox_Click(object sender, EventArgs e)
+        private void OrderByBox_Click(object sender, EventArgs e)
         {
             string arrow = "";
 
@@ -150,11 +150,11 @@ namespace Kirjasto_ohjelma
 
             orderBox.BackgroundImage = Image.FromFile(imagePath);
 
-            loadUsersFromDatabase();
+            LoadUsersFromDatabase();
         }
-        private void loadUsersFromDatabase()
+        private void LoadUsersFromDatabase()
         {
-            List<string[]> users = new List<string[]>();
+            List<string[]> users = new();
 
             try
             {
@@ -167,16 +167,15 @@ namespace Kirjasto_ohjelma
                         + "FROM Asiakas AS a WHERE asnum <> \"XXXXXXX\""
                         + $"ORDER BY {orderBy} {order} " + limit;
 
-                using (MySqlCommand command = new MySqlCommand(query, db.connection))
-                {
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        users.Clear();
+                using MySqlCommand command = new(query, db.connection);
+                using MySqlDataReader reader = command.ExecuteReader();
 
-                        while (reader.Read())
-                        {
-                            string[] userInfo = new string[]
-                            {
+                users.Clear();
+
+                while (reader.Read())
+                {
+                    string[] userInfo = new string[]
+                    {
                                 reader.GetString(0),
                                 reader.GetString(1),
                                 reader.GetString(2),
@@ -188,14 +187,11 @@ namespace Kirjasto_ohjelma
                                 reader.GetInt32(8).ToString(),
                                 reader.GetInt32(9).ToString(),
                                 reader.GetInt32(10).ToString(),
-                            };
+                    };
 
-                            users.Add(userInfo);
+                    users.Add(userInfo);
 
-                            totalCount++;
-                        }
-
-                    }
+                    totalCount++;
                 }
 
             }
@@ -208,9 +204,9 @@ namespace Kirjasto_ohjelma
                 db.CloseConnection();
             }
 
-            displayUsers(users);
+            DisplayUsers(users);
         }
-        private void displayUsers(List<string[]> userList)
+        private void DisplayUsers(List<string[]> userList)
         {
             //Arvojen nollaus
 
@@ -246,20 +242,20 @@ namespace Kirjasto_ohjelma
                     newHeights[3] += panelHeight;
                 }
 
-                Panel userPanel = new Panel()
+                Panel userPanel = new()
                 {
                     Name = info[1],
                     Size = new Size(infoPanel.Width, panelHeight),
                     BackColor = Color.FromArgb(255, 241, 220),
                     Font = new Font("Segoe UI", 10),
-                    BorderStyle = BorderStyle.FixedSingle
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Location = new Point(infoPanel.Left, y)
                 };
-                userPanel.Location = new Point(infoPanel.Left, y);
-                userPanel.Click += userPanel_Click;
+                userPanel.Click += UserPanel_Click;
 
                 asiakkaatPanel.Controls.Add(userPanel);
 
-                List<Control> infoLabels = new List<Control>();
+                List<Control> infoLabels = new();
 
                 foreach (Control control in infoPanel.Controls)
                 {
@@ -271,7 +267,7 @@ namespace Kirjasto_ohjelma
 
                 for (int k = 0; k < info.Length; k++)
                 {
-                    Label label = new Label()
+                    Label label = new()
                     {
                         //label.Name = labelsTopRow[i] + (i + 1);
                         Text = info[k],
@@ -293,7 +289,7 @@ namespace Kirjasto_ohjelma
 
             asiakkaatPanel.ResumeLayout();
         }
-        private void userPanel_Click(object sender, EventArgs e)
+        private void UserPanel_Click(object sender, EventArgs e)
         {
             // Avataan klikatun käyttään tiedot
 
@@ -301,12 +297,7 @@ namespace Kirjasto_ohjelma
 
             string username = userPanel.Name;
 
-            FormManager.openAccountDetails(username, "customer");
-        }
-
-        private void pictureBox15_Click(object sender, EventArgs e)
-        {
-            FormManager.toHome(this);
+            FormManager.OpenAccountDetails(username, "customer");
         }
     }
 }

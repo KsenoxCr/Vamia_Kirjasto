@@ -6,8 +6,11 @@ using Org.BouncyCastle.Crypto;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Runtime.CompilerServices;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Reflection.Metadata.BlobBuilder;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Button = System.Windows.Forms.Button;
 //using System.Reflection.Emit;
 
 namespace Kirjasto_ohjelma
@@ -25,9 +28,11 @@ namespace Kirjasto_ohjelma
         {
             InitializeComponent();
 
-            this.FormClosing += FormManager.Form_FormClosing;
+            this.FormClosing += FormManager.FormClosing;
 
             FormManager.AddMouseEnterAndLeave(new System.Windows.Forms.Label[] { oma_tili, tuki, palautteet, ehdota_kirjaa, kirjauduUlos, asiakkaat });
+
+            DesignHome();
         }
 
         public static Home Instance
@@ -45,82 +50,70 @@ namespace Kirjasto_ohjelma
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void MenuButton_Click(object sender, EventArgs e)
         {
 
-            FormManager.toggleMenu(Menu);
+            FormManager.ToggleMenu(Menu);
         }
 
-
-        private void Form3_Load(object sender, EventArgs e)
+        private void Home_Load(object sender, EventArgs e)
         {
             bool isStaff = User.IsStaff;
 
+            asiakkaat.Visible = isStaff;
+            lisaa_kirja.Visible = isStaff;
+            tuki.Visible = !isStaff;
+            palautteet.Visible = !isStaff;
+            ehdota_kirjaa.Visible = !isStaff;
 
-            if (isStaff)
-            {
-                asiakkaat.Visible = true;
-                lisaa_kirja.Visible = true;
-                asiakkaat.Location = ehdota_kirjaa.Location;
-                lisaa_kirja.Location = tuki.Location;
-                tuki.Visible = false;
-                palautteet.Visible = false;
-                ehdota_kirjaa.Visible = false;
-            }
-            else
-            {
-                asiakkaat.Visible = false;
-                lisaa_kirja.Visible = false;
-                tuki.Visible = true;
-                palautteet.Visible = true;
-                ehdota_kirjaa.Visible = true;
-            }
+            asiakkaat.Location = isStaff ? ehdota_kirjaa.Location : new Point(10, 205);
+            lisaa_kirja.Location = isStaff ? tuki.Location : new Point(10, 235);
 
             LoadBooksFromDatabase();
 
-            ControlsAreClickable(this, "kirja", "picturebox");
-            ControlsAreClickable(this, "lainaaBtn", "button");
+            ControlsAreClickableRecursive(this.Controls, "kirja");
+            ControlsAreClickableRecursive(this.Controls, "lainaaBtn");
         }
 
-        private void kirjauduUlos_Click(object sender, EventArgs e)
+        private void LogOut_Click(object sender, EventArgs e)
         {
-            FormManager.openLogin(this);
+            FormManager.OpenLogin(this);
         }
 
-        private void ehdota_kirjaa_Click(object sender, EventArgs e)
+        private void SuggestBook_Click(object sender, EventArgs e)
         {
             BookRecommendation bookRecom = new();
             bookRecom.Show();
         }
 
-        private void tuki_Click(object sender, EventArgs e)
+        private void Support_Click(object sender, EventArgs e)
         {
-            FormManager.openContact("tuki");
+            FormManager.OpenContact("tuki");
         }
 
-        private void palautteet_Click(object sender, EventArgs e)
+        private void Feedback_Click(object sender, EventArgs e)
         {
-            FormManager.openContact("palaute");
+            FormManager.OpenContact("palaute");
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void Profile_Click(object sender, EventArgs e)
         {
             string userType = User.IsStaff ? "staff" : "customer";
 
-            FormManager.openAccountDetails(User.Username, userType);
+            FormManager.OpenAccountDetails(User.Username, userType);
         }
 
-        private void lisaaKirja_Click(object sender, EventArgs e)
+        private void AddBook_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void asiakkaat_Click(object sender, EventArgs e)
+        private void Customers_Click(object sender, EventArgs e)
         {
-            FormManager.openUserList(this);
+            FormManager.OpenUserList(this);
         }
 
-        private void jarjestysCB_SelectedIndexChanged(object sender, EventArgs e)
+        private void JarjestysCB_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (jarjestysCB.SelectedIndex)
             {
@@ -156,7 +149,7 @@ namespace Kirjasto_ohjelma
 
         public void LoadBooksFromDatabase()
         {
-            List<string[]> books = new List<string[]>();
+            List<string[]> books = new();
 
             try
             {
@@ -193,11 +186,12 @@ namespace Kirjasto_ohjelma
                 db.CloseConnection();
             }
 
-            displayBooks(books);
+            DisplayBooks(books);
         }
 
-        private void displayBooks(List<string[]> bookList)
+        private void DisplayBooks(List<string[]> bookList)
         {
+
             //Arvojen nollaus
             kirjaFlowLayoutPanel.SuspendLayout();
             kirjaFlowLayoutPanel.Controls.Clear();
@@ -233,7 +227,7 @@ namespace Kirjasto_ohjelma
                     rows++;
                 }
 
-                Panel kirjaPanel = new Panel
+                Panel kirjaPanel = new()
                 {
                     Size = new Size(130, 330),
                     BackColor = Color.FromArgb(255, 241, 220),
@@ -242,7 +236,7 @@ namespace Kirjasto_ohjelma
                     Margin = new Padding(5)
                 };
 
-                PictureBox bookCover = new PictureBox
+                PictureBox bookCover = new()
                 {
                     Size = new Size(110, 165),
                     SizeMode = PictureBoxSizeMode.Zoom,
@@ -251,7 +245,7 @@ namespace Kirjasto_ohjelma
                 };
 
                 bookCover.Left = (kirjaPanel.Width - bookCover.Width) / 2;
-                bookCover.Click += (s, args) => controlClicked(s, args, bookCover);
+                bookCover.Click += (s, args) => ControlClicked(s, args, bookCover);
 
 
                 string rootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..");
@@ -269,7 +263,7 @@ namespace Kirjasto_ohjelma
 
                 kirjaPanel.Controls.Add(bookCover);
 
-                Label bookName = new Label
+                Label bookName = new()
                 {
                     Width = kirjaPanel.Width,
                     Top = bookCover.Bottom + 15,
@@ -281,7 +275,7 @@ namespace Kirjasto_ohjelma
 
                 kirjaPanel.Controls.Add(bookName);
 
-                Label bookAuthor = new Label
+                Label bookAuthor = new()
                 {
                     Width = kirjaPanel.Width,
                     Top = bookName.Bottom + 10,
@@ -292,11 +286,19 @@ namespace Kirjasto_ohjelma
                 };
 
                 kirjaPanel.Controls.Add(bookAuthor);
+                Button lainaaButton = new() 
+                { 
+                    Name = "lainaaBtn" + (i + 1),
+                    Text = User.IsStaff ? "Katso" : "Lainaa",
+                    BackColor = Color.Beige,
+                    FlatStyle = FlatStyle.Flat,
+                    Height = 45,
+                    Width = 90,
+                    Location = new Point((kirjaPanel.Width - 90) / 2, bookAuthor.Bottom + 15),
+                    Font = new Font("Impact", 10F)
+                };
 
-                basicButton lainaaButton = new basicButton(User.IsStaff ? "Katso" : "Lainaa", "beige", 45, 90, (kirjaPanel.Width - 90) / 2, bookAuthor.Bottom + 15, 10F);
-                lainaaButton.Name += (i + 1);
-                lainaaButton.Click += (s, args) => controlClicked(s, args, lainaaButton);
-
+                lainaaButton.Click += (s, args) => ControlClicked(s, args, lainaaButton);
                 kirjaPanel.Controls.Add(lainaaButton);
 
                 panelsToAdd.Add(kirjaPanel);
@@ -305,17 +307,23 @@ namespace Kirjasto_ohjelma
             kirjaFlowLayoutPanel.Controls.AddRange(panelsToAdd.ToArray());
             kirjaFlowLayoutPanel.ResumeLayout();
         }
-        public void ControlsAreClickable(Control control, string controlName, string controlType)
-        {
-            var clickableControls = control.EnumerateControls().Where(c => c is Button || c is PictureBox && c.Name.StartsWith(controlName) && c.Name.Length > controlName.Length);
 
-            foreach (var controlToClick in clickableControls)
+        private void ControlsAreClickableRecursive(Control.ControlCollection coll, string controlName)
+        {            
+            foreach (Control c in coll)
             {
-                controlToClick.Click += (s, args) => controlClicked(s, args, controlToClick);
+                if(c is Button || c is PictureBox && c.Name.StartsWith(controlName))
+                {
+                    c.Click += (s, args) => ControlClicked(s, args, c); // this is the problem
+                }
+                else if (c.HasChildren)
+                {
+                    ControlsAreClickableRecursive(c.Controls, controlName);
+                }
             }
         }
 
-        public static void controlClicked(object sender, EventArgs e, Control control)
+        private static void ControlClicked(object sender, EventArgs e, Control control) // called twice on every click
         {
             string name = "";
 
@@ -329,7 +337,7 @@ namespace Kirjasto_ohjelma
 
             if ((control is PictureBox picbox && picbox.Name.StartsWith("kirja")) || (control is Button && (control.Text == "Katso")))
             {
-                FormManager.openBookInfo(name);
+                FormManager.OpenBookInfo(name);
             }
             else if (control is Button btn)
             {
@@ -341,10 +349,32 @@ namespace Kirjasto_ohjelma
                     }
                     else if (btn.Text == "Poista")
                     {
-                        FormManager.openConfirmMessage("varmistus", name);
+                        FormManager.OpenConfirmMessage("varmistus", name);
                     }
                 }
             }
+        }
+
+        public void DesignHome()
+        {
+            haeKirjoja.Location = new Point((this.Width - haeKirjoja.Width) / 2, 75);
+            kirjaFlowLayoutPanel.Size = new Size(560, 292);
+            kirjaFlowLayoutPanel.Location = new Point(Menu.Width + 30, 342);
+
+            selausAsetukset.Location = new Point(kirjaFlowLayoutPanel.Left, kirjaFlowLayoutPanel.Top - selausAsetukset.Height);
+            selausAsetukset.Size = new Size(560, 94);
+
+            selaaKirjoja.Location = new Point((selaaKirjoja.Parent.Width - selaaKirjoja.Width) / 2, 20);
+            jarjestysCB.Location = new Point((jarjestysCB.Parent.Width - jarjestysCB.Width - 10), jarjestysCB.Parent.Height - jarjestysCB.Height - 10);
+            jarjestys.Location = new Point(jarjestysCB.Location.X - jarjestys.Width - 10, jarjestysCB.Location.Y);
+
+            Menu.Size = new Size(125, 715);
+            Menu.Location = new Point(0, 0);
+
+            footer.Location = new Point(0, Menu.Height);
+            footer.BringToFront();
+
+            kirjauduUlos.Location = new Point(12, Menu.Height - 50);
         }
     }
 }

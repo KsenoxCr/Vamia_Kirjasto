@@ -46,7 +46,7 @@
             closeBtn.Size = new Size(30, 30);
             closeBtn.TabIndex = 9;
             closeBtn.TabStop = false;
-            closeBtn.Click += pictureBox2_Click;
+            closeBtn.Click += Close_Click;
             // 
             // uusiLabel
             // 
@@ -74,7 +74,7 @@
             vaihdaBtn.TabIndex = 11;
             vaihdaBtn.Text = "Vaihda";
             vaihdaBtn.UseVisualStyleBackColor = false;
-            vaihdaBtn.Click += vaihdaBtn_Click;
+            vaihdaBtn.Click += Change_Click;
             // 
             // vaihdaLabel
             // 

@@ -13,7 +13,7 @@ namespace Kirjasto_ohjelma
 {
     public partial class ContactUs : Form
     {
-        private DatabaseAccess db = DatabaseAccess.GetInstance();
+        private readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
         private string _contactType;
 
@@ -23,7 +23,7 @@ namespace Kirjasto_ohjelma
             _contactType = contactType;
         }
 
-        private void Form9_Load(object sender, EventArgs e)
+        private void Form_Load(object sender, EventArgs e)
         {
             if (_contactType == "tuki")
             {
@@ -39,68 +39,66 @@ namespace Kirjasto_ohjelma
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Contact_Click(object sender, EventArgs e)
         {
-            if (User.Asnum.StartsWith("AS")) //Might not be necessary as feedback form is not shown to staff
-            {
-                if(!string.IsNullOrEmpty(aiheTB.Text) && !string.IsNullOrEmpty(sisaltoTB.Text)) {
+            if(!string.IsNullOrEmpty(aiheTB.Text) && !string.IsNullOrEmpty(sisaltoTB.Text)) {
 
-                    if (aiheTB.Text.Length > 30)
-                    {
-                        MessageBox.Show("Aihe on liian pitkä");
-                    } 
-                    else if (sisaltoTB.Text.Length > 250)
-                    {
-                        MessageBox.Show("Sisältö on liian pitkä");
-                    }
-                    else
-                    {
-                        try
-                        {
-                            db.OpenConnection();
-
-                            string query = $"INSERT INTO Palautteet (astun, aihe, sisalto) VALUES (@astun, @aihe, @sisalto)";
-
-                            using (MySqlCommand command = new MySqlCommand(query, db.connection))
-                            {
-                                command.Parameters.AddWithValue("@astun", User.Asnum);
-                                command.Parameters.AddWithValue("@aihe", aiheTB.Text);
-                                command.Parameters.AddWithValue("@sisalto", sisaltoTB.Text);
-
-                                command.ExecuteNonQuery();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("tietokantavirhe:" + ex.Message);
-                            string type = _contactType == "tuki" ? "tukipyynnön" : "palautteen";
-                            MessageBox.Show("Virhe " + _contactType + "lähetyksessä. Yritä myöhemmin uudelleen.");
-                        }
-                        finally
-                        {
-                            db.CloseConnection();
-                        }
-
-                        ConfirmMessage lähetäOk = new ConfirmMessage(_contactType);
-                        lähetäOk.Show();
-
-                        this.Close();
-                    }
+                if (aiheTB.Text.Length > 30)
+                {
+                    MessageBox.Show("Aihe on liian pitkä");
+                }
+                else if (sisaltoTB.Text.Length > 250)
+                {
+                    MessageBox.Show("Sisältö on liian pitkä");
                 }
                 else
                 {
-                    MessageBox.Show("Täytä molemmat kentät");
+                    AddContactMessage();
                 }
-            }   
+            }
             else
             {
-                MessageBox.Show("Henkilökunta ei voi käyttää tätä toimintoa");
+                MessageBox.Show("Täytä molemmat kentät");
             }
+        }
+
+        private void AddContactMessage()
+        {
+            try
+            {
+                db.OpenConnection();
+
+                // Create possibility for staff to use this feature
+
+                string query = $"INSERT INTO Palautteet (astun, aihe, sisalto) VALUES (@astun, @aihe, @sisalto)";
+
+                using MySqlCommand command = new(query, db.connection);
+                command.Parameters.AddWithValue("@astun", User.Asnum);
+                command.Parameters.AddWithValue("@aihe", aiheTB.Text);
+                command.Parameters.AddWithValue("@sisalto", sisaltoTB.Text);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("tietokantavirhe:" + ex.Message);
+                string type = _contactType == "tuki" ? "tukipyynnön" : "palautteen";
+                MessageBox.Show("Virhe " + _contactType + "lähetyksessä. Yritä myöhemmin uudelleen.");
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            FormManager.OpenConfirmMessage(_contactType);
+
+            this.Close();
         }
     }
 }
+

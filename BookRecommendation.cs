@@ -13,21 +13,21 @@ using System.Windows.Forms;
 
 namespace Kirjasto_ohjelma
 {
-    public partial class BookRecommendation : Form // Luo tietokantaan table book_recommendations, johon tallennetaan käyttäjän ehdottamat kirjat
+    public partial class BookRecommendation : Form
     {
-        private DatabaseAccess db = DatabaseAccess.GetInstance();
+        private readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
         public BookRecommendation()
         {
             InitializeComponent();
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Suggest_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(ehdotusTB.Text))
             {
@@ -39,42 +39,39 @@ namespace Kirjasto_ohjelma
             } 
             else
             {
-                if (User.Asnum.StartsWith("AS")) //Might not be necessary as recommendation form is not shown to staff
-                {
-                    try
-                    {
-                        db.OpenConnection();
-
-                        string query = $"INSERT INTO Ehdotukset (astun, ehdotus) VALUES (@astun, @ehdotus)";
-
-                        using (MySqlCommand command = new MySqlCommand(query, db.connection))
-                        {
-                            command.Parameters.AddWithValue("@astun", User.Asnum);
-                            command.Parameters.AddWithValue("@ehdotus", ehdotusTB.Text);
-
-                            command.ExecuteNonQuery();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("tietokantavirhe:" + ex.Message);
-                        MessageBox.Show("Virhe ehdotuksen lähetyksessä. Yritä myöhemmin uudelleen.");
-                    }
-                    finally
-                    {
-                        db.CloseConnection();
-                    }
-
-                    ConfirmMessage ehdotusOk = new ConfirmMessage("ehdotus");
-                    ehdotusOk.Show();
-
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Henkilökunta ei voi tehdä ehdotuksia täällä");
-                }
+                AddSuggestion();
             }
+        }
+        private void AddSuggestion()
+        {
+            try
+            {
+                db.OpenConnection();
+
+                // Create possibility for staff to use this feature
+
+                string query = $"INSERT INTO Ehdotukset (astun, ehdotus) VALUES (@astun, @ehdotus)";
+
+                using MySqlCommand command = new MySqlCommand(query, db.connection);
+                command.Parameters.AddWithValue("@astun", User.Asnum);
+                command.Parameters.AddWithValue("@ehdotus", ehdotusTB.Text);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("tietokantavirhe:" + ex.Message);
+                MessageBox.Show("Virhe ehdotuksen lähetyksessä. Yritä myöhemmin uudelleen.");
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            ConfirmMessage ehdotusOk = new ConfirmMessage("ehdotus");
+            ehdotusOk.Show();
+
+            this.Close();
         }
     }
 }

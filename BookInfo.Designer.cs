@@ -30,17 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookInfo));
             kansikuva = new PictureBox();
-            nimi = new Label();
-            kirjailija = new Label();
             panel1 = new Panel();
             kuvaus = new TextBox();
             panel2 = new Panel();
             kirjanTiedot = new Panel();
-            kustantaja = new Label();
-            genre = new Label();
+            kustantaja = new TextBox();
+            julkaistu = new TextBox();
+            Sivumaara = new TextBox();
+            genre = new TextBox();
             kustantajaLabel = new Label();
-            julkaistu = new Label();
-            sivumaara = new Label();
             label9 = new Label();
             label6 = new Label();
             genreLabel = new Label();
@@ -48,6 +46,8 @@
             poistaBtn = new Button();
             muokkaaBtn = new Button();
             lainaaBtn = new Button();
+            nimi = new TextBox();
+            kirjailija = new Label();
             ((System.ComponentModel.ISupportInitialize)kansikuva).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -63,27 +63,7 @@
             kansikuva.Size = new Size(190, 250);
             kansikuva.TabIndex = 0;
             kansikuva.TabStop = false;
-            // 
-            // nimi
-            // 
-            nimi.AutoSize = true;
-            nimi.Font = new Font("Impact", 25F, FontStyle.Regular, GraphicsUnit.Point);
-            nimi.Location = new Point(181, 9);
-            nimi.Name = "nimi";
-            nimi.Size = new Size(169, 42);
-            nimi.TabIndex = 1;
-            nimi.Text = "Kirjan Nimi";
-            // 
-            // kirjailija
-            // 
-            kirjailija.AutoSize = true;
-            kirjailija.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            kirjailija.Location = new Point(262, 48);
-            kirjailija.Name = "kirjailija";
-            kirjailija.Size = new Size(64, 20);
-            kirjailija.TabIndex = 2;
-            kirjailija.Text = "Kirjailija";
-            kirjailija.TextAlign = ContentAlignment.MiddleCenter;
+            kansikuva.Click += BookCover_Click;
             // 
             // panel1
             // 
@@ -99,6 +79,7 @@
             kuvaus.Location = new Point(13, 14);
             kuvaus.Multiline = true;
             kuvaus.Name = "kuvaus";
+            kuvaus.ReadOnly = true;
             kuvaus.ScrollBars = ScrollBars.Vertical;
             kuvaus.Size = new Size(256, 386);
             kuvaus.TabIndex = 0;
@@ -117,10 +98,10 @@
             // 
             kirjanTiedot.BackColor = Color.PeachPuff;
             kirjanTiedot.Controls.Add(kustantaja);
+            kirjanTiedot.Controls.Add(julkaistu);
+            kirjanTiedot.Controls.Add(Sivumaara);
             kirjanTiedot.Controls.Add(genre);
             kirjanTiedot.Controls.Add(kustantajaLabel);
-            kirjanTiedot.Controls.Add(julkaistu);
-            kirjanTiedot.Controls.Add(sivumaara);
             kirjanTiedot.Controls.Add(label9);
             kirjanTiedot.Controls.Add(label6);
             kirjanTiedot.Controls.Add(genreLabel);
@@ -131,22 +112,50 @@
             // 
             // kustantaja
             // 
-            kustantaja.AutoSize = true;
+            kustantaja.BackColor = Color.PeachPuff;
+            kustantaja.BorderStyle = BorderStyle.None;
             kustantaja.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            kustantaja.Location = new Point(110, 92);
+            kustantaja.Location = new Point(104, 93);
             kustantaja.Name = "kustantaja";
-            kustantaja.Size = new Size(91, 21);
-            kustantaja.TabIndex = 18;
+            kustantaja.ReadOnly = true;
+            kustantaja.Size = new Size(101, 22);
+            kustantaja.TabIndex = 22;
             kustantaja.Text = "Kustantaja";
+            // 
+            // julkaistu
+            // 
+            julkaistu.BackColor = Color.PeachPuff;
+            julkaistu.BorderStyle = BorderStyle.None;
+            julkaistu.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            julkaistu.Location = new Point(122, 68);
+            julkaistu.Name = "julkaistu";
+            julkaistu.ReadOnly = true;
+            julkaistu.Size = new Size(83, 22);
+            julkaistu.TabIndex = 21;
+            julkaistu.Text = "2000";
+            // 
+            // Sivumaara
+            // 
+            Sivumaara.BackColor = Color.PeachPuff;
+            Sivumaara.BorderStyle = BorderStyle.None;
+            Sivumaara.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            Sivumaara.Location = new Point(66, 41);
+            Sivumaara.Name = "Sivumaara";
+            Sivumaara.ReadOnly = true;
+            Sivumaara.Size = new Size(133, 22);
+            Sivumaara.TabIndex = 20;
+            Sivumaara.Text = "0";
             // 
             // genre
             // 
-            genre.AutoSize = true;
+            genre.BackColor = Color.PeachPuff;
+            genre.BorderStyle = BorderStyle.None;
             genre.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            genre.Location = new Point(76, 16);
+            genre.Location = new Point(72, 15);
             genre.Name = "genre";
-            genre.Size = new Size(54, 21);
-            genre.TabIndex = 17;
+            genre.ReadOnly = true;
+            genre.Size = new Size(133, 22);
+            genre.TabIndex = 19;
             genre.Text = "genre";
             // 
             // kustantajaLabel
@@ -158,26 +167,6 @@
             kustantajaLabel.Size = new Size(83, 20);
             kustantajaLabel.TabIndex = 16;
             kustantajaLabel.Text = "Kustantaja:";
-            // 
-            // julkaistu
-            // 
-            julkaistu.AutoSize = true;
-            julkaistu.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            julkaistu.Location = new Point(130, 66);
-            julkaistu.Name = "julkaistu";
-            julkaistu.Size = new Size(46, 21);
-            julkaistu.TabIndex = 15;
-            julkaistu.Text = "2000";
-            // 
-            // sivumaara
-            // 
-            sivumaara.AutoSize = true;
-            sivumaara.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            sivumaara.Location = new Point(69, 41);
-            sivumaara.Name = "sivumaara";
-            sivumaara.Size = new Size(19, 21);
-            sivumaara.TabIndex = 14;
-            sivumaara.Text = "0";
             // 
             // label9
             // 
@@ -218,7 +207,7 @@
             pictureBox2.Size = new Size(40, 40);
             pictureBox2.TabIndex = 6;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+            pictureBox2.Click += Close_Click;
             // 
             // poistaBtn
             // 
@@ -237,7 +226,7 @@
             poistaBtn.Text = "Poista";
             poistaBtn.UseVisualStyleBackColor = false;
             poistaBtn.Visible = false;
-            poistaBtn.Click += button17_Click;
+            poistaBtn.Click += Delete_Click;
             // 
             // muokkaaBtn
             // 
@@ -256,7 +245,7 @@
             muokkaaBtn.Text = "Muokkaa";
             muokkaaBtn.UseVisualStyleBackColor = false;
             muokkaaBtn.Visible = false;
-            muokkaaBtn.Click += button1_Click;
+            muokkaaBtn.Click += Edit_Click;
             // 
             // lainaaBtn
             // 
@@ -276,7 +265,30 @@
             lainaaBtn.TabIndex = 14;
             lainaaBtn.Text = "Lainaa";
             lainaaBtn.UseVisualStyleBackColor = true;
-            lainaaBtn.Click += button2_Click;
+            lainaaBtn.Click += Lend_Click;
+            // 
+            // nimi
+            // 
+            nimi.BackColor = Color.FromArgb(255, 241, 220);
+            nimi.BorderStyle = BorderStyle.None;
+            nimi.Font = new Font("Impact", 25F, FontStyle.Regular, GraphicsUnit.Point);
+            nimi.Location = new Point(56, 4);
+            nimi.Name = "nimi";
+            nimi.ReadOnly = true;
+            nimi.Size = new Size(434, 41);
+            nimi.TabIndex = 23;
+            nimi.Text = "Kirjan Nimi";
+            nimi.TextAlign = HorizontalAlignment.Center;
+            // 
+            // kirjailija
+            // 
+            kirjailija.AutoSize = true;
+            kirjailija.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            kirjailija.Location = new Point(238, 48);
+            kirjailija.Name = "kirjailija";
+            kirjailija.Size = new Size(64, 20);
+            kirjailija.TabIndex = 24;
+            kirjailija.Text = "Kirjailija";
             // 
             // BookInfo
             // 
@@ -285,6 +297,8 @@
             BackColor = Color.FromArgb(255, 241, 220);
             ClientSize = new Size(548, 568);
             ControlBox = false;
+            Controls.Add(kirjailija);
+            Controls.Add(nimi);
             Controls.Add(lainaaBtn);
             Controls.Add(muokkaaBtn);
             Controls.Add(poistaBtn);
@@ -292,14 +306,13 @@
             Controls.Add(kirjanTiedot);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Controls.Add(kirjailija);
-            Controls.Add(nimi);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximumSize = new Size(550, 570);
             MinimumSize = new Size(550, 570);
             Name = "BookInfo";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
+            Load += BookInfo_Load;
             ((System.ComponentModel.ISupportInitialize)kansikuva).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -314,8 +327,6 @@
         #endregion
 
         private PictureBox kansikuva;
-        private Label nimi;
-        private Label kirjailija;
         private Panel panel1;
         private TextBox kuvaus;
         private Panel panel2;
@@ -325,12 +336,15 @@
         private Label label9;
         private Label label6;
         private Label kustantajaLabel;
-        private Label julkaistu;
         private PictureBox pictureBox2;
         private Button poistaBtn;
         private Button muokkaaBtn;
         private Button lainaaBtn;
-        private Label genre;
-        private Label kustantaja;
+        private TextBox genre;
+        private TextBox kustantaja;
+        private TextBox julkaistu;
+        private TextBox Sivumaara;
+        private TextBox nimi;
+        private Label kirjailija;
     }
 }

@@ -38,16 +38,16 @@ namespace Kirjasto_ohjelma
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void MenuButton_Click(object sender, EventArgs e)
         {
-            FormManager.toggleMenu(Menu);
+            FormManager.ToggleMenu(Menu);
         }
 
-        private void kirjauduSisään_Click(object sender, EventArgs e)
+        private void Login_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(InputUsername.Text) && !string.IsNullOrEmpty(InputPassword.Text))
             {
-                string[] loginCredentials = findUser();
+                string[] loginCredentials = FindUser();
 
                 if (loginCredentials.All(c => !string.IsNullOrEmpty(c)))
                 {
@@ -55,7 +55,7 @@ namespace Kirjasto_ohjelma
                     string hashedPassword = loginCredentials[1];
                     string saltHex = loginCredentials[2];
 
-                    bool isStaff = loginCredentials[3] == "staff" ? true : false;
+                    bool isStaff = loginCredentials[3] == "staff";
 
                     if (VerifyPassword(InputPassword.Text, hashedPassword, saltHex))
                     {
@@ -63,7 +63,7 @@ namespace Kirjasto_ohjelma
                         User.Asnum = asnum;
                         User.IsStaff = isStaff;
 
-                        FormManager.toHome(this);
+                        FormManager.ToHome(this);
                     } 
                     else
                     {
@@ -77,7 +77,7 @@ namespace Kirjasto_ohjelma
                 MessageBox.Show("Täytä molemmat kentät");
             }
         }
-        private string[] findUser()
+        private string[] FindUser()
         {
             string[] credentials = new string[4];
 
@@ -143,21 +143,21 @@ namespace Kirjasto_ohjelma
             return credentials;
         }
 
-        private void luoTunnusBtn_Click(object sender, EventArgs e)
+        private void CreateAccount_Click(object sender, EventArgs e)
         {
             Register register = Register.Instance;
             register.Show();
             this.Hide();
         }
 
-        private void tuki_Click(object sender, EventArgs e)
+        private void Support_Click(object sender, EventArgs e)
         {
-            FormManager.openContact("tuki");
+            FormManager.OpenContact("tuki");
         }
 
-        private void palautteet_Click(object sender, EventArgs e)
+        private void Feedback_Click(object sender, EventArgs e)
         {
-            FormManager.openContact("palaute");
+            FormManager.OpenContact("palaute");
         }
         private bool VerifyPassword(string password, string hashedPassword, string saltHex)
         {

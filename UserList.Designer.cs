@@ -127,7 +127,7 @@
             logo.Size = new Size(302, 38);
             logo.TabIndex = 3;
             logo.TabStop = false;
-            logo.Click += logo_Click;
+            logo.Click += Logo_Click;
             // 
             // menuButton
             // 
@@ -137,7 +137,7 @@
             menuButton.Size = new Size(35, 35);
             menuButton.TabIndex = 3;
             menuButton.TabStop = false;
-            menuButton.Click += menuButton_Click;
+            menuButton.Click += MenuButton_Click;
             // 
             // pictureBox3
             // 
@@ -181,7 +181,7 @@
             kirjaudu_ulos.Size = new Size(96, 20);
             kirjaudu_ulos.TabIndex = 22;
             kirjaudu_ulos.Text = "Kirjaudu Ulos";
-            kirjaudu_ulos.Click += kirjaudu_ulos_Click;
+            kirjaudu_ulos.Click += LogOut_Click;
             // 
             // label2
             // 
@@ -223,7 +223,7 @@
             pictureBox15.Size = new Size(181, 46);
             pictureBox15.TabIndex = 4;
             pictureBox15.TabStop = false;
-            pictureBox15.Click += pictureBox15_Click;
+            pictureBox15.Click += Logo_Click;
             // 
             // panel16
             // 
@@ -270,7 +270,7 @@
             naytaCB.Size = new Size(58, 24);
             naytaCB.TabIndex = 19;
             naytaCB.Text = "Kaikki";
-            naytaCB.SelectedIndexChanged += naytaCB_SelectedIndexChanged;
+            naytaCB.SelectedIndexChanged += NaytaCB_SelectedIndexChanged;
             // 
             // label7
             // 
@@ -425,7 +425,7 @@
             orderBox.Size = new Size(24, 24);
             orderBox.TabIndex = 17;
             orderBox.TabStop = false;
-            orderBox.Click += orderByBox_Click;
+            orderBox.Click += OrderByBox_Click;
             // 
             // jarjestys
             // 
@@ -450,7 +450,7 @@
             jarjestysCB.Size = new Size(116, 24);
             jarjestysCB.TabIndex = 3;
             jarjestysCB.Text = "A-Z";
-            jarjestysCB.SelectedIndexChanged += jarjestysCB_SelectedIndexChanged;
+            jarjestysCB.SelectedIndexChanged += JarjestysCB_SelectedIndexChanged;
             // 
             // label1
             // 

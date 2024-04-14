@@ -25,6 +25,7 @@ namespace Kirjasto_ohjelma
         private int pagesDB;
         private string descFileName;
         private string Description;
+        private Image bookCover;
         private readonly string root = Directory.GetCurrentDirectory();
 
         public BookInfo(string bookName)
@@ -51,7 +52,79 @@ namespace Kirjasto_ohjelma
         }
         private void BookInfo_Load(object sender, EventArgs e)
         {
-            LoadBookInfo(_bookName);
+            string image = "";
+
+            try
+            {
+                db.connection.Open();
+
+                string queryBookInfo = $"SELECT k.isbn, kir.enimi, kir.snimi, k.genre, k.julkaistu, k.kustantaja, k.sivut, k.img, k.kuvaus FROM kirja k INNER JOIN kirjailija kir ON k.kirtu = kir.kirtunnus WHERE k.nimi = \"{_bookName}\"";
+
+                using MySqlCommand command = new(queryBookInfo, db.connection);
+                using MySqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    isbn = reader["isbn"] as string;
+                    string authorDB = reader["enimi"] as string + " " + reader["snimi"] as string;
+                    genreDB = reader["genre"] as string;
+                    publishedDB = (int)reader["julkaistu"];
+                    publisherDB = reader["kustantaja"] as string;
+                    pagesDB = (int)reader["sivut"];
+
+                    image = reader["img"] as string;
+                    descFileName = reader["kuvaus"] as string;
+
+                    nimi.Text = _bookName;
+                    nimi.Left = (this.Width - nimi.Width) / 2;
+                    kirjailija.Text = authorDB;
+                    kirjailija.Left = (this.Width - kirjailija.Width) / 2;
+                    genre.Text = genreDB;
+                    genre.Left = ((kirjanTiedot.Width + genreLabel.Width) - genre.Width) / 2;
+                    julkaistu.Text = publishedDB.ToString();
+                    kustantaja.Text = publisherDB;
+                    sivumaara.Text = pagesDB.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Virhe ladatessa kirjan tietoja");
+                MessageBox.Show($"Tietokantavirhe: {ex.Message}");
+            }
+            finally
+            {
+                db.connection.Close();
+            }
+
+            string root = Directory.GetCurrentDirectory();
+            string imagePath = Path.GetFullPath(Path.Combine(root, "Images", image));
+
+            try
+            {
+                kansikuva.Image = Image.FromFile(imagePath);
+                kansikuva.SizeMode = PictureBoxSizeMode.Zoom;
+
+                bookCover = kansikuva.Image;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Virhe ladatessa kansikuvaa: " + ex.Message);
+            }
+
+            string descPath = Path.Combine(root, "BookDescriptions", descFileName);
+
+            try
+            {
+                using StreamReader reader = new(descPath);
+
+                kuvaus.Text = reader.ReadToEnd();
+                Description = kuvaus.Text;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Virhe ladatessa kirjan kuvausta: " + ex.Message);
+            }
         }
 
         private void Close_Click(object sender, EventArgs e)
@@ -69,34 +142,52 @@ namespace Kirjasto_ohjelma
 
         private void Edit_Click(object sender, EventArgs e)
         {
+            string[] columsToUpdate = new string[7];
+            string[] valuesForColumns = new string[7];
+
             if (nimi.Text != _bookName)
             {
-                UpdateBookInfo(nimi.Text, "nimi");
+                columsToUpdate[0] = "nimi";
+                valuesForColumns[0] = nimi.Text;
             }
             if (genre.Text != genreDB)
             {
-                UpdateBookInfo(genre.Text, "genre");
+                columsToUpdate[1] = "genre";
+                valuesForColumns[1] = genre.Text;
             }
             if (julkaistu.Text != publishedDB.ToString())
             {
-                UpdateBookInfo(julkaistu.Text, "julkaistu");
+                columsToUpdate[2] = "julkaistu";
+                valuesForColumns[2] = julkaistu.Text;
             }
             if (kustantaja.Text != publisherDB)
             {
-                UpdateBookInfo(kustantaja.Text, "kustantaja");
+                columsToUpdate[3] = "kustantaja";
+                valuesForColumns[3] = kustantaja.Text;
             }
             if (sivumaara.Text != pagesDB.ToString())
             {
-                UpdateBookInfo(sivumaara.Text, "sivut");
+                columsToUpdate[4] = "sivut";
+                valuesForColumns[4] = sivumaara.Text;
             }
             if (kuvaus.Text != Description)
             {
-                UpdateBookInfo(kuvaus.Text, descFileName);
+                columsToUpdate[5] = descFileName;
+                valuesForColumns[5] = kuvaus.Text;
+            }
+            if (kansikuva.Image != bookCover)
+            {
+                columsToUpdate[6] = "img";
+
+                string imgPath = kansikuva.ImageLocation;
+                valuesForColumns[6] = Path.GetFileName(imgPath);
             }
 
-            this.Refresh();
+            if (UpdateBookInfo(valuesForColumns, columsToUpdate))
+            {
+                this.Refresh();
+            }
         }
-        
         private void Delete_Click(object sender, EventArgs e)
         {
             FormManager.OpenConfirmMessage("poisto", _bookName, isbn);
@@ -104,159 +195,88 @@ namespace Kirjasto_ohjelma
             this.Close();
         }
 
-        private void LoadBookInfo(string booksName)
-        {
-            string image = "";
-            string authorDB = "";
-
-            try
-            {
-                db.connection.Open();
-
-                string queryBookInfo = $"SELECT k.isbn, kir.enimi, kir.snimi, k.genre, k.julkaistu, k.kustantaja, k.sivut, k.img, k.kuvaus FROM kirja k INNER JOIN kirjailija kir ON k.kirtu = kir.kirtunnus WHERE k.nimi = \"{booksName}\"";
-
-                using MySqlCommand command = new(queryBookInfo, db.connection);
-                using MySqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    isbn = reader["isbn"] as string;
-
-                    authorDB = reader["enimi"] as string + " " + reader["snimi"] as string;
-
-                    genreDB = reader["genre"] as string;
-                    publishedDB = (int)reader["julkaistu"];
-                    publisherDB = reader["kustantaja"] as string;
-                    pagesDB = (int)reader["sivut"];
-
-                    image = reader["img"] as string;
-
-                    descFileName = reader["kuvaus"] as string;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Tietokantavirhe: {ex.Message}");
-            }
-            finally
-            {
-                db.connection.Close();
-            }
-
-            try
-            {
-                nimi.Text = booksName;
-                nimi.Left = (this.Width - nimi.Width) / 2;
-                kirjailija.Text = authorDB;
-                kirjailija.Left = (this.Width - kirjailija.Width) / 2;
-                genre.Text = genreDB;
-                genre.Left = ((kirjanTiedot.Width + genreLabel.Width) - genre.Width) / 2;
-                julkaistu.Text = publishedDB.ToString();
-                kustantaja.Text = publisherDB;
-                sivumaara.Text = pagesDB.ToString();
-            } 
-            catch (Exception ex)
-            {
-                MessageBox.Show("Virhe ladatessa kirjan tietoja: " + ex.Message);
-            }
-
-            string root = Directory.GetCurrentDirectory();
-            string imagePath = Path.GetFullPath(Path.Combine(root, "Images", image));
-
-            try
-            {
-                kansikuva.Image = Image.FromFile(imagePath);
-                kansikuva.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show("Virhe ladatessa kuvaa: " + ex.Message);
-            }
-
-            string descPath = Path.Combine(root, "BookDescriptions", descFileName);
-
-            try
-            {
-                using StreamReader reader = new(descPath);
-
-                kuvaus.Text = reader.ReadToEnd();
-                Description = kuvaus.Text;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Virhe lukiessa tiedostoa: " + ex.Message);
-            }
-        }
-
         private void BookCover_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new();
-            openFileDialog.Filter = "Image files (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp"; // Filter for common image formats
-            openFileDialog.Title = "Valitse uusi kansikuva";
+            OpenFileDialog openFileDialog = new()
+            {
+                Filter = "Image files (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp",
+                Title = "Valitse uusi kansikuva"
+            };
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string imagePath = openFileDialog.FileName;
-
                 try
                 {
-                    string newImagePath = Path.GetFullPath(Path.Combine(root, "Images", isbn + ".png"));
+                    string newImagePath = openFileDialog.FileName;
+                    string newImageName = Path.GetFileName(newImagePath);
 
-                    kansikuva.Image = Image.FromFile(imagePath);
+                    kansikuva.Image = Image.FromFile(newImagePath);
                 }
                 catch (Exception ex)
                 {
                     // Handle potential exceptions (e.g., invalid file format)
-                    MessageBox.Show("Error loading image: " + ex.Message);
+                    MessageBox.Show("Virhe vaihtaessa kuvaa: " + ex.Message);
                 }
             }
         }
-        private void UpdateBookInfo(string value, string col)
+        private bool UpdateBookInfo(string[] values, string[] columns)
         {
-            if (col == descFileName)
-            {
-                string descPath = Path.GetFullPath(Path.Combine(root, "BookDescriptions", descFileName));
+            int i = 0;
 
-                try
-                {
-                    File.WriteAllText(descPath, value);
-                    Console.WriteLine("File updated successfully!");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"Error updating file: {e.Message}");
-                }
-            } else
+            try
             {
-                try
-                {
-                    db.connection.Open();
+                db.OpenConnection();
 
-                    if (col == "julkaistu" || col == "sivut")
+                for (i = 0; i < columns.Length; i++)
+                {
+                    string col = columns[i];
+                    string value = values[i];
+
+                    if (col == descFileName)
                     {
-                        int.Parse(value);
+                        string descPath = Path.GetFullPath(Path.Combine(root, "BookDescriptions", descFileName));
+
+                        try
+                        {
+                            File.WriteAllText(descPath, value);
+                            Console.WriteLine("File updated successfully!");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"Virhe päivittäessä kirjan kuvausta: {e.Message}");
+                        }
                     }
+                    else
+                    {
+                        if (col == "julkaistu" || col == "sivut")
+                        {
+                            int.Parse(value);
+                        }
 
-                    string queryUpdateBook= $"UPDATE kirja SET @col = @value WHERE isbn = @isbn";
+                        string queryUpdateBookInfo = $"UPDATE kirja SET @col = @value WHERE isbn = @isbn";
 
-                    using MySqlCommand command = new(queryUpdateBook, db.connection);
-                    command.Parameters.AddWithValue("@col", col);
-                    command.Parameters.AddWithValue("@value", value);
-                    command.Parameters.AddWithValue("@isbn", isbn);
+                        using MySqlCommand command = new(queryUpdateBookInfo, db.connection);
+                        command.Parameters.AddWithValue("@col", col);
+                        command.Parameters.AddWithValue("@value", value);
+                        command.Parameters.AddWithValue("@isbn", isbn);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Virhe muokatessa kirjan tietoa: {col}");
-                    MessageBox.Show($"Tietokantavirhe: {ex.Message}");
-                }
-                finally
-                {
-                    db.connection.Close();
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Virhe päivittäessä kirjan tietoja: " + ex.Message);
+                if (i == 0)
+                {
+                    return false;
+                }
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return true;
         }
     }
 }

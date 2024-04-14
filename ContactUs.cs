@@ -44,7 +44,7 @@ namespace Kirjasto_ohjelma
             this.Close();
         }
 
-        private void Contact_Click(object sender, EventArgs e)
+        private void Send_Click(object sender, EventArgs e)
         {
             if(!string.IsNullOrEmpty(aiheTB.Text) && !string.IsNullOrEmpty(sisaltoTB.Text)) {
 

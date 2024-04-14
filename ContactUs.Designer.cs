@@ -64,7 +64,7 @@
             pictureBox2.Size = new Size(25, 25);
             pictureBox2.TabIndex = 9;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+            pictureBox2.Click += Close_Click;
             // 
             // aiheTB
             // 
@@ -135,7 +135,7 @@
             lahetaBtn.TabIndex = 15;
             lahetaBtn.Text = "Lähetä";
             lahetaBtn.UseVisualStyleBackColor = false;
-            lahetaBtn.Click += button2_Click;
+            lahetaBtn.Click += Send_Click;
             // 
             // label4
             // 
@@ -164,7 +164,7 @@
             Name = "FeedBackForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form6";
-            Load += Form9_Load;
+            Load += Form_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

@@ -17,6 +17,7 @@ namespace Kirjasto_ohjelma
         private readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
         private readonly string _bookName;
+        private readonly string rootPath = Directory.GetCurrentDirectory();
         private string isbn;
 
         private string genreDB;
@@ -25,8 +26,8 @@ namespace Kirjasto_ohjelma
         private int pagesDB;
         private string descFileName;
         private string Description;
+        private string newImageName;
         private Image bookCover;
-        private readonly string root = Directory.GetCurrentDirectory();
 
         public BookInfo(string bookName)
         {
@@ -39,17 +40,13 @@ namespace Kirjasto_ohjelma
             muokkaaBtn.Visible = isStaff;
             poistaBtn.Visible = isStaff;
 
-            if (isStaff)
-            {
-                foreach (Control control in Controls)
-                {
-                    if (control is TextBox tb)
-                    {
-                        tb.ReadOnly = false;
-                    }
-                }
-            }
+            genre.ReadOnly = !isStaff;
+            julkaistu.ReadOnly = !isStaff;
+            kustantaja.ReadOnly = !isStaff;
+            sivumaara.ReadOnly = !isStaff;
+            kuvaus.ReadOnly = !isStaff;
         }
+
         private void BookInfo_Load(object sender, EventArgs e)
         {
             string image = "";
@@ -72,8 +69,23 @@ namespace Kirjasto_ohjelma
                     publisherDB = reader["kustantaja"] as string;
                     pagesDB = (int)reader["sivut"];
 
-                    image = reader["img"] as string;
-                    descFileName = reader["kuvaus"] as string;
+                    if (!reader.IsDBNull(reader.GetOrdinal("img")))
+                    {
+                        image = reader["img"] as string;
+                    }
+                    else
+                    {
+                        image = "ImageNotFound.png";
+                    }
+
+                    if (!reader.IsDBNull(reader.GetOrdinal("kuvaus")))
+                    {
+                        descFileName = reader["kuvaus"] as string;
+                    }
+                    else
+                    {
+                        descFileName = FormManager.CreateBookDescription(_bookName);
+                    }
 
                     nimi.Text = _bookName;
                     nimi.Left = (this.Width - nimi.Width) / 2;
@@ -96,8 +108,7 @@ namespace Kirjasto_ohjelma
                 db.connection.Close();
             }
 
-            string root = Directory.GetCurrentDirectory();
-            string imagePath = Path.GetFullPath(Path.Combine(root, "Images", image));
+            string imagePath = Path.GetFullPath(Path.Combine(rootPath, @"Images\BookCovers", image));
 
             try
             {
@@ -108,17 +119,16 @@ namespace Kirjasto_ohjelma
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Virhe ladatessa kansikuvaa: " + ex.Message);
             }
 
-            string descPath = Path.Combine(root, "BookDescriptions", descFileName);
+            string descPath = Path.Combine(rootPath, "BookDescriptions", descFileName);
 
             try
             {
-                using StreamReader reader = new(descPath);
+                using StreamReader streamReader = new(descPath);
 
-                kuvaus.Text = reader.ReadToEnd();
+                kuvaus.Text = streamReader.ReadToEnd();
                 Description = kuvaus.Text;
             }
             catch (Exception ex)
@@ -142,52 +152,68 @@ namespace Kirjasto_ohjelma
 
         private void Edit_Click(object sender, EventArgs e)
         {
-            string[] columsToUpdate = new string[7];
-            string[] valuesForColumns = new string[7];
+            List<string> columsToUpdate = new();
+            List<string> valuesForColumns = new();
+
+            bool hasChanges = false;
 
             if (nimi.Text != _bookName)
             {
-                columsToUpdate[0] = "nimi";
-                valuesForColumns[0] = nimi.Text;
+                columsToUpdate.Add("nimi");
+                valuesForColumns.Add(nimi.Text);
+                hasChanges = true;
             }
             if (genre.Text != genreDB)
             {
-                columsToUpdate[1] = "genre";
-                valuesForColumns[1] = genre.Text;
+                columsToUpdate.Add("genre");
+                valuesForColumns.Add(genre.Text);
+                hasChanges = true;
             }
             if (julkaistu.Text != publishedDB.ToString())
             {
-                columsToUpdate[2] = "julkaistu";
-                valuesForColumns[2] = julkaistu.Text;
+                columsToUpdate.Add("julkaistu");
+                valuesForColumns.Add(julkaistu.Text);
+                hasChanges = true;
             }
             if (kustantaja.Text != publisherDB)
             {
-                columsToUpdate[3] = "kustantaja";
-                valuesForColumns[3] = kustantaja.Text;
+                columsToUpdate.Add("kustantaja");
+                valuesForColumns.Add(kustantaja.Text);
+                hasChanges = true;
             }
             if (sivumaara.Text != pagesDB.ToString())
             {
-                columsToUpdate[4] = "sivut";
-                valuesForColumns[4] = sivumaara.Text;
+                columsToUpdate.Add("sivut");
+                valuesForColumns.Add(sivumaara.Text);
+                hasChanges = true;
             }
-            if (kuvaus.Text != Description)
+            if (kuvaus.Text != Description && kuvaus.Text != "")
             {
-                columsToUpdate[5] = descFileName;
-                valuesForColumns[5] = kuvaus.Text;
+                columsToUpdate.Add(descFileName);
+                valuesForColumns.Add(kuvaus.Text);
+                hasChanges = true;
             }
             if (kansikuva.Image != bookCover)
             {
-                columsToUpdate[6] = "img";
+                columsToUpdate.Add("img");
+                valuesForColumns.Add(newImageName);
 
-                string imgPath = kansikuva.ImageLocation;
-                valuesForColumns[6] = Path.GetFileName(imgPath);
+                string newImgPath = Path.Combine(rootPath, @"Images\BookCovers", newImageName);
+                kansikuva.Image.Save(newImgPath);
+
+                hasChanges = true;
             }
-
-            if (UpdateBookInfo(valuesForColumns, columsToUpdate))
+            if (hasChanges)
             {
-                this.Refresh();
+                if (UpdateBookInfo(valuesForColumns, columsToUpdate))
+                {
+                    FormManager.OpenConfirmMessage("muokkaus", _bookName, isbn, columsToUpdate);
+
+                    this.Close();
+                }
             }
         }
+
         private void Delete_Click(object sender, EventArgs e)
         {
             FormManager.OpenConfirmMessage("poisto", _bookName, isbn);
@@ -199,7 +225,7 @@ namespace Kirjasto_ohjelma
         {
             OpenFileDialog openFileDialog = new()
             {
-                Filter = "Image files (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp",
+                Filter = "Kuva tiedostot (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp",
                 Title = "Valitse uusi kansikuva"
             };
 
@@ -208,7 +234,7 @@ namespace Kirjasto_ohjelma
                 try
                 {
                     string newImagePath = openFileDialog.FileName;
-                    string newImageName = Path.GetFileName(newImagePath);
+                    newImageName = Path.GetFileName(newImagePath);
 
                     kansikuva.Image = Image.FromFile(newImagePath);
                 }
@@ -219,7 +245,8 @@ namespace Kirjasto_ohjelma
                 }
             }
         }
-        private bool UpdateBookInfo(string[] values, string[] columns)
+
+        private bool UpdateBookInfo(List<string> values, List<string> columns)
         {
             int i = 0;
 
@@ -227,14 +254,14 @@ namespace Kirjasto_ohjelma
             {
                 db.OpenConnection();
 
-                for (i = 0; i < columns.Length; i++)
+                for (i = 0; i < columns.Count; i++)
                 {
                     string col = columns[i];
                     string value = values[i];
 
                     if (col == descFileName)
                     {
-                        string descPath = Path.GetFullPath(Path.Combine(root, "BookDescriptions", descFileName));
+                        string descPath = Path.GetFullPath(Path.Combine(rootPath, "BookDescriptions", descFileName));
 
                         try
                         {
@@ -253,12 +280,10 @@ namespace Kirjasto_ohjelma
                             int.Parse(value);
                         }
 
-                        string queryUpdateBookInfo = $"UPDATE kirja SET @col = @value WHERE isbn = @isbn";
+                        string queryUpdateBookInfo = $"UPDATE kirja SET {col} = @value WHERE isbn = \"{isbn}\"";
 
                         using MySqlCommand command = new(queryUpdateBookInfo, db.connection);
-                        command.Parameters.AddWithValue("@col", col);
                         command.Parameters.AddWithValue("@value", value);
-                        command.Parameters.AddWithValue("@isbn", isbn);
 
                         command.ExecuteNonQuery();
                     }

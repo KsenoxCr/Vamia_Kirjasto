@@ -11,6 +11,7 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Kirjasto_ohjelma
 {
@@ -47,6 +48,7 @@ namespace Kirjasto_ohjelma
         {
             FormManager.OpenLogin(this);
         }
+
         public void ChangeValue_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -78,9 +80,12 @@ namespace Kirjasto_ohjelma
 
             losoPanel.Visible = !isStaff;
             pnoPanel.Visible = !isStaff;
+            tyonimLabel.Visible = isStaff;
+            tyonim.Visible = isStaff;
 
             ptpPanel.Location = isStaff ? losoPanel.Location : new Point(28, 283);
             puhPanel.Location = isStaff ? pnoPanel.Location : new Point(28, 248);
+            tyonim.Location = new Point(tyonimLabel.Location.X + tyonimLabel.Width / 2 - tyonim.Width / 2, tyonim.Location.Y);
 
             if (this.Height > 730)
             {
@@ -95,8 +100,9 @@ namespace Kirjasto_ohjelma
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
-            FormManager.ToggleMenu(Menu);
+            FormManager.ToggleMenu(Menu, timerAcc);
         }
+
         private void LoadAccountDetails(string username)
         {
             string hashedPassword = "";
@@ -174,15 +180,15 @@ namespace Kirjasto_ohjelma
                 infoButtons[i].Click += ChangeValue_Click;
             }
         }
+
         private void LoadLoans(string asnum)
         {
-            List<String> lainanums = new();
+            List<String[]> loans = new();
 
             try
             {
                 db.OpenConnection();
 
-                int lainausCount = 0;
                 string userType = isStaff ? "tyonum" : "astun";
 
                 string queryLainanum = $"SELECT lainanum, pvm FROM lainaus WHERE {userType} = \"{asnum}\"";
@@ -192,39 +198,15 @@ namespace Kirjasto_ohjelma
 
                 while (reader.Read())
                 {
-                    lainausCount++;
+                    string pvm = reader.GetDateTime("pvm").ToString("dd-MM-yyyy");
 
-                    string lainanum = reader.GetString("lainanum");
-
-                    DateTime pvmDate = reader.GetDateTime("pvm");
-                    string pvm = pvmDate.ToString("dd-MM-yyyy");
-
-                    Panel lainausPanel = new()
+                    string[] loan = new string[]
                     {
-                        Name = "lainausPanel" + lainausCount,
-                        Size = new Size(460, 100),
-                        BackColor = Color.FromArgb(255, 241, 220),
-                        BorderStyle = BorderStyle.FixedSingle,
+                                reader["lainanum"] as string,
+                                pvm
                     };
-                    lainausPanel.Location = new Point((lainauksetPanel.Width - lainausPanel.Width) / 2, 30);
 
-                    Label lainausLabel = new()
-                    {
-                        Name = "lainausLabel" + lainausCount,
-                        Text = "Lainaus: " + pvm
-                    };
-                    lainausLabel.Location = new Point((lainausPanel.Width - lainausLabel.Width) / 2, 10);
-
-                    lainausPanel.Controls.Add(lainausLabel);
-                    lainauksetPanel.Controls.Add(lainausPanel);
-
-                    lainanums.Append(lainanum);
-
-                    lainauksetPanel.Height += 490;
-                }
-                if (lainausCount >= 1)
-                {
-                    eiLainauksia.Visible = false;
+                    loans.Add(loan);
                 }
             }
             catch (Exception ex)
@@ -236,55 +218,33 @@ namespace Kirjasto_ohjelma
                 db.CloseConnection();
             }
 
-            LoadLoanRows(lainanums);
+            LoadLoanRows(loans);
         }
-        private void LoadLoanRows(List<string> lainanums)
+
+        private void LoadLoanRows(List<string[]> lainanums)
         {
+            List<string[]> loanRows = new();
+
             try
             {
                 db.OpenConnection();
 
-                foreach (string lainanum in lainanums)
+                foreach (string[] lainanum in lainanums)
                 {
-                    string lainariviQuery = $"SELECT lr.rivinum, k.nimi FROM lainarivi lr INNER JOIN lainakohde lk ON lk.tunnus = lr.kohdetun INNER JOIN kirja k ON k.isbn = lk.ktun WHERE lr.ltunnus = \"{lainanum}\"";
-
-                    int lainariviCount = 0;
+                    string lainariviQuery = $"SELECT lr.rivinum, k.nimi FROM lainarivi lr INNER JOIN lainakohde lk ON lk.tunnus = lr.kohdetun INNER JOIN kirja k ON k.isbn = lk.ktun WHERE lr.ltunnus = \"{lainanum[0]}\"";
 
                     using MySqlCommand lainariviCommand = new(lainariviQuery, db.connection);
                     using MySqlDataReader lainariviReader = lainariviCommand.ExecuteReader();
 
                     while (lainariviReader.Read())
                     {
-                        lainariviCount++;
-
-                        Panel lainariviPanel = new()
+                        string[] loanRow = new string[]
                         {
-                            Name = "lainarivi" + lainariviCount,
-                            Size = new Size(460, 100),
-                            BackColor = Color.Transparent,
-                            BorderStyle = BorderStyle.FixedSingle,
-                        };
-                        int rivinum = lainariviReader.GetInt32("lr.rivinum");
-                        string kirjanNimi = lainariviReader.GetString("k.nimi");
-
-                        Label rivinumLabel = new()
-                        {
-                            Name = "rivinumLabel" + lainariviCount,
-                            Text = "Rivi: " + rivinum
-                        };
-                        rivinumLabel.Location = new Point(lainariviPanel.Left + 10, (lainariviPanel.Height - rivinumLabel.Height) / 2);
-
-                        Label kirjanNimiLabel = new()
-                        {
-                            Name = "kirjanNimiLabel" + lainariviCount,
-                            Text = kirjanNimi,
-                            Location = new Point(rivinumLabel.Right + 10, rivinumLabel.Top)
+                                    lainariviReader.GetInt32("rivinum").ToString(),
+                                    lainariviReader.GetString("nimi")
                         };
 
-                        Control lainaPanel = lainauksetPanel.Controls[lainariviCount - 1];
-
-                        lainaPanel.Controls.Add(lainariviPanel);
-                        lainaPanel.Height += lainariviPanel.Height + 30;
+                        loanRows.Add(loanRow);
                     }
                 }
             }
@@ -296,6 +256,71 @@ namespace Kirjasto_ohjelma
             {
                 db.CloseConnection();
             }
+
+            displayLoans(lainanums, loanRows);
+        }
+
+        private void displayLoans(List<string[]> loans, List<string[]> loanRows)
+        {
+            int loanCount = 0;
+
+            for (int i = 1; i < loans.Count; i++)
+            {
+                Panel lainausPanel = new()
+                {
+                    Name = "lainausPanel" + i,
+                    Size = new Size(460, 200),
+                    BackColor = Color.FromArgb(255, 241, 220),
+                    BorderStyle = BorderStyle.FixedSingle,
+                };
+                lainausPanel.Location = new Point((lainauksetPanel.Width - lainausPanel.Width) / 2, 30);
+
+                Label lainausLabel = new()
+                {
+                    Name = "lainausLabel" + i,
+                    Text = "Lainaus: " + loans[i][1]
+                };
+                lainausLabel.Location = new Point((lainausPanel.Width - lainausLabel.Width) / 2, 10);
+
+                lainausPanel.Controls.Add(lainausLabel);
+                lainauksetPanel.Controls.Add(lainausPanel);
+
+                lainauksetPanel.Height += 490;
+
+                for (int j = 1; j < loanRows.Count; j++)
+                {
+                    Panel lainariviPanel = new()
+                    {
+                        Name = "lainarivi" + j,
+                        Size = new Size(460, 100),
+                        BackColor = Color.Transparent,
+                        BorderStyle = BorderStyle.FixedSingle,
+                    };
+
+                    Label rivinumLabel = new()
+                    {
+                        Name = "rivinumLabel" + j,
+                        Text = "Rivi: " + loanRows[j][0]
+                    };
+                    rivinumLabel.Location = new Point(lainariviPanel.Left + 10, (lainariviPanel.Height - rivinumLabel.Height) / 2);
+                    lainariviPanel.Controls.Add(rivinumLabel);
+
+                    Label kirjanNimiLabel = new()
+                    {
+                        Name = "kirjanNimiLabel" + j,
+                        Text = loanRows[j][1],
+                        Location = new Point(rivinumLabel.Right + 10, rivinumLabel.Top)
+                    };
+                    lainariviPanel.Controls.Add(kirjanNimiLabel);
+
+                    Control lainaPanel = lainauksetPanel.Controls[j - 1];
+
+                    lainaPanel.Controls.Add(lainariviPanel);
+                    lainaPanel.Height += lainariviPanel.Height + 30;
+                }
+                loanCount++;
+            }
+            eiLainauksia.Visible = loanCount > 0;
         }
 
         private void ChangePassword_Click(object sender, EventArgs e)
@@ -346,6 +371,11 @@ namespace Kirjasto_ohjelma
         private void Customers_Click(object sender, EventArgs e)
         {
             FormManager.OpenUserList(this);
+        }
+
+        private void timerAccDe_Tick(object sender, EventArgs e)
+        {
+            FormManager.timerTick(timerAcc, Menu);
         }
     }
 }

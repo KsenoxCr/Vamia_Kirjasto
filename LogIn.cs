@@ -40,7 +40,12 @@ namespace Kirjasto_ohjelma
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
-            FormManager.ToggleMenu(Menu);
+            FormManager.ToggleMenu(Menu, timerLogin);
+        }
+
+        private void TimerLogin_Tick(object sender, EventArgs e)
+        {
+            FormManager.timerTick(timerLogin, Menu);
         }
 
         private void Login_Click(object sender, EventArgs e)
@@ -64,7 +69,7 @@ namespace Kirjasto_ohjelma
                         User.IsStaff = isStaff;
 
                         FormManager.ToHome(this);
-                    } 
+                    }
                     else
                     {
                         MessageBox.Show("Virheellinen salasana");
@@ -167,7 +172,7 @@ namespace Kirjasto_ohjelma
             if (hashedPassword.Length == keySize * 2 && saltHex.Length == keySize * 2)
             {
                 // Convert salt from hexadecimal string to byte array
-                byte[] salt = Enumerable.Range(0, saltHex.Length)   
+                byte[] salt = Enumerable.Range(0, saltHex.Length)
                     .Where(x => x % 2 == 0)
                     .Select(x => Convert.ToByte(saltHex.Substring(x, 2), 16))
                     .ToArray();

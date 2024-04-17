@@ -58,10 +58,9 @@
             // kansikuva
             // 
             kansikuva.BackgroundImageLayout = ImageLayout.Center;
-            kansikuva.Location = new Point(17, 20);
-            kansikuva.Margin = new Padding(3, 4, 3, 4);
+            kansikuva.Location = new Point(15, 15);
             kansikuva.Name = "kansikuva";
-            kansikuva.Size = new Size(217, 333);
+            kansikuva.Size = new Size(190, 250);
             kansikuva.TabIndex = 0;
             kansikuva.TabStop = false;
             kansikuva.Click += BookCover_Click;
@@ -70,32 +69,28 @@
             // 
             panel1.BackColor = Color.PeachPuff;
             panel1.Controls.Add(kuvaus);
-            panel1.Location = new Point(272, 111);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Location = new Point(238, 83);
             panel1.Name = "panel1";
-            panel1.Size = new Size(325, 555);
+            panel1.Size = new Size(284, 416);
             panel1.TabIndex = 3;
             // 
             // kuvaus
             // 
-            kuvaus.Location = new Point(15, 19);
-            kuvaus.Margin = new Padding(3, 4, 3, 4);
+            kuvaus.Location = new Point(13, 14);
             kuvaus.Multiline = true;
             kuvaus.Name = "kuvaus";
             kuvaus.ReadOnly = true;
             kuvaus.ScrollBars = ScrollBars.Vertical;
-            kuvaus.Size = new Size(292, 513);
+            kuvaus.Size = new Size(256, 386);
             kuvaus.TabIndex = 0;
-            kuvaus.Text = resources.GetString("kuvaus.Text");
             // 
             // panel2
             // 
             panel2.BackColor = Color.PeachPuff;
             panel2.Controls.Add(kansikuva);
-            panel2.Location = new Point(14, 111);
-            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Location = new Point(12, 83);
             panel2.Name = "panel2";
-            panel2.Size = new Size(251, 373);
+            panel2.Size = new Size(220, 280);
             panel2.TabIndex = 4;
             // 
             // kirjanTiedot
@@ -109,10 +104,9 @@
             kirjanTiedot.Controls.Add(label9);
             kirjanTiedot.Controls.Add(label6);
             kirjanTiedot.Controls.Add(genreLabel);
-            kirjanTiedot.Location = new Point(14, 493);
-            kirjanTiedot.Margin = new Padding(3, 4, 3, 4);
+            kirjanTiedot.Location = new Point(12, 370);
             kirjanTiedot.Name = "kirjanTiedot";
-            kirjanTiedot.Size = new Size(251, 172);
+            kirjanTiedot.Size = new Size(220, 129);
             kirjanTiedot.TabIndex = 5;
             // 
             // kustantaja
@@ -120,11 +114,10 @@
             kustantaja.BackColor = Color.PeachPuff;
             kustantaja.BorderStyle = BorderStyle.None;
             kustantaja.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            kustantaja.Location = new Point(119, 124);
-            kustantaja.Margin = new Padding(3, 4, 3, 4);
+            kustantaja.Location = new Point(104, 93);
             kustantaja.Name = "kustantaja";
             kustantaja.ReadOnly = true;
-            kustantaja.Size = new Size(115, 27);
+            kustantaja.Size = new Size(101, 22);
             kustantaja.TabIndex = 22;
             kustantaja.Text = "Kustantaja";
             // 
@@ -133,11 +126,10 @@
             julkaistu.BackColor = Color.PeachPuff;
             julkaistu.BorderStyle = BorderStyle.None;
             julkaistu.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            julkaistu.Location = new Point(139, 91);
-            julkaistu.Margin = new Padding(3, 4, 3, 4);
+            julkaistu.Location = new Point(122, 68);
             julkaistu.Name = "julkaistu";
             julkaistu.ReadOnly = true;
-            julkaistu.Size = new Size(95, 27);
+            julkaistu.Size = new Size(83, 22);
             julkaistu.TabIndex = 21;
             julkaistu.Text = "2000";
             // 
@@ -146,11 +138,10 @@
             sivumaara.BackColor = Color.PeachPuff;
             sivumaara.BorderStyle = BorderStyle.None;
             sivumaara.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            sivumaara.Location = new Point(75, 55);
-            sivumaara.Margin = new Padding(3, 4, 3, 4);
+            sivumaara.Location = new Point(66, 41);
             sivumaara.Name = "sivumaara";
             sivumaara.ReadOnly = true;
-            sivumaara.Size = new Size(152, 27);
+            sivumaara.Size = new Size(133, 22);
             sivumaara.TabIndex = 20;
             sivumaara.Text = "0";
             // 
@@ -159,11 +150,10 @@
             genre.BackColor = Color.PeachPuff;
             genre.BorderStyle = BorderStyle.None;
             genre.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            genre.Location = new Point(82, 20);
-            genre.Margin = new Padding(3, 4, 3, 4);
+            genre.Location = new Point(72, 15);
             genre.Name = "genre";
             genre.ReadOnly = true;
-            genre.Size = new Size(152, 27);
+            genre.Size = new Size(133, 22);
             genre.TabIndex = 19;
             genre.Text = "genre";
             // 
@@ -171,9 +161,9 @@
             // 
             kustantajaLabel.AutoSize = true;
             kustantajaLabel.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            kustantajaLabel.Location = new Point(17, 124);
+            kustantajaLabel.Location = new Point(15, 93);
             kustantajaLabel.Name = "kustantajaLabel";
-            kustantajaLabel.Size = new Size(103, 25);
+            kustantajaLabel.Size = new Size(83, 20);
             kustantajaLabel.TabIndex = 16;
             kustantajaLabel.Text = "Kustantaja:";
             // 
@@ -181,9 +171,9 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(17, 91);
+            label9.Location = new Point(15, 68);
             label9.Name = "label9";
-            label9.Size = new Size(125, 25);
+            label9.Size = new Size(101, 20);
             label9.TabIndex = 13;
             label9.Text = "Julkaisuvuosi:";
             // 
@@ -191,9 +181,9 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(17, 57);
+            label6.Location = new Point(15, 43);
             label6.Name = "label6";
-            label6.Size = new Size(56, 25);
+            label6.Size = new Size(45, 20);
             label6.TabIndex = 12;
             label6.Text = "Sivut:";
             // 
@@ -201,9 +191,9 @@
             // 
             genreLabel.AutoSize = true;
             genreLabel.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            genreLabel.Location = new Point(17, 24);
+            genreLabel.Location = new Point(15, 18);
             genreLabel.Name = "genreLabel";
-            genreLabel.Size = new Size(64, 25);
+            genreLabel.Size = new Size(51, 20);
             genreLabel.TabIndex = 6;
             genreLabel.Text = "Genre:";
             // 
@@ -211,10 +201,9 @@
             // 
             pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox2.Location = new Point(567, 15);
-            pictureBox2.Margin = new Padding(3, 4, 3, 4);
+            pictureBox2.Location = new Point(496, 11);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(46, 53);
+            pictureBox2.Size = new Size(40, 40);
             pictureBox2.TabIndex = 6;
             pictureBox2.TabStop = false;
             pictureBox2.Click += Close_Click;
@@ -229,10 +218,9 @@
             poistaBtn.FlatAppearance.MouseOverBackColor = Color.OrangeRed;
             poistaBtn.FlatStyle = FlatStyle.Flat;
             poistaBtn.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            poistaBtn.Location = new Point(438, 673);
-            poistaBtn.Margin = new Padding(3, 4, 3, 4);
+            poistaBtn.Location = new Point(383, 505);
             poistaBtn.Name = "poistaBtn";
-            poistaBtn.Size = new Size(159, 68);
+            poistaBtn.Size = new Size(139, 51);
             poistaBtn.TabIndex = 11;
             poistaBtn.Text = "Poista";
             poistaBtn.UseVisualStyleBackColor = false;
@@ -249,10 +237,9 @@
             muokkaaBtn.FlatAppearance.MouseOverBackColor = Color.Orange;
             muokkaaBtn.FlatStyle = FlatStyle.Flat;
             muokkaaBtn.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            muokkaaBtn.Location = new Point(272, 673);
-            muokkaaBtn.Margin = new Padding(3, 4, 3, 4);
+            muokkaaBtn.Location = new Point(238, 505);
             muokkaaBtn.Name = "muokkaaBtn";
-            muokkaaBtn.Size = new Size(159, 68);
+            muokkaaBtn.Size = new Size(139, 51);
             muokkaaBtn.TabIndex = 12;
             muokkaaBtn.Text = "Muokkaa";
             muokkaaBtn.UseVisualStyleBackColor = false;
@@ -269,12 +256,11 @@
             lainaaBtn.FlatAppearance.MouseOverBackColor = Color.Tan;
             lainaaBtn.FlatStyle = FlatStyle.Flat;
             lainaaBtn.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            lainaaBtn.Location = new Point(14, 673);
-            lainaaBtn.Margin = new Padding(3, 4, 3, 4);
-            lainaaBtn.MaximumSize = new Size(343, 68);
-            lainaaBtn.MinimumSize = new Size(122, 68);
+            lainaaBtn.Location = new Point(12, 505);
+            lainaaBtn.MaximumSize = new Size(300, 51);
+            lainaaBtn.MinimumSize = new Size(107, 51);
             lainaaBtn.Name = "lainaaBtn";
-            lainaaBtn.Size = new Size(251, 68);
+            lainaaBtn.Size = new Size(220, 51);
             lainaaBtn.TabIndex = 14;
             lainaaBtn.Text = "Lainaa";
             lainaaBtn.UseVisualStyleBackColor = true;
@@ -285,11 +271,10 @@
             nimi.BackColor = Color.FromArgb(255, 241, 220);
             nimi.BorderStyle = BorderStyle.None;
             nimi.Font = new Font("Impact", 25F, FontStyle.Regular, GraphicsUnit.Point);
-            nimi.Location = new Point(64, 5);
-            nimi.Margin = new Padding(3, 4, 3, 4);
+            nimi.Location = new Point(56, 4);
             nimi.Name = "nimi";
             nimi.ReadOnly = true;
-            nimi.Size = new Size(496, 51);
+            nimi.Size = new Size(434, 41);
             nimi.TabIndex = 23;
             nimi.Text = "Kirjan Nimi";
             nimi.TextAlign = HorizontalAlignment.Center;
@@ -298,18 +283,18 @@
             // 
             kirjailija.AutoSize = true;
             kirjailija.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            kirjailija.Location = new Point(272, 64);
+            kirjailija.Location = new Point(238, 48);
             kirjailija.Name = "kirjailija";
-            kirjailija.Size = new Size(80, 25);
+            kirjailija.Size = new Size(64, 20);
             kirjailija.TabIndex = 24;
             kirjailija.Text = "Kirjailija";
             // 
             // BookInfo
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 241, 220);
-            ClientSize = new Size(626, 757);
+            ClientSize = new Size(548, 568);
             ControlBox = false;
             Controls.Add(kirjailija);
             Controls.Add(nimi);
@@ -321,9 +306,8 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 4, 3, 4);
-            MaximumSize = new Size(628, 759);
-            MinimumSize = new Size(628, 759);
+            MaximumSize = new Size(550, 570);
+            MinimumSize = new Size(550, 570);
             Name = "BookInfo";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;

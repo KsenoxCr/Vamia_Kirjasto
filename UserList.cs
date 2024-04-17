@@ -18,7 +18,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace Kirjasto_ohjelma
 {
     public partial class UserList : Form
-    { 
+    {
         private static UserList instance = null;
         private static readonly object _lock = new();
 
@@ -49,19 +49,27 @@ namespace Kirjasto_ohjelma
                 return instance;
             }
         }
+
         private void Logo_Click(object sender, EventArgs e)
         {
             FormManager.ToHome(this);
         }
+
         private void MenuButton_Click(object sender, EventArgs e)
         {
-            FormManager.ToggleMenu(Menu);
+            FormManager.ToggleMenu(Menu, timerUserList);
+        }
+
+        private void TimerUserList_Tick(object sender, EventArgs e)
+        {
+            FormManager.ToggleMenu(Menu, timerUserList);
         }
 
         private void LogOut_Click(object sender, EventArgs e)
         {
             FormManager.ToHome(this);
         }
+
         private void UserList_Load(object sender, EventArgs e)
         {
             LoadUsersFromDatabase();
@@ -72,6 +80,7 @@ namespace Kirjasto_ohjelma
                 this.Width += SystemInformation.VerticalScrollBarWidth;
             }
         }
+
         private void JarjestysCB_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (jarjestysCB.SelectedIndex)
@@ -101,6 +110,7 @@ namespace Kirjasto_ohjelma
 
             LoadUsersFromDatabase();
         }
+
         private void NaytaCB_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (naytaCB.SelectedIndex)

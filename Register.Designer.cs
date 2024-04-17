@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Register));
             Header = new Panel();
             panel2 = new Panel();
@@ -51,6 +52,7 @@
             label3 = new Label();
             palautteet = new Label();
             tuki = new Label();
+            timerRegister = new System.Windows.Forms.Timer(components);
             Header.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logo).BeginInit();
@@ -294,6 +296,10 @@
             tuki.Text = "Tuki";
             tuki.Click += tuki_Click;
             // 
+            // timerRegister
+            // 
+            timerRegister.Tick += timerRegister_Tick;
+            // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -342,5 +348,6 @@
         private TextBox sukunimi;
         private Label emailLabel;
         private TextBox etunimi;
+        private System.Windows.Forms.Timer timerRegister;
     }
 }

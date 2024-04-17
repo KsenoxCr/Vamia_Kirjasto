@@ -37,7 +37,6 @@ namespace Kirjasto_ohjelma
             panel3 = new Panel();
             pictureBox1 = new PictureBox();
             menuButton = new PictureBox();
-            contextMenuStrip1 = new ContextMenuStrip(components);
             KirjauduSisaan = new GroupBox();
             kirjauduSisäänBtn = new Button();
             Password = new Label();
@@ -52,6 +51,7 @@ namespace Kirjasto_ohjelma
             luoTunnusBtn = new Button();
             label1 = new Label();
             tervetuloa = new Label();
+            timerLogin = new System.Windows.Forms.Timer(components);
             Header.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -105,12 +105,6 @@ namespace Kirjasto_ohjelma
             menuButton.TabIndex = 3;
             menuButton.TabStop = false;
             menuButton.Click += MenuButton_Click;
-            // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // KirjauduSisaan
             // 
@@ -292,6 +286,11 @@ namespace Kirjasto_ohjelma
             tervetuloa.Text = "Laaja valikoima kirjoja,\r\naina mukanasi\r\n\r\n";
             tervetuloa.TextAlign = ContentAlignment.TopCenter;
             // 
+            // timerLogin
+            // 
+            timerLogin.Interval = 25;
+            timerLogin.Tick += TimerLogin_Tick;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -327,7 +326,6 @@ namespace Kirjasto_ohjelma
         #endregion
 
         private Panel Header;
-        private ContextMenuStrip contextMenuStrip1;
         private GroupBox KirjauduSisaan;
         private PictureBox pictureBox1;
         private TextBox InputUsername;
@@ -346,5 +344,6 @@ namespace Kirjasto_ohjelma
         private Button kirjauduSisäänBtn;
         private Label palautteet;
         private Label label2;
+        private System.Windows.Forms.Timer timerLogin;
     }
 }

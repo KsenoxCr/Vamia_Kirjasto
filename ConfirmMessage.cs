@@ -19,27 +19,15 @@ namespace Kirjasto_ohjelma
         private string? _type;
         private string? _value;
         private string? _ktun;
+        private List<string> _edits = new();
 
-        public ConfirmMessage(string type)
-        {
-            InitializeComponent();
-
-            this._type = type;
-        }
-        public ConfirmMessage(string type, string value)
+        public ConfirmMessage(string type, string value = "", string ktun = "", List<string> edits = null)
         {
             InitializeComponent();
 
             this._type = type;
             this._value = value;
-        }
-        public ConfirmMessage(string type, string value, string ktun)
-        {
-            InitializeComponent();
-
-            this._type = type;
-            this._value = value;
-            this._ktun = ktun;
+            this._edits = edits;
         }
 
         private void Form8_Load(object sender, EventArgs e)
@@ -56,7 +44,23 @@ namespace Kirjasto_ohjelma
                     break;
                 case "muokkaus":
                     label1.Text = "Muokkaus onnistui";
-                    label2.Text = "Muokkaukset: \r\n(tähän lista muokatuista osioista)";
+                    label2.Text = "Muokkaukset: \r\n";
+
+                    int height = label2.Height;
+
+                    foreach (string edit in _edits)
+                    {
+                        label2.Height += height;
+                        label2.Text += $" - {edit}\r\n";
+
+                        if (label2.Location.Y + label2.Height >= this.Height) { 
+                            this.Size = new Size(250, this.Height + height); //Height doesnt chjange
+                        }
+                    }
+                    break;
+                case "joLainassa":
+                    label1.Text = "Kirja on jo lainassa";
+                    label2.Text = "Yritä myöhemmin uudelleen";
                     break;
                 case "poistettu":
                     label1.Text = "Kirja poistettu";
@@ -133,7 +137,7 @@ namespace Kirjasto_ohjelma
                     this.Controls.Add(ei);
                     break;
                 default:
-                    label1.Text = "Pahoittelut!";
+                    label1.Text = "Pahoittelut";
                     label2.Text = "jokin meni pieleen. \r\n Yritä myöhemmin uudelleen";
                     break;
             }
@@ -141,6 +145,12 @@ namespace Kirjasto_ohjelma
 
         private void closeButton_Click(object sender, EventArgs e)
         {
+            if (_type == "muokkaus" || _type == "poisto")
+            {
+                Home home = Home.Instance;
+                home.LoadBooksFromDatabase();
+            }
+
             this.Close();
         }
 

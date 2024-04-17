@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountDetails));
             tervetuloa = new Label();
             Header = new Panel();
-            pictureBox3 = new PictureBox();
-            hae = new TextBox();
             panel2 = new Panel();
             panel3 = new Panel();
             pictureBox1 = new PictureBox();
@@ -46,7 +45,7 @@
             panel17 = new Panel();
             label2 = new Label();
             kirjat = new Label();
-            groupBox1 = new GroupBox();
+            tilinTiedotPanel = new GroupBox();
             enimiPanel = new Panel();
             vaihdaEnimi = new Button();
             label5 = new Label();
@@ -86,8 +85,8 @@
             lainauksetPanel = new GroupBox();
             eiLainauksia = new Label();
             label16 = new Label();
+            timerAcc = new System.Windows.Forms.Timer(components);
             Header.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
@@ -95,7 +94,7 @@
             footer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel16.SuspendLayout();
-            groupBox1.SuspendLayout();
+            tilinTiedotPanel.SuspendLayout();
             enimiPanel.SuspendLayout();
             snimiPanel.SuspendLayout();
             kayttajatunnusPanel.SuspendLayout();
@@ -112,7 +111,7 @@
             tervetuloa.AutoSize = true;
             tervetuloa.BackColor = Color.Transparent;
             tervetuloa.Font = new Font("Elephant", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            tervetuloa.Location = new Point(1, 105);
+            tervetuloa.Location = new Point(-54, 105);
             tervetuloa.MinimumSize = new Size(816, 30);
             tervetuloa.Name = "tervetuloa";
             tervetuloa.Size = new Size(816, 41);
@@ -123,8 +122,6 @@
             // Header
             // 
             Header.BackColor = Color.FromArgb(255, 241, 220);
-            Header.Controls.Add(pictureBox3);
-            Header.Controls.Add(hae);
             Header.Controls.Add(panel2);
             Header.Controls.Add(pictureBox1);
             Header.Controls.Add(menuButton);
@@ -132,25 +129,6 @@
             Header.Name = "Header";
             Header.Size = new Size(860, 80);
             Header.TabIndex = 8;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.White;
-            pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
-            pictureBox3.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox3.Location = new Point(706, 30);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(23, 23);
-            pictureBox3.TabIndex = 16;
-            pictureBox3.TabStop = false;
-            // 
-            // hae
-            // 
-            hae.Location = new Point(610, 30);
-            hae.Name = "hae";
-            hae.PlaceholderText = "Etsi";
-            hae.Size = new Size(119, 23);
-            hae.TabIndex = 4;
             // 
             // panel2
             // 
@@ -170,7 +148,7 @@
             // pictureBox1
             // 
             pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
-            pictureBox1.Location = new Point(160, 20);
+            pictureBox1.Location = new Point(239, 20);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(302, 38);
             pictureBox1.TabIndex = 3;
@@ -195,7 +173,7 @@
             Menu.Controls.Add(footer);
             Menu.Controls.Add(label2);
             Menu.Controls.Add(kirjat);
-            Menu.Location = new Point(0, 79);
+            Menu.Location = new Point(-125, 79);
             Menu.Name = "Menu";
             Menu.Size = new Size(125, 1600);
             Menu.TabIndex = 13;
@@ -218,7 +196,7 @@
             kirjaudu_ulos.AutoSize = true;
             kirjaudu_ulos.Cursor = Cursors.Hand;
             kirjaudu_ulos.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            kirjaudu_ulos.Location = new Point(10, 490);
+            kirjaudu_ulos.Location = new Point(10, 85);
             kirjaudu_ulos.Name = "kirjaudu_ulos";
             kirjaudu_ulos.Size = new Size(96, 20);
             kirjaudu_ulos.TabIndex = 22;
@@ -232,7 +210,7 @@
             footer.Controls.Add(panel16);
             footer.Location = new Point(0, 654);
             footer.Name = "footer";
-            footer.Size = new Size(860, 80);
+            footer.Size = new Size(702, 80);
             footer.TabIndex = 17;
             // 
             // pictureBox15
@@ -282,27 +260,27 @@
             kirjat.Text = "Kirjat";
             kirjat.Click += Books_Click;
             // 
-            // groupBox1
+            // tilinTiedotPanel
             // 
-            groupBox1.BackColor = Color.FromArgb(125, 255, 241, 220);
-            groupBox1.Controls.Add(enimiPanel);
-            groupBox1.Controls.Add(snimiPanel);
-            groupBox1.Controls.Add(kayttajatunnusPanel);
-            groupBox1.Controls.Add(salasanaPanel);
-            groupBox1.Controls.Add(puhPanel);
-            groupBox1.Controls.Add(ptpPanel);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(pnoPanel);
-            groupBox1.Controls.Add(losoPanel);
-            groupBox1.Controls.Add(tyonim);
-            groupBox1.Controls.Add(tyonimLabel);
-            groupBox1.Controls.Add(lisatiedot);
-            groupBox1.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox1.Location = new Point(163, 162);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(491, 370);
-            groupBox1.TabIndex = 20;
-            groupBox1.TabStop = false;
+            tilinTiedotPanel.BackColor = Color.FromArgb(125, 255, 241, 220);
+            tilinTiedotPanel.Controls.Add(enimiPanel);
+            tilinTiedotPanel.Controls.Add(snimiPanel);
+            tilinTiedotPanel.Controls.Add(kayttajatunnusPanel);
+            tilinTiedotPanel.Controls.Add(salasanaPanel);
+            tilinTiedotPanel.Controls.Add(puhPanel);
+            tilinTiedotPanel.Controls.Add(ptpPanel);
+            tilinTiedotPanel.Controls.Add(label1);
+            tilinTiedotPanel.Controls.Add(pnoPanel);
+            tilinTiedotPanel.Controls.Add(losoPanel);
+            tilinTiedotPanel.Controls.Add(tyonim);
+            tilinTiedotPanel.Controls.Add(tyonimLabel);
+            tilinTiedotPanel.Controls.Add(lisatiedot);
+            tilinTiedotPanel.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            tilinTiedotPanel.Location = new Point(104, 164);
+            tilinTiedotPanel.Name = "tilinTiedotPanel";
+            tilinTiedotPanel.Size = new Size(491, 370);
+            tilinTiedotPanel.TabIndex = 20;
+            tilinTiedotPanel.TabStop = false;
             // 
             // enimiPanel
             // 
@@ -767,7 +745,7 @@
             lainauksetPanel.BackColor = Color.FromArgb(125, 255, 241, 220);
             lainauksetPanel.Controls.Add(eiLainauksia);
             lainauksetPanel.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            lainauksetPanel.Location = new Point(163, 579);
+            lainauksetPanel.Location = new Point(104, 602);
             lainauksetPanel.Name = "lainauksetPanel";
             lainauksetPanel.Size = new Size(491, 125);
             lainauksetPanel.TabIndex = 31;
@@ -789,7 +767,7 @@
             label16.AutoSize = true;
             label16.BackColor = Color.Transparent;
             label16.Font = new Font("Elephant", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label16.Location = new Point(211, 535);
+            label16.Location = new Point(152, 557);
             label16.MinimumSize = new Size(400, 30);
             label16.Name = "label16";
             label16.Size = new Size(400, 31);
@@ -797,15 +775,20 @@
             label16.Text = "Lainauksesi";
             label16.TextAlign = ContentAlignment.TopCenter;
             // 
+            // timerAcc
+            // 
+            timerAcc.Interval = 25;
+            timerAcc.Tick += timerAccDe_Tick;
+            // 
             // AccountDetails
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(800, 811);
+            ClientSize = new Size(695, 811);
             Controls.Add(label16);
             Controls.Add(lainauksetPanel);
-            Controls.Add(groupBox1);
+            Controls.Add(tilinTiedotPanel);
             Controls.Add(Menu);
             Controls.Add(tervetuloa);
             Controls.Add(Header);
@@ -817,8 +800,6 @@
             Text = "Kirjasto";
             Load += Form_Load;
             Header.ResumeLayout(false);
-            Header.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).EndInit();
@@ -827,8 +808,8 @@
             footer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel16.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            tilinTiedotPanel.ResumeLayout(false);
+            tilinTiedotPanel.PerformLayout();
             enimiPanel.ResumeLayout(false);
             enimiPanel.PerformLayout();
             snimiPanel.ResumeLayout(false);
@@ -860,9 +841,7 @@
         private PictureBox menuButton;
         private Panel Menu;
         private Label label2;
-        private TextBox hae;
-        private PictureBox pictureBox3;
-        private GroupBox groupBox1;
+        private GroupBox tilinTiedotPanel;
         private Label label1;
         private Panel footer;
         private Panel panel16;
@@ -909,5 +888,6 @@
         private Label label5;
         private Label enimi;
         private Button vaihdaKtunnus;
+        private System.Windows.Forms.Timer timerAcc;
     }
 }

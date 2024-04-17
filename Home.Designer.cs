@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             tervetuloa = new Label();
             Header = new Panel();
@@ -38,6 +39,7 @@
             pictureBox1 = new PictureBox();
             menuButton = new PictureBox();
             Menu = new Panel();
+            username = new Label();
             lisaa_kirja = new Label();
             asiakkaat = new Label();
             oma_tili = new Label();
@@ -55,11 +57,13 @@
             pictureBox15 = new PictureBox();
             panel16 = new Panel();
             panel17 = new Panel();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             kirjaFlowLayoutPanel = new FlowLayoutPanel();
             selausAsetukset = new Panel();
             jarjestys = new Label();
             jarjestysCB = new ComboBox();
+            wholeUsername = new ToolTip(components);
+            timerHome = new System.Windows.Forms.Timer(components);
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             Header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel2.SuspendLayout();
@@ -154,6 +158,7 @@
             // Menu
             // 
             Menu.BackColor = Color.FromArgb(255, 241, 220);
+            Menu.Controls.Add(username);
             Menu.Controls.Add(lisaa_kirja);
             Menu.Controls.Add(asiakkaat);
             Menu.Controls.Add(oma_tili);
@@ -162,18 +167,28 @@
             Menu.Controls.Add(ehdota_kirjaa);
             Menu.Controls.Add(palautteet);
             Menu.Controls.Add(tuki);
-            Menu.Location = new Point(0, -103);
+            Menu.Location = new Point(0, 0);
             Menu.Name = "Menu";
             Menu.Size = new Size(125, 1600);
             Menu.TabIndex = 13;
             Menu.Tag = "Closed";
+            // 
+            // username
+            // 
+            username.Font = new Font("Impact", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            username.ForeColor = Color.FromArgb(64, 0, 64);
+            username.Location = new Point(8, 9);
+            username.Name = "username";
+            username.Size = new Size(114, 23);
+            username.TabIndex = 25;
+            username.Text = "Käyttäjänimi";
             // 
             // lisaa_kirja
             // 
             lisaa_kirja.AutoSize = true;
             lisaa_kirja.Cursor = Cursors.Hand;
             lisaa_kirja.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lisaa_kirja.Location = new Point(10, 235);
+            lisaa_kirja.Location = new Point(10, 308);
             lisaa_kirja.Name = "lisaa_kirja";
             lisaa_kirja.Size = new Size(76, 20);
             lisaa_kirja.TabIndex = 24;
@@ -185,7 +200,7 @@
             asiakkaat.AutoSize = true;
             asiakkaat.Cursor = Cursors.Hand;
             asiakkaat.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            asiakkaat.Location = new Point(10, 205);
+            asiakkaat.Location = new Point(10, 278);
             asiakkaat.Name = "asiakkaat";
             asiakkaat.Size = new Size(73, 20);
             asiakkaat.TabIndex = 23;
@@ -196,7 +211,7 @@
             // 
             oma_tili.AutoSize = true;
             oma_tili.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            oma_tili.Location = new Point(10, 85);
+            oma_tili.Location = new Point(12, 40);
             oma_tili.Name = "oma_tili";
             oma_tili.Size = new Size(58, 20);
             oma_tili.TabIndex = 22;
@@ -207,7 +222,7 @@
             // 
             kirjauduUlos.AutoSize = true;
             kirjauduUlos.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            kirjauduUlos.Location = new Point(10, 675);
+            kirjauduUlos.Location = new Point(12, 70);
             kirjauduUlos.Name = "kirjauduUlos";
             kirjauduUlos.Size = new Size(96, 20);
             kirjauduUlos.TabIndex = 21;
@@ -228,7 +243,7 @@
             // 
             ehdota_kirjaa.AutoSize = true;
             ehdota_kirjaa.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ehdota_kirjaa.Location = new Point(10, 115);
+            ehdota_kirjaa.Location = new Point(10, 188);
             ehdota_kirjaa.Name = "ehdota_kirjaa";
             ehdota_kirjaa.Size = new Size(95, 20);
             ehdota_kirjaa.TabIndex = 2;
@@ -239,7 +254,7 @@
             // 
             palautteet.AutoSize = true;
             palautteet.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            palautteet.Location = new Point(12, 175);
+            palautteet.Location = new Point(12, 248);
             palautteet.Name = "palautteet";
             palautteet.Size = new Size(110, 20);
             palautteet.TabIndex = 1;
@@ -250,7 +265,7 @@
             // 
             tuki.AutoSize = true;
             tuki.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            tuki.Location = new Point(10, 145);
+            tuki.Location = new Point(10, 218);
             tuki.Name = "tuki";
             tuki.Size = new Size(36, 20);
             tuki.TabIndex = 0;
@@ -391,6 +406,15 @@
             jarjestysCB.Text = "A-Z";
             jarjestysCB.SelectedIndexChanged += JarjestysCB_SelectedIndexChanged;
             // 
+            // timerHome
+            // 
+            timerHome.Interval = 25;
+            timerHome.Tick += TimerHome_Tick;
+            // 
+            // backgroundWorker1
+            // 
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            // 
             // Home
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -457,7 +481,6 @@
         private Panel panel17;
         private PictureBox pictureBox15;
         private Label kirjauduUlos;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Label oma_tili;
         private Label asiakkaat;
         private FlowLayoutPanel kirjaFlowLayoutPanel;
@@ -465,5 +488,9 @@
         private Label jarjestys;
         private ComboBox jarjestysCB;
         private Label lisaa_kirja;
+        private Label username;
+        private ToolTip wholeUsername;
+        private System.Windows.Forms.Timer timerHome;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

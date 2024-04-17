@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserList));
             kayttajatLabel = new Label();
             Header = new Panel();
@@ -66,6 +67,7 @@
             label1 = new Label();
             asiakkaatPanel = new GroupBox();
             saveFileDialog1 = new SaveFileDialog();
+            timerUserList = new System.Windows.Forms.Timer(components);
             Header.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logo).BeginInit();
@@ -470,6 +472,11 @@
             asiakkaatPanel.TabIndex = 21;
             asiakkaatPanel.TabStop = false;
             // 
+            // timerUserList
+            // 
+            timerUserList.Interval = 25;
+            timerUserList.Tick += TimerUserList_Tick;
+            // 
             // UserList
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -546,5 +553,6 @@
         private Label Palautteet;
         private ComboBox naytaCB;
         private Label label7;
+        private System.Windows.Forms.Timer timerUserList;
     }
 }

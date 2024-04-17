@@ -81,7 +81,7 @@
             Controls.Add(closeButton);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
-            MaximumSize = new Size(250, 150);
+            MaximumSize = new Size(250, 600);
             MinimumSize = new Size(250, 150);
             Name = "ConfirmMessage";
             StartPosition = FormStartPosition.CenterScreen;

@@ -62,7 +62,11 @@ namespace Kirjasto_ohjelma
 
         private void menuButton_Click(object sender, EventArgs e)
         {
-            FormManager.ToggleMenu(Menu);
+            FormManager.ToggleMenu(Menu, timerRegister);
+        }
+        private void timerRegister_Tick(object sender, EventArgs e)
+        {
+            FormManager.timerTick(timerRegister, Menu);
         }
 
         private void logo_Click(object sender, EventArgs e)
@@ -188,11 +192,11 @@ namespace Kirjasto_ohjelma
                     if (currentYear == lastAsnumYear)
                     {
                         newCustomerNumber = (customerNumber + 1).ToString("D3");
-                    } 
+                    }
                     else if (int.Parse(currentYear) > int.Parse(lastAsnumYear))
                     {
                         newCustomerNumber = "001";
-                    }   
+                    }
 
                     newAsnum = "AS" + newCustomerNumber + currentYear;
                 }
@@ -202,7 +206,7 @@ namespace Kirjasto_ohjelma
 
                     return "";
                 }
-            } 
+            }
             else
             {
                 MessageBox.Show("Tietokantavirhe: Yhtäkään asnum ei löytynyt");

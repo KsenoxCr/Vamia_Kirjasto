@@ -54,9 +54,17 @@ namespace Kirjasto_ohjelma
                         label2.Text += $" - {edit}\r\n";
 
                         if (label2.Location.Y + label2.Height >= this.Height) { 
-                            this.Size = new Size(250, this.Height + height); //Height doesnt chjange
+                            this.Size = new Size(250, this.Height + height); //Height doesn't change
                         }
                     }
+                    break;
+                case "kirjailija":
+                    label1.Text = "Kirjailija lisätty";
+                    label2.Text = _value + "\r\non lisätty tietokantaan"; //formatting off
+                    break;
+                case "lisäys":
+                    label1.Text = "Kirja lisätty";
+                    label2.Text = _value + " on lisätty valikoimaan"; //formatting off
                     break;
                 case "joLainassa":
                     label1.Text = "Kirja on jo lainassa";
@@ -64,7 +72,7 @@ namespace Kirjasto_ohjelma
                     break;
                 case "poistettu":
                     label1.Text = "Kirja poistettu";
-                    label2.Text = _value + " on poistettu valikoimasta";
+                    label2.Text = _value + " on poistettu valikoimasta"; //formatting off
                     break;
                 case "tuki":
                     label1.Text = "Kiitos yhteydenotostasi";
@@ -147,8 +155,8 @@ namespace Kirjasto_ohjelma
         {
             if (_type == "muokkaus" || _type == "poisto")
             {
-                Home home = Home.Instance;
-                home.LoadBooksFromDatabase();
+                Home home = new();
+                home.Show();
             }
 
             this.Close();
@@ -189,13 +197,9 @@ namespace Kirjasto_ohjelma
                 }
 
                 FormManager.OpenConfirmMessage("poisto", _value);
+            }
 
-                this.Close();
-            }
-            else
-            {
-                this.Close();
-            }
+            this.Close();
         }
     }
 }

@@ -38,10 +38,6 @@
             menuButton = new PictureBox();
             pictureBox3 = new PictureBox();
             hae = new TextBox();
-            Menu = new Panel();
-            kirjaudu_ulos = new Label();
-            label2 = new Label();
-            kirjat = new Label();
             footer = new Panel();
             pictureBox15 = new PictureBox();
             panel16 = new Panel();
@@ -68,18 +64,23 @@
             asiakkaatPanel = new GroupBox();
             saveFileDialog1 = new SaveFileDialog();
             timerUserList = new System.Windows.Forms.Timer(components);
+            toolTip = new ToolTip(components);
+            kirjat = new Label();
+            label2 = new Label();
+            kirjaudu_ulos = new Label();
+            Menu = new Panel();
             Header.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            Menu.SuspendLayout();
             footer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
             panel16.SuspendLayout();
             hakuPanel.SuspendLayout();
             infoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)orderBox).BeginInit();
+            Menu.SuspendLayout();
             SuspendLayout();
             // 
             // kayttajatLabel
@@ -101,9 +102,9 @@
             Header.Controls.Add(panel2);
             Header.Controls.Add(logo);
             Header.Controls.Add(menuButton);
-            Header.Location = new Point(-30, -1);
+            Header.Location = new Point(-30, 0);
             Header.Name = "Header";
-            Header.Size = new Size(925, 80);
+            Header.Size = new Size(1036, 80);
             Header.TabIndex = 8;
             // 
             // panel2
@@ -124,6 +125,7 @@
             // logo
             // 
             logo.BackgroundImage = (Image)resources.GetObject("logo.BackgroundImage");
+            logo.Cursor = Cursors.Hand;
             logo.Location = new Point(326, 20);
             logo.Name = "logo";
             logo.Size = new Size(302, 38);
@@ -134,6 +136,7 @@
             // menuButton
             // 
             menuButton.BackgroundImage = (Image)resources.GetObject("menuButton.BackgroundImage");
+            menuButton.Cursor = Cursors.Hand;
             menuButton.Location = new Point(53, 23);
             menuButton.Name = "menuButton";
             menuButton.Size = new Size(35, 35);
@@ -154,57 +157,14 @@
             // 
             // hae
             // 
-            hae.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            hae.Cursor = Cursors.Hand;
+            hae.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             hae.Location = new Point(6, 24);
             hae.Name = "hae";
             hae.PlaceholderText = "Etsi";
-            hae.Size = new Size(119, 24);
+            hae.Size = new Size(119, 25);
             hae.TabIndex = 4;
-            // 
-            // Menu
-            // 
-            Menu.BackColor = Color.FromArgb(255, 241, 220);
-            Menu.Controls.Add(kirjaudu_ulos);
-            Menu.Controls.Add(label2);
-            Menu.Controls.Add(kirjat);
-            Menu.Location = new Point(-125, 80);
-            Menu.Name = "Menu";
-            Menu.Size = new Size(125, 295);
-            Menu.TabIndex = 13;
-            Menu.Tag = "Closed";
-            // 
-            // kirjaudu_ulos
-            // 
-            kirjaudu_ulos.AutoSize = true;
-            kirjaudu_ulos.Cursor = Cursors.Hand;
-            kirjaudu_ulos.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            kirjaudu_ulos.Location = new Point(10, 56);
-            kirjaudu_ulos.Name = "kirjaudu_ulos";
-            kirjaudu_ulos.Size = new Size(96, 20);
-            kirjaudu_ulos.TabIndex = 22;
-            kirjaudu_ulos.Text = "Kirjaudu Ulos";
-            kirjaudu_ulos.Click += LogOut_Click;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(12, 1500);
-            label2.Name = "label2";
-            label2.Size = new Size(48, 16);
-            label2.TabIndex = 3;
-            label2.Text = "Vamia ©";
-            // 
-            // kirjat
-            // 
-            kirjat.AutoSize = true;
-            kirjat.Cursor = Cursors.Hand;
-            kirjat.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            kirjat.Location = new Point(10, 26);
-            kirjat.Name = "kirjat";
-            kirjat.Size = new Size(45, 20);
-            kirjat.TabIndex = 1;
-            kirjat.Text = "Kirjat";
+            hae.TextChanged += hae_TextChanged;
             // 
             // footer
             // 
@@ -213,13 +173,14 @@
             footer.Controls.Add(panel16);
             footer.Location = new Point(1, 375);
             footer.Name = "footer";
-            footer.Size = new Size(894, 80);
+            footer.Size = new Size(1005, 80);
             footer.TabIndex = 17;
             // 
             // pictureBox15
             // 
             pictureBox15.BackgroundImage = (Image)resources.GetObject("pictureBox15.BackgroundImage");
             pictureBox15.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox15.Cursor = Cursors.Hand;
             pictureBox15.Location = new Point(24, 19);
             pictureBox15.Name = "pictureBox15";
             pictureBox15.Size = new Size(181, 46);
@@ -257,16 +218,17 @@
             hakuPanel.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
             hakuPanel.Location = new Point(12, 162);
             hakuPanel.Name = "hakuPanel";
-            hakuPanel.Size = new Size(872, 115);
+            hakuPanel.Size = new Size(968, 115);
             hakuPanel.TabIndex = 20;
             hakuPanel.TabStop = false;
             // 
             // naytaCB
             // 
+            naytaCB.Cursor = Cursors.Hand;
             naytaCB.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             naytaCB.FormattingEnabled = true;
             naytaCB.Items.AddRange(new object[] { "Kaikki", "Puolet", "10", "20", "50", "100 " });
-            naytaCB.Location = new Point(560, 24);
+            naytaCB.Location = new Point(669, 27);
             naytaCB.Margin = new Padding(3, 2, 3, 2);
             naytaCB.Name = "naytaCB";
             naytaCB.Size = new Size(58, 24);
@@ -279,7 +241,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(498, 24);
+            label7.Location = new Point(617, 27);
             label7.Name = "label7";
             label7.Size = new Size(46, 20);
             label7.TabIndex = 18;
@@ -300,16 +262,17 @@
             infoPanel.Controls.Add(label5);
             infoPanel.Controls.Add(label4);
             infoPanel.Controls.Add(kirjatLabel);
+            infoPanel.Cursor = Cursors.Hand;
             infoPanel.Location = new Point(6, 64);
             infoPanel.Name = "infoPanel";
-            infoPanel.Size = new Size(857, 50);
+            infoPanel.Size = new Size(956, 50);
             infoPanel.TabIndex = 0;
             // 
             // Palautteet
             // 
             Palautteet.AutoSize = true;
             Palautteet.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            Palautteet.Location = new Point(774, 17);
+            Palautteet.Location = new Point(863, 17);
             Palautteet.Name = "Palautteet";
             Palautteet.Size = new Size(76, 19);
             Palautteet.TabIndex = 11;
@@ -319,7 +282,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(726, 17);
+            label3.Location = new Point(810, 17);
             label3.Name = "label3";
             label3.Size = new Size(42, 19);
             label3.TabIndex = 10;
@@ -329,7 +292,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label12.Location = new Point(644, 17);
+            label12.Location = new Point(719, 17);
             label12.Name = "label12";
             label12.Size = new Size(76, 19);
             label12.TabIndex = 9;
@@ -339,7 +302,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(530, 17);
+            label11.Location = new Point(599, 17);
             label11.Name = "label11";
             label11.Size = new Size(106, 19);
             label11.TabIndex = 9;
@@ -349,7 +312,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.Location = new Point(435, 17);
+            label10.Location = new Point(502, 17);
             label10.Name = "label10";
             label10.Size = new Size(87, 19);
             label10.TabIndex = 9;
@@ -359,7 +322,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(339, 17);
+            label9.Location = new Point(396, 17);
             label9.Name = "label9";
             label9.Size = new Size(90, 19);
             label9.TabIndex = 9;
@@ -369,7 +332,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(260, 17);
+            label8.Location = new Point(307, 17);
             label8.Name = "label8";
             label8.Size = new Size(73, 19);
             label8.TabIndex = 9;
@@ -379,7 +342,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(187, 17);
+            label6.Location = new Point(219, 17);
             label6.Name = "label6";
             label6.Size = new Size(67, 19);
             label6.TabIndex = 9;
@@ -389,7 +352,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(123, 17);
+            label5.Location = new Point(150, 17);
             label5.Name = "label5";
             label5.Size = new Size(58, 19);
             label5.TabIndex = 9;
@@ -399,7 +362,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(64, 17);
+            label4.Location = new Point(82, 17);
             label4.Name = "label4";
             label4.Size = new Size(53, 19);
             label4.TabIndex = 9;
@@ -409,7 +372,8 @@
             // 
             kirjatLabel.AutoSize = true;
             kirjatLabel.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            kirjatLabel.Location = new Point(6, 17);
+            kirjatLabel.Location = new Point(15, 17);
+            kirjatLabel.Margin = new Padding(0);
             kirjatLabel.Name = "kirjatLabel";
             kirjatLabel.Size = new Size(52, 19);
             kirjatLabel.TabIndex = 0;
@@ -421,7 +385,8 @@
             orderBox.BackColor = Color.Transparent;
             orderBox.BackgroundImage = (Image)resources.GetObject("orderBox.BackgroundImage");
             orderBox.BorderStyle = BorderStyle.FixedSingle;
-            orderBox.Location = new Point(839, 24);
+            orderBox.Cursor = Cursors.Hand;
+            orderBox.Location = new Point(938, 27);
             orderBox.Margin = new Padding(0);
             orderBox.Name = "orderBox";
             orderBox.Size = new Size(24, 24);
@@ -434,7 +399,7 @@
             jarjestys.AutoSize = true;
             jarjestys.BackColor = Color.Transparent;
             jarjestys.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            jarjestys.Location = new Point(636, 24);
+            jarjestys.Location = new Point(733, 27);
             jarjestys.Name = "jarjestys";
             jarjestys.Size = new Size(68, 20);
             jarjestys.TabIndex = 4;
@@ -443,15 +408,16 @@
             // 
             // jarjestysCB
             // 
+            jarjestysCB.Cursor = Cursors.Hand;
             jarjestysCB.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             jarjestysCB.FormattingEnabled = true;
             jarjestysCB.Items.AddRange(new object[] { "Asiakasnumero", "Kayttajatunnus", "Etunimi", "Sukunimi", "Lainaukset", "Lainatut kirjat", "Palautteet" });
-            jarjestysCB.Location = new Point(710, 23);
+            jarjestysCB.Location = new Point(807, 27);
             jarjestysCB.Margin = new Padding(3, 2, 3, 2);
             jarjestysCB.Name = "jarjestysCB";
             jarjestysCB.Size = new Size(116, 24);
             jarjestysCB.TabIndex = 3;
-            jarjestysCB.Text = "A-Z";
+            jarjestysCB.Text = "Asiakasnumero";
             jarjestysCB.SelectedIndexChanged += JarjestysCB_SelectedIndexChanged;
             // 
             // label1
@@ -468,7 +434,7 @@
             asiakkaatPanel.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
             asiakkaatPanel.Location = new Point(12, 275);
             asiakkaatPanel.Name = "asiakkaatPanel";
-            asiakkaatPanel.Size = new Size(872, 75);
+            asiakkaatPanel.Size = new Size(968, 75);
             asiakkaatPanel.TabIndex = 21;
             asiakkaatPanel.TabStop = false;
             // 
@@ -477,12 +443,58 @@
             timerUserList.Interval = 25;
             timerUserList.Tick += TimerUserList_Tick;
             // 
+            // kirjat
+            // 
+            kirjat.AutoSize = true;
+            kirjat.Cursor = Cursors.Hand;
+            kirjat.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            kirjat.Location = new Point(10, 26);
+            kirjat.Name = "kirjat";
+            kirjat.Size = new Size(45, 20);
+            kirjat.TabIndex = 1;
+            kirjat.Text = "Kirjat";
+            kirjat.Click += kirjat_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(12, 1500);
+            label2.Name = "label2";
+            label2.Size = new Size(48, 16);
+            label2.TabIndex = 3;
+            label2.Text = "Vamia ©";
+            // 
+            // kirjaudu_ulos
+            // 
+            kirjaudu_ulos.AutoSize = true;
+            kirjaudu_ulos.Cursor = Cursors.Hand;
+            kirjaudu_ulos.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            kirjaudu_ulos.Location = new Point(10, 56);
+            kirjaudu_ulos.Name = "kirjaudu_ulos";
+            kirjaudu_ulos.Size = new Size(96, 20);
+            kirjaudu_ulos.TabIndex = 22;
+            kirjaudu_ulos.Text = "Kirjaudu Ulos";
+            kirjaudu_ulos.Click += LogOut_Click;
+            // 
+            // Menu
+            // 
+            Menu.BackColor = Color.FromArgb(255, 241, 220);
+            Menu.Controls.Add(kirjaudu_ulos);
+            Menu.Controls.Add(label2);
+            Menu.Controls.Add(kirjat);
+            Menu.Location = new Point(-125, 80);
+            Menu.Name = "Menu";
+            Menu.Size = new Size(125, 295);
+            Menu.TabIndex = 13;
+            Menu.Tag = "Closed";
+            // 
             // UserList
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(884, 451);
+            ClientSize = new Size(1005, 451);
             Controls.Add(asiakkaatPanel);
             Controls.Add(footer);
             Controls.Add(hakuPanel);
@@ -501,8 +513,6 @@
             ((System.ComponentModel.ISupportInitialize)logo).EndInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            Menu.ResumeLayout(false);
-            Menu.PerformLayout();
             footer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
             panel16.ResumeLayout(false);
@@ -511,6 +521,8 @@
             infoPanel.ResumeLayout(false);
             infoPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)orderBox).EndInit();
+            Menu.ResumeLayout(false);
+            Menu.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -522,8 +534,6 @@
         private Panel panel3;
         private PictureBox logo;
         private PictureBox menuButton;
-        private Panel Menu;
-        private Label label2;
         private TextBox hae;
         private PictureBox pictureBox3;
         private GroupBox hakuPanel;
@@ -531,8 +541,6 @@
         private Panel panel16;
         private Panel panel17;
         private PictureBox pictureBox15;
-        private Label kirjaudu_ulos;
-        private Label kirjat;
         private Label label1;
         private GroupBox asiakkaatPanel;
         private Label jarjestys;
@@ -554,5 +562,10 @@
         private ComboBox naytaCB;
         private Label label7;
         private System.Windows.Forms.Timer timerUserList;
+        private ToolTip toolTip;
+        private Label kirjat;
+        private Label label2;
+        private Label kirjaudu_ulos;
+        private Panel Menu;
     }
 }

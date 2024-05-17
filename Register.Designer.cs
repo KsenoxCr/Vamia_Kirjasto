@@ -95,7 +95,7 @@
             logo.Size = new Size(302, 38);
             logo.TabIndex = 3;
             logo.TabStop = false;
-            logo.Click += logo_Click;
+            logo.Click += Logo_Click;
             // 
             // menuButton
             // 
@@ -105,7 +105,7 @@
             menuButton.Size = new Size(35, 35);
             menuButton.TabIndex = 3;
             menuButton.TabStop = false;
-            menuButton.Click += menuButton_Click;
+            menuButton.Click += MenuButton_Click;
             // 
             // label2
             // 
@@ -211,7 +211,7 @@
             luoTunnusBtn.TabIndex = 6;
             luoTunnusBtn.Text = "Luo uusi tunnus";
             luoTunnusBtn.UseVisualStyleBackColor = false;
-            luoTunnusBtn.Click += luoTunnusBtn_Click;
+            luoTunnusBtn.Click += LuoTunnusBtn_Click;
             // 
             // usernameLabel
             // 
@@ -283,7 +283,7 @@
             palautteet.Size = new Size(110, 20);
             palautteet.TabIndex = 1;
             palautteet.Text = "Anna Palautetta";
-            palautteet.Click += palautteet_Click;
+            palautteet.Click += Palautteet_Click;
             // 
             // tuki
             // 
@@ -294,11 +294,11 @@
             tuki.Size = new Size(36, 20);
             tuki.TabIndex = 0;
             tuki.Text = "Tuki";
-            tuki.Click += tuki_Click;
+            tuki.Click += Tuki_Click;
             // 
             // timerRegister
             // 
-            timerRegister.Tick += timerRegister_Tick;
+            timerRegister.Tick += TimerRegister_Tick;
             // 
             // Register
             // 
@@ -313,6 +313,7 @@
             Name = "Register";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Uusi käyttäjä";
+            Load += Register_Load;
             Header.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)logo).EndInit();

@@ -25,8 +25,9 @@ namespace Kirjasto_ohjelma
         private readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
         private string order = "ASC";
-        private string orderBy = "asnum";
+        private string orderBy = "a.asnum";
         private string limit = "";
+        private string filter = "";
         private decimal totalCount = 0;
 
         private UserList()
@@ -36,6 +37,13 @@ namespace Kirjasto_ohjelma
             int screenWidth = Screen.PrimaryScreen.WorkingArea.Width;
             int x = (screenWidth - this.Width) / 2;
             Location = new Point(x, 0);
+
+            FormManager.AddMouseEnterAndLeave(new Label[] { kirjat, kirjaudu_ulos });
+
+            this.MaximumSize = new Size(1010, 1000);
+
+            FormManager.SetDoubleBuffered(this);
+            FormManager.SetDoubleBuffered(asiakkaatPanel);
         }
 
         public static UserList GetInstance()
@@ -57,17 +65,23 @@ namespace Kirjasto_ohjelma
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
+            // Avataan ja suljetaan valikko
+
             FormManager.ToggleMenu(Menu, timerUserList);
         }
 
         private void TimerUserList_Tick(object sender, EventArgs e)
         {
-            FormManager.ToggleMenu(Menu, timerUserList);
+            // Valikon animaation ajastin
+
+            FormManager.timerTick(timerUserList, Menu);
         }
 
         private void LogOut_Click(object sender, EventArgs e)
         {
-            FormManager.ToHome(this);
+            // Kirjaudutaan ulos ja palataan kirjautumissivulle
+
+            FormManager.OpenLogin(this);
         }
 
         private void UserList_Load(object sender, EventArgs e)
@@ -76,9 +90,13 @@ namespace Kirjasto_ohjelma
 
             if (this.Height > 800)
             {
+                this.HorizontalScroll.Maximum = 0;
                 this.AutoScroll = true;
-                this.Width += SystemInformation.VerticalScrollBarWidth;
             }
+
+            int screenHeight = Screen.PrimaryScreen.WorkingArea.Height;
+
+            this.Location = new Point(this.Left, (screenHeight - this.Height) / 2);
         }
 
         private void JarjestysCB_SelectedIndexChanged(object sender, EventArgs e)
@@ -86,16 +104,16 @@ namespace Kirjasto_ohjelma
             switch (jarjestysCB.SelectedIndex)
             {
                 case 0:
-                    orderBy = "asnum";
+                    orderBy = "a.asnum";
                     break;
                 case 1:
-                    orderBy = "kayttajatunnus";
+                    orderBy = "a.kayttajatunnus";
                     break;
                 case 2:
-                    orderBy = "enimi";
+                    orderBy = "a.enimi";
                     break;
                 case 3:
-                    orderBy = "snimi";
+                    orderBy = "a.snimi";
                     break;
                 case 4:
                     orderBy = "lainaus_maara";
@@ -115,6 +133,9 @@ namespace Kirjasto_ohjelma
         {
             switch (naytaCB.SelectedIndex)
             {
+                case 0:
+                    limit = "";
+                    break;
                 case 1:
                     if (totalCount > 0)
                     {
@@ -138,6 +159,7 @@ namespace Kirjasto_ohjelma
 
             LoadUsersFromDatabase();
         }
+
         private void OrderByBox_Click(object sender, EventArgs e)
         {
             string arrow = "";
@@ -155,15 +177,18 @@ namespace Kirjasto_ohjelma
                 arrow = "ArrowUpTransparentBg.png";
             }
 
-            string rootPath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..");
-            string imagePath = Path.GetFullPath(Path.Combine(rootPath, "Images", arrow));
+            string rootPath = Directory.GetCurrentDirectory();
+            string imagePath = Path.GetFullPath(Path.Combine(rootPath, @"Images\Icons", arrow));
 
             orderBox.BackgroundImage = Image.FromFile(imagePath);
 
             LoadUsersFromDatabase();
         }
+
         private void LoadUsersFromDatabase()
         {
+            totalCount = 0;
+
             List<string[]> users = new();
 
             try
@@ -174,7 +199,7 @@ namespace Kirjasto_ohjelma
                         + "(SELECT COUNT(*) FROM Lainaus WHERE astun = a.asnum) AS lainaus_maara, "
                         + "(SELECT COUNT(*) FROM Lainarivi WHERE ltunnus IN (SELECT lainanum FROM Lainaus WHERE astun = a.asnum)) AS kirjojen_maara, "
                         + "(SELECT COUNT(*) FROM Palautteet WHERE astun = a.asnum) AS palautteiden_maara "
-                        + "FROM Asiakas AS a WHERE asnum <> \"XXXXXXX\""
+                        + "FROM Asiakas AS a WHERE asnum <> \"XXXXXXX\" " + filter
                         + $"ORDER BY {orderBy} {order} " + limit;
 
                 using MySqlCommand command = new(query, db.connection);
@@ -191,7 +216,7 @@ namespace Kirjasto_ohjelma
                                 reader.GetString(2),
                                 reader.GetString(3),
                                 reader.GetString(4),
-                                reader.GetInt32(5).ToString(),
+                                reader.GetString(5),
                                 reader.GetString(6),
                                 reader.GetString(7),
                                 reader.GetInt32(8).ToString(),
@@ -216,9 +241,10 @@ namespace Kirjasto_ohjelma
 
             DisplayUsers(users);
         }
+
         private void DisplayUsers(List<string[]> userList)
         {
-            //Arvojen nollaus
+            // Näytetään käyttäjien tiedot
 
             asiakkaatPanel.SuspendLayout();
 
@@ -232,8 +258,7 @@ namespace Kirjasto_ohjelma
             Menu.Height = this.Height - Header.Height - footer.Height;
             footer.Top = 375;
 
-
-            int[] newHeights = new int[] { this.Height, asiakkaatPanel.Height, Menu.Height, footer.Top };
+            int newHeight = 0;
 
             for (int i = 0; i < userList.Count; i++)
             {
@@ -246,10 +271,7 @@ namespace Kirjasto_ohjelma
 
                 if (asiakkaatPanel.Controls.Count > 0)
                 {
-                    newHeights[0] += panelHeight;
-                    newHeights[1] += panelHeight;
-                    newHeights[2] += panelHeight;
-                    newHeights[3] += panelHeight;
+                    newHeight += panelHeight;
                 }
 
                 Panel userPanel = new()
@@ -261,7 +283,7 @@ namespace Kirjasto_ohjelma
                     BorderStyle = BorderStyle.FixedSingle,
                     Location = new Point(infoPanel.Left, y)
                 };
-                userPanel.Click += UserPanel_Click;
+                userPanel.Click += User_Click;
 
                 asiakkaatPanel.Controls.Add(userPanel);
 
@@ -269,22 +291,31 @@ namespace Kirjasto_ohjelma
 
                 foreach (Control control in infoPanel.Controls)
                 {
-                    infoLabels.Add(control); //dependant on the creation order of the labels in the infoPanel
+                    infoLabels.Add(control);
                 }
-                infoLabels.Reverse();
+                infoLabels.Reverse(); //dependant on the creation order of the labels in the infoPanel
 
                 int labelHeight = 35;
 
                 for (int k = 0; k < info.Length; k++)
                 {
+                    Control column = infoLabels[k];
+
                     Label label = new()
                     {
-                        //label.Name = labelsTopRow[i] + (i + 1);
+                        Name = $"{userPanel.Name}info",
                         Text = info[k],
                         TextAlign = ContentAlignment.MiddleCenter,
-                        Size = new Size(infoLabels[k].Width, labelHeight),
-                        Location = new Point(infoLabels[k].Left, (userPanel.Height - labelHeight) / 2)
+                        Size = new Size(column.Width + 15, labelHeight),
+                        Location = new Point(column.Left - 7, (userPanel.Height - labelHeight) / 2)
                     };
+
+                    if (column.Text == "tunnus" || column.Text == "etunimi" || column.Text == "sukunimi" || column.Text == "lähiosoite" || column.Text == "paikkakunta" || column.Text == "puhelinnumero")
+                    {
+                        FormManager.ShowPartOrFullText(label, infoLabels[k].Text.Length + 3, label.Text, toolTip);
+                    }
+
+                    label.Click += User_Click;
 
                     userPanel.Controls.Add(label);
                 }
@@ -292,22 +323,52 @@ namespace Kirjasto_ohjelma
 
             // Päivitetään korkeudet uusilla korkeuksilla
 
-            this.Height = newHeights[0];
-            asiakkaatPanel.Height = newHeights[1];
-            Menu.Height = newHeights[2];
-            footer.Top = newHeights[3];
+            asiakkaatPanel.Height += newHeight;
+            //Menu.Height = this.Height - Header.Height - footer.Height;
+            Menu.Height = asiakkaatPanel.Bottom - Header.Height;
+            footer.Top = Menu.Bottom + 30;
+            this.Height = footer.Bottom + (footer.Height / 2);
 
             asiakkaatPanel.ResumeLayout();
         }
-        private void UserPanel_Click(object sender, EventArgs e)
+
+        private void User_Click(object sender, EventArgs e)
         {
             // Avataan klikatun käyttään tiedot
 
-            Panel userPanel = (Panel)sender;
+            string asnum = "";
 
-            string username = userPanel.Name;
+            if (sender is Panel userPanel)
+            {
+                asnum = userPanel.Controls[0].Text;
+            }
+            else if (sender is Label userLabel)
+            {
+                asnum = userLabel.Parent.Controls[0].Text;
+            }
 
-            FormManager.OpenAccountDetails(username, "customer");
+            if (asnum != "")
+            {
+                FormManager.OpenAccountDetails(asnum);
+            }
+        }
+
+        private void kirjat_Click(object sender, EventArgs e)
+        {
+            // Palataan aloitussivulle
+
+            FormManager.ToHome(this);
+        }
+
+        private void hae_TextChanged(object sender, EventArgs e)
+        {
+            // Filtteröidään asiakkaita haun perusteella
+
+            string search = hae.Text;
+
+            filter = search != "" ? $"AND {orderBy} LIKE \"{search}%\" " : "";
+
+            LoadUsersFromDatabase();
         }
     }
 }

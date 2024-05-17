@@ -39,13 +39,16 @@
             Menu = new Panel();
             asiakkaat = new Label();
             kirjaudu_ulos = new Label();
-            footer = new Panel();
-            pictureBox15 = new PictureBox();
-            panel16 = new Panel();
-            panel17 = new Panel();
             label2 = new Label();
             kirjat = new Label();
+            footer = new Panel();
+            footerLogo = new PictureBox();
+            panel16 = new Panel();
+            panel17 = new Panel();
             tilinTiedotPanel = new GroupBox();
+            tyonimPanel = new Panel();
+            tyonimLabel = new Label();
+            tyonim = new Label();
             enimiPanel = new Panel();
             vaihdaEnimi = new Button();
             label5 = new Label();
@@ -79,22 +82,28 @@
             loso = new Label();
             losoLabel = new Label();
             vaihdaLoso = new Button();
-            tyonim = new Label();
-            tyonimLabel = new Label();
             lisatiedot = new Label();
             lainauksetPanel = new GroupBox();
             eiLainauksia = new Label();
-            label16 = new Label();
+            lainaukset = new Label();
             timerAcc = new System.Windows.Forms.Timer(components);
+            toolTip = new ToolTip(components);
+            wholesname = new ToolTip(components);
+            wholeUsername = new ToolTip(components);
+            wholeAddress = new ToolTip(components);
+            wholePostalCode = new ToolTip(components);
+            wholeCity = new ToolTip(components);
+            wholePhoneNum = new ToolTip(components);
             Header.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
             Menu.SuspendLayout();
             footer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)footerLogo).BeginInit();
             panel16.SuspendLayout();
             tilinTiedotPanel.SuspendLayout();
+            tyonimPanel.SuspendLayout();
             enimiPanel.SuspendLayout();
             snimiPanel.SuspendLayout();
             kayttajatunnusPanel.SuspendLayout();
@@ -111,10 +120,10 @@
             tervetuloa.AutoSize = true;
             tervetuloa.BackColor = Color.Transparent;
             tervetuloa.Font = new Font("Elephant", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            tervetuloa.Location = new Point(-54, 105);
-            tervetuloa.MinimumSize = new Size(816, 30);
+            tervetuloa.Location = new Point(0, 92);
+            tervetuloa.MinimumSize = new Size(700, 30);
             tervetuloa.Name = "tervetuloa";
-            tervetuloa.Size = new Size(816, 41);
+            tervetuloa.Size = new Size(700, 41);
             tervetuloa.TabIndex = 11;
             tervetuloa.Text = "Oma tilisi";
             tervetuloa.TextAlign = ContentAlignment.TopCenter;
@@ -125,9 +134,9 @@
             Header.Controls.Add(panel2);
             Header.Controls.Add(pictureBox1);
             Header.Controls.Add(menuButton);
-            Header.Location = new Point(-30, -1);
+            Header.Location = new Point(-30, 0);
             Header.Name = "Header";
-            Header.Size = new Size(860, 80);
+            Header.Size = new Size(732, 80);
             Header.TabIndex = 8;
             // 
             // panel2
@@ -170,10 +179,9 @@
             Menu.BackColor = Color.FromArgb(255, 241, 220);
             Menu.Controls.Add(asiakkaat);
             Menu.Controls.Add(kirjaudu_ulos);
-            Menu.Controls.Add(footer);
             Menu.Controls.Add(label2);
             Menu.Controls.Add(kirjat);
-            Menu.Location = new Point(-125, 79);
+            Menu.Location = new Point(-125, 80);
             Menu.Name = "Menu";
             Menu.Size = new Size(125, 1600);
             Menu.TabIndex = 13;
@@ -203,41 +211,6 @@
             kirjaudu_ulos.Text = "Kirjaudu Ulos";
             kirjaudu_ulos.Click += LogOut_Click;
             // 
-            // footer
-            // 
-            footer.BackColor = Color.FromArgb(255, 241, 220);
-            footer.Controls.Add(pictureBox15);
-            footer.Controls.Add(panel16);
-            footer.Location = new Point(0, 654);
-            footer.Name = "footer";
-            footer.Size = new Size(702, 80);
-            footer.TabIndex = 17;
-            // 
-            // pictureBox15
-            // 
-            pictureBox15.BackgroundImage = (Image)resources.GetObject("pictureBox15.BackgroundImage");
-            pictureBox15.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox15.Location = new Point(24, 19);
-            pictureBox15.Name = "pictureBox15";
-            pictureBox15.Size = new Size(181, 46);
-            pictureBox15.TabIndex = 4;
-            pictureBox15.TabStop = false;
-            // 
-            // panel16
-            // 
-            panel16.Controls.Add(panel17);
-            panel16.Location = new Point(31, 79);
-            panel16.Name = "panel16";
-            panel16.Size = new Size(121, 376);
-            panel16.TabIndex = 3;
-            // 
-            // panel17
-            // 
-            panel17.Location = new Point(0, 0);
-            panel17.Name = "panel17";
-            panel17.Size = new Size(80, 376);
-            panel17.TabIndex = 3;
-            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -260,9 +233,46 @@
             kirjat.Text = "Kirjat";
             kirjat.Click += Books_Click;
             // 
+            // footer
+            // 
+            footer.BackColor = Color.FromArgb(255, 241, 220);
+            footer.Controls.Add(footerLogo);
+            footer.Controls.Add(panel16);
+            footer.Location = new Point(0, 300);
+            footer.Name = "footer";
+            footer.Size = new Size(702, 80);
+            footer.TabIndex = 17;
+            // 
+            // footerLogo
+            // 
+            footerLogo.BackgroundImage = (Image)resources.GetObject("footerLogo.BackgroundImage");
+            footerLogo.BackgroundImageLayout = ImageLayout.Zoom;
+            footerLogo.Location = new Point(24, 19);
+            footerLogo.Name = "footerLogo";
+            footerLogo.Size = new Size(181, 46);
+            footerLogo.TabIndex = 4;
+            footerLogo.TabStop = false;
+            footerLogo.Click += footerLogo_Click;
+            // 
+            // panel16
+            // 
+            panel16.Controls.Add(panel17);
+            panel16.Location = new Point(31, 79);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(121, 376);
+            panel16.TabIndex = 3;
+            // 
+            // panel17
+            // 
+            panel17.Location = new Point(0, 0);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(80, 376);
+            panel17.TabIndex = 3;
+            // 
             // tilinTiedotPanel
             // 
             tilinTiedotPanel.BackColor = Color.FromArgb(125, 255, 241, 220);
+            tilinTiedotPanel.Controls.Add(tyonimPanel);
             tilinTiedotPanel.Controls.Add(enimiPanel);
             tilinTiedotPanel.Controls.Add(snimiPanel);
             tilinTiedotPanel.Controls.Add(kayttajatunnusPanel);
@@ -272,15 +282,46 @@
             tilinTiedotPanel.Controls.Add(label1);
             tilinTiedotPanel.Controls.Add(pnoPanel);
             tilinTiedotPanel.Controls.Add(losoPanel);
-            tilinTiedotPanel.Controls.Add(tyonim);
-            tilinTiedotPanel.Controls.Add(tyonimLabel);
             tilinTiedotPanel.Controls.Add(lisatiedot);
             tilinTiedotPanel.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            tilinTiedotPanel.Location = new Point(104, 164);
+            tilinTiedotPanel.Location = new Point(110, 175);
             tilinTiedotPanel.Name = "tilinTiedotPanel";
-            tilinTiedotPanel.Size = new Size(491, 370);
+            tilinTiedotPanel.Size = new Size(491, 434);
             tilinTiedotPanel.TabIndex = 20;
             tilinTiedotPanel.TabStop = false;
+            // 
+            // tyonimPanel
+            // 
+            tyonimPanel.BackColor = Color.Transparent;
+            tyonimPanel.Controls.Add(tyonimLabel);
+            tyonimPanel.Controls.Add(tyonim);
+            tyonimPanel.Location = new Point(82, 370);
+            tyonimPanel.Name = "tyonimPanel";
+            tyonimPanel.Size = new Size(309, 35);
+            tyonimPanel.TabIndex = 55;
+            // 
+            // tyonimLabel
+            // 
+            tyonimLabel.AutoSize = true;
+            tyonimLabel.BackColor = Color.Transparent;
+            tyonimLabel.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            tyonimLabel.Location = new Point(5, 9);
+            tyonimLabel.Name = "tyonimLabel";
+            tyonimLabel.Size = new Size(77, 19);
+            tyonimLabel.TabIndex = 40;
+            tyonimLabel.Text = "Työnimike:";
+            // 
+            // tyonim
+            // 
+            tyonim.AutoSize = true;
+            tyonim.BackColor = Color.Transparent;
+            tyonim.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            tyonim.ForeColor = Color.FromArgb(0, 0, 64);
+            tyonim.Location = new Point(130, 9);
+            tyonim.Name = "tyonim";
+            tyonim.Size = new Size(73, 19);
+            tyonim.TabIndex = 39;
+            tyonim.Text = "työntekijä";
             // 
             // enimiPanel
             // 
@@ -288,7 +329,7 @@
             enimiPanel.Controls.Add(vaihdaEnimi);
             enimiPanel.Controls.Add(label5);
             enimiPanel.Controls.Add(enimi);
-            enimiPanel.Location = new Point(28, 36);
+            enimiPanel.Location = new Point(82, 50);
             enimiPanel.Name = "enimiPanel";
             enimiPanel.Size = new Size(309, 35);
             enimiPanel.TabIndex = 55;
@@ -339,7 +380,7 @@
             snimiPanel.Controls.Add(vaihdaSnimi);
             snimiPanel.Controls.Add(snimi);
             snimiPanel.Controls.Add(snimiLabel);
-            snimiPanel.Location = new Point(28, 72);
+            snimiPanel.Location = new Point(82, 86);
             snimiPanel.Name = "snimiPanel";
             snimiPanel.Size = new Size(309, 35);
             snimiPanel.TabIndex = 54;
@@ -390,7 +431,7 @@
             kayttajatunnusPanel.Controls.Add(vaihdaKtunnus);
             kayttajatunnusPanel.Controls.Add(label3);
             kayttajatunnusPanel.Controls.Add(kayttajatunnus);
-            kayttajatunnusPanel.Location = new Point(28, 108);
+            kayttajatunnusPanel.Location = new Point(82, 122);
             kayttajatunnusPanel.Name = "kayttajatunnusPanel";
             kayttajatunnusPanel.Size = new Size(309, 35);
             kayttajatunnusPanel.TabIndex = 53;
@@ -411,7 +452,6 @@
             vaihdaKtunnus.TabIndex = 48;
             vaihdaKtunnus.Text = "Vaihda";
             vaihdaKtunnus.UseVisualStyleBackColor = false;
-            vaihdaKtunnus.Click += ChangeUsername_Click;
             // 
             // label3
             // 
@@ -442,7 +482,7 @@
             salasanaPanel.Controls.Add(vaihdaSalasana);
             salasanaPanel.Controls.Add(label4);
             salasanaPanel.Controls.Add(salasana);
-            salasanaPanel.Location = new Point(28, 144);
+            salasanaPanel.Location = new Point(82, 158);
             salasanaPanel.Name = "salasanaPanel";
             salasanaPanel.Size = new Size(309, 35);
             salasanaPanel.TabIndex = 52;
@@ -493,7 +533,7 @@
             puhPanel.Controls.Add(puhLabel);
             puhPanel.Controls.Add(puh);
             puhPanel.Controls.Add(vaihdaPuh);
-            puhPanel.Location = new Point(28, 319);
+            puhPanel.Location = new Point(82, 333);
             puhPanel.Name = "puhPanel";
             puhPanel.Size = new Size(309, 35);
             puhPanel.TabIndex = 54;
@@ -537,7 +577,6 @@
             vaihdaPuh.TabIndex = 50;
             vaihdaPuh.Text = "Vaihda";
             vaihdaPuh.UseVisualStyleBackColor = false;
-            vaihdaPuh.Click += ChangePhoneNumber_Click;
             // 
             // ptpPanel
             // 
@@ -545,7 +584,7 @@
             ptpPanel.Controls.Add(ptpLabel);
             ptpPanel.Controls.Add(ptp);
             ptpPanel.Controls.Add(vaihdaPtp);
-            ptpPanel.Location = new Point(28, 283);
+            ptpPanel.Location = new Point(82, 297);
             ptpPanel.Name = "ptpPanel";
             ptpPanel.Size = new Size(309, 35);
             ptpPanel.TabIndex = 53;
@@ -589,14 +628,13 @@
             vaihdaPtp.TabIndex = 49;
             vaihdaPtp.Text = "Vaihda";
             vaihdaPtp.UseVisualStyleBackColor = false;
-            vaihdaPtp.Click += ChangeCity_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Impact", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(23, 6);
+            label1.Location = new Point(77, 20);
             label1.Name = "label1";
             label1.Size = new Size(117, 27);
             label1.TabIndex = 0;
@@ -608,7 +646,7 @@
             pnoPanel.Controls.Add(pnoLabel);
             pnoPanel.Controls.Add(pno);
             pnoPanel.Controls.Add(vaihdaPno);
-            pnoPanel.Location = new Point(28, 248);
+            pnoPanel.Location = new Point(82, 262);
             pnoPanel.Name = "pnoPanel";
             pnoPanel.Size = new Size(309, 35);
             pnoPanel.TabIndex = 52;
@@ -652,7 +690,6 @@
             vaihdaPno.TabIndex = 48;
             vaihdaPno.Text = "Vaihda";
             vaihdaPno.UseVisualStyleBackColor = false;
-            vaihdaPno.Click += ChangePostalCode_Click;
             // 
             // losoPanel
             // 
@@ -660,7 +697,7 @@
             losoPanel.Controls.Add(loso);
             losoPanel.Controls.Add(losoLabel);
             losoPanel.Controls.Add(vaihdaLoso);
-            losoPanel.Location = new Point(28, 212);
+            losoPanel.Location = new Point(82, 226);
             losoPanel.Name = "losoPanel";
             losoPanel.Size = new Size(309, 35);
             losoPanel.TabIndex = 51;
@@ -704,37 +741,13 @@
             vaihdaLoso.TabIndex = 47;
             vaihdaLoso.Text = "Vaihda";
             vaihdaLoso.UseVisualStyleBackColor = false;
-            vaihdaLoso.Click += ChangeAddress_Click;
-            // 
-            // tyonim
-            // 
-            tyonim.AutoSize = true;
-            tyonim.BackColor = Color.Transparent;
-            tyonim.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            tyonim.ForeColor = Color.FromArgb(0, 0, 64);
-            tyonim.Location = new Point(375, 66);
-            tyonim.Name = "tyonim";
-            tyonim.Size = new Size(73, 19);
-            tyonim.TabIndex = 42;
-            tyonim.Text = "työntekijä";
-            // 
-            // tyonimLabel
-            // 
-            tyonimLabel.AutoSize = true;
-            tyonimLabel.BackColor = Color.Transparent;
-            tyonimLabel.Font = new Font("Impact", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            tyonimLabel.Location = new Point(376, 36);
-            tyonimLabel.Name = "tyonimLabel";
-            tyonimLabel.Size = new Size(72, 19);
-            tyonimLabel.TabIndex = 41;
-            tyonimLabel.Text = "työnimike";
             // 
             // lisatiedot
             // 
             lisatiedot.AutoSize = true;
             lisatiedot.BackColor = Color.Transparent;
             lisatiedot.Font = new Font("Impact", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            lisatiedot.Location = new Point(23, 182);
+            lisatiedot.Location = new Point(77, 196);
             lisatiedot.Name = "lisatiedot";
             lisatiedot.Size = new Size(100, 27);
             lisatiedot.TabIndex = 31;
@@ -745,9 +758,9 @@
             lainauksetPanel.BackColor = Color.FromArgb(125, 255, 241, 220);
             lainauksetPanel.Controls.Add(eiLainauksia);
             lainauksetPanel.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            lainauksetPanel.Location = new Point(104, 602);
+            lainauksetPanel.Location = new Point(110, 685);
             lainauksetPanel.Name = "lainauksetPanel";
-            lainauksetPanel.Size = new Size(491, 125);
+            lainauksetPanel.Size = new Size(491, 184);
             lainauksetPanel.TabIndex = 31;
             lainauksetPanel.TabStop = false;
             // 
@@ -756,44 +769,46 @@
             eiLainauksia.AutoSize = true;
             eiLainauksia.BackColor = Color.Transparent;
             eiLainauksia.Font = new Font("Impact", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            eiLainauksia.Location = new Point(192, 54);
+            eiLainauksia.Location = new Point(191, 69);
             eiLainauksia.Name = "eiLainauksia";
             eiLainauksia.Size = new Size(111, 23);
             eiLainauksia.TabIndex = 0;
             eiLainauksia.Text = "Ei Lainauksia";
             // 
-            // label16
+            // lainaukset
             // 
-            label16.AutoSize = true;
-            label16.BackColor = Color.Transparent;
-            label16.Font = new Font("Elephant", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label16.Location = new Point(152, 557);
-            label16.MinimumSize = new Size(400, 30);
-            label16.Name = "label16";
-            label16.Size = new Size(400, 31);
-            label16.TabIndex = 32;
-            label16.Text = "Lainauksesi";
-            label16.TextAlign = ContentAlignment.TopCenter;
+            lainaukset.AutoSize = true;
+            lainaukset.BackColor = Color.Transparent;
+            lainaukset.Font = new Font("Elephant", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lainaukset.Location = new Point(158, 632);
+            lainaukset.MinimumSize = new Size(400, 30);
+            lainaukset.Name = "lainaukset";
+            lainaukset.Size = new Size(400, 31);
+            lainaukset.TabIndex = 32;
+            lainaukset.Text = "Lainaukset";
+            lainaukset.TextAlign = ContentAlignment.TopCenter;
             // 
             // timerAcc
             // 
             timerAcc.Interval = 25;
-            timerAcc.Tick += timerAccDe_Tick;
+            timerAcc.Tick += TimerAccDe_Tick;
             // 
             // AccountDetails
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(695, 811);
-            Controls.Add(label16);
+            ClientSize = new Size(695, 906);
+            Controls.Add(lainaukset);
             Controls.Add(lainauksetPanel);
             Controls.Add(tilinTiedotPanel);
             Controls.Add(Menu);
             Controls.Add(tervetuloa);
             Controls.Add(Header);
+            Controls.Add(footer);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
+            MaximumSize = new Size(711, 20000);
             MinimizeBox = false;
             Name = "AccountDetails";
             StartPosition = FormStartPosition.CenterScreen;
@@ -806,10 +821,12 @@
             Menu.ResumeLayout(false);
             Menu.PerformLayout();
             footer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
+            ((System.ComponentModel.ISupportInitialize)footerLogo).EndInit();
             panel16.ResumeLayout(false);
             tilinTiedotPanel.ResumeLayout(false);
             tilinTiedotPanel.PerformLayout();
+            tyonimPanel.ResumeLayout(false);
+            tyonimPanel.PerformLayout();
             enimiPanel.ResumeLayout(false);
             enimiPanel.PerformLayout();
             snimiPanel.ResumeLayout(false);
@@ -846,7 +863,7 @@
         private Panel footer;
         private Panel panel16;
         private Panel panel17;
-        private PictureBox pictureBox15;
+        private PictureBox footerLogo;
         private Label kirjaudu_ulos;
         private Label kirjat;
         private Label label3;
@@ -854,7 +871,7 @@
         private Label kayttajatunnus;
         private Label label4;
         private GroupBox lainauksetPanel;
-        private Label label16;
+        private Label lainaukset;
         private Label asiakkaat;
         private Label eiLainauksia;
         private Label pnoLabel;
@@ -866,8 +883,6 @@
         private Label pno;
         private Label loso;
         private Label puhLabel;
-        private Label tyonim;
-        private Label tyonimLabel;
         private Label snimiLabel;
         private Label snimi;
         private Button vaihdaPuh;
@@ -889,5 +904,15 @@
         private Label enimi;
         private Button vaihdaKtunnus;
         private System.Windows.Forms.Timer timerAcc;
+        private ToolTip toolTip;
+        private ToolTip wholesname;
+        private ToolTip wholeUsername;
+        private ToolTip wholeAddress;
+        private ToolTip wholePostalCode;
+        private ToolTip wholeCity;
+        private ToolTip wholePhoneNum;
+        private Panel tyonimPanel;
+        private Label tyonimLabel;
+        private Label tyonim;
     }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,75 +26,103 @@ namespace Kirjasto_ohjelma
 
         private void Form_Load(object sender, EventArgs e)
         {
+            // Määritellään otsikko ja napin nimi sen mukaan, onko kyseessä tukipyynnön vai palautteen lähettäminen
+
             if (_contactType == "tuki")
             {
                 otsikko.Text = "Ota Yhteyttä";
-                otsikko.Font = new Font("Impact", 14F, FontStyle.Regular, GraphicsUnit.Point);
+                otsikko.Font = new Font("Impact", 14F);
                 lahetaBtn.Name = "lähetäBtnTuki";
             }
             else if (_contactType == "palautteet")
             {
                 otsikko.Text = "Anna palautetta";
-                otsikko.Font = new Font("Impact", 16F, FontStyle.Regular, GraphicsUnit.Point);
+                otsikko.Font = new Font("Impact", 16F);
                 lahetaBtn.Name = "lähetäBtnPalautteet";
             }
         }
 
         private void Close_Click(object sender, EventArgs e)
         {
+            // Suljetaan yhteydenottoikkuna
+
             this.Close();
         }
 
         private void Send_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(aiheTB.Text) && !string.IsNullOrEmpty(sisaltoTB.Text)) {
-
-                if (aiheTB.Text.Length > 30)
-                {
-                    MessageBox.Show("Aihe on liian pitkä");
-                }
-                else if (sisaltoTB.Text.Length > 250)
-                {
-                    MessageBox.Show("Sisältö on liian pitkä");
-                }
-                else
-                {
-                    AddContactMessage();
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(aiheTB.Text) || string.IsNullOrEmpty(sisaltoTB.Text))
             {
                 MessageBox.Show("Täytä molemmat kentät");
             }
+            else
+            {
+                if (ValidateMessage(aiheTB.Text, sisaltoTB.Text))
+                {
+                    // Lähetetään tukipyyntö tai palaute
+
+                    SendContactMessage(aiheTB.Text, sisaltoTB.Text, _contactType);
+                }
+            }
         }
 
-        private void AddContactMessage()
+        private static bool ValidateMessage(string topic, string content)
         {
+            // Tarkistetaan että aihe ja sisältö ovat sopivan pituisia
+
+            string error = "";
+
+            if (topic.Length < 3 || topic.Length > 30)
+            {
+                error = "Aiheen pituus pitää olla 3-30 merkkiä";
+            }
+
+            if (content.Length < 15)
+            {
+                error = "Sisältö on liian lyhyt";
+            }
+
+            if (error != "")
+            {
+                MessageBox.Show(error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void SendContactMessage(string topic, string content, string typeOfContact)
+        {
+            // Lähetetään tukipyynnön tai palautteen tiedot tietokantaan
+
             try
             {
                 db.OpenConnection();
 
-                // Create possibility for staff to use this feature
-
-                string query = $"INSERT INTO Palautteet (astun, aihe, sisalto) VALUES (@astun, @aihe, @sisalto)";
+                string tableName = typeOfContact == "tuki" ? "tiketit" : "palautteet";
+                    
+                string query = $"INSERT INTO {tableName} (astun, aihe, sisalto) VALUES (@astun, @aihe, @sisalto)";
 
                 using MySqlCommand command = new(query, db.connection);
-                command.Parameters.AddWithValue("@astun", User.Asnum);
-                command.Parameters.AddWithValue("@aihe", aiheTB.Text);
-                command.Parameters.AddWithValue("@sisalto", sisaltoTB.Text);
+                command.Parameters.AddWithValue("@astun", !string.IsNullOrEmpty(User.Asnum) ? User.Asnum : "XXXXXXX");
+                command.Parameters.AddWithValue("@aihe", topic);
+                command.Parameters.AddWithValue("@sisalto", content);
 
                 command.ExecuteNonQuery();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("tietokantavirhe:" + ex.Message);
                 string type = _contactType == "tuki" ? "tukipyynnön" : "palautteen";
-                MessageBox.Show("Virhe " + _contactType + "lähetyksessä. Yritä myöhemmin uudelleen.");
+                MessageBox.Show("Virhe " + type + "lähetyksessä. Yritä myöhemmin uudelleen.");
             }
             finally
             {
                 db.CloseConnection();
             }
+
+            // Avataan ponnahdusikkuna, joka kertoo että viesti on lähetetty
 
             FormManager.OpenConfirmMessage(_contactType);
 

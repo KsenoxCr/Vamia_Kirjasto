@@ -1,9 +1,11 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.VisualBasic;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -19,38 +21,45 @@ namespace Kirjasto_ohjelma
     {
         private readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
-        private readonly string _username;
+        private readonly string _asnum;
         private readonly string _userType;
         private readonly bool isStaff;
 
         private string asnum = "";
 
-        private readonly Label[] information;
-        private readonly Button[] infoButtons;
+        private readonly List<Label> informations;
+        private readonly List<Button> infoButtons;
 
-        public AccountDetails(string userName, string userType)
+        private Dictionary<Button, bool> hasClickEventAttached = new();
+
+        public AccountDetails(string asnum)
         {
             InitializeComponent();
 
-            this._username = userName;
-            this._userType = userType;
-            isStaff = _userType == "staff";
+            this._asnum = asnum;
+            
+            isStaff = asnum.StartsWith("TT");
 
             this.FormClosing += FormManager.FormClosing;
 
             Label[] labels = { kirjat, asiakkaat, kirjaudu_ulos };
             FormManager.AddMouseEnterAndLeave(labels);
 
-            information = new Label[] { enimi, snimi, kayttajatunnus, salasana, loso, pno, ptp, puh };
-            infoButtons = new Button[] { vaihdaEnimi, vaihdaSnimi, vaihdaKtunnus, vaihdaSalasana, vaihdaLoso, vaihdaPno, vaihdaPtp, vaihdaPuh };
+            informations = new() { enimi, snimi, kayttajatunnus, loso, pno, ptp, puh};
+            infoButtons = new() { vaihdaEnimi, vaihdaSnimi, vaihdaKtunnus, vaihdaLoso, vaihdaPno, vaihdaPtp, vaihdaPuh };
         }
+
         private void LogOut_Click(object sender, EventArgs e)
         {
+            // Avataan kirjautumisikkuna
+
             FormManager.OpenLogin(this);
         }
 
         public void ChangeValue_Click(object sender, EventArgs e)
         {
+            // Avataan ikkuna, jossa voi vaihtaa käyttäjän tietoja
+
             Button btn = (Button)sender;
 
 
@@ -58,7 +67,7 @@ namespace Kirjasto_ohjelma
 
             if (btn.Text == "vaihda")
             {
-                action = "change";
+                action = "edit";
             }
             else if (btn.Text == "määritä")
             {
@@ -67,46 +76,50 @@ namespace Kirjasto_ohjelma
 
             string valueType = btn.Parent.Name.Replace("Panel", "");
 
-            ChangeValue changeValue = new(action, valueType);
-            changeValue.Show();
-
-            LoadAccountDetails(_username);
+            FormManager.OpenChangeValue(action, valueType, this);
         }
 
         private void Form_Load(object sender, EventArgs e)
         {
-            LoadAccountDetails(_username);
-            LoadLoans(asnum);
+            Design();
 
-            losoPanel.Visible = !isStaff;
-            pnoPanel.Visible = !isStaff;
-            tyonimLabel.Visible = isStaff;
-            tyonim.Visible = isStaff;
+            // Ladataan käyttäjän tiedot ja lainaukset tietokannasta
 
-            ptpPanel.Location = isStaff ? losoPanel.Location : new Point(28, 283);
-            puhPanel.Location = isStaff ? pnoPanel.Location : new Point(28, 248);
-            tyonim.Location = new Point(tyonimLabel.Location.X + tyonimLabel.Width / 2 - tyonim.Width / 2, tyonim.Location.Y);
+            LoadAccountDetails(_asnum);
+            LoadLoans(_asnum);
 
-            if (this.Height > 730)
+            if (footer.Bottom > 810)
             {
+                //this.Width = Header.Width - SystemInformation.VerticalScrollBarWidth;
+
+                this.HorizontalScroll.Maximum = 0;
+
                 AutoScroll = true; //Might not be needed
             }
         }
 
         private void Books_Click(object sender, EventArgs e)
         {
+            // Avataan aloitusikkuna
+
             FormManager.ToHome(this);
         }
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
+            // Näytetään tai piilotetaan valikko
+
             FormManager.ToggleMenu(Menu, timerAcc);
         }
 
-        private void LoadAccountDetails(string username)
+        public void LoadAccountDetails(string asnum)
         {
+            // haetaan käyttäjän tiedot tietokannasta ja näytetään ne käyttöliittymässä
+
             string hashedPassword = "";
             string saltHex = "";
+
+            string[] accDetails = new string[8];
 
             try
             {
@@ -116,11 +129,11 @@ namespace Kirjasto_ohjelma
 
                 if (isStaff)
                 {
-                    query = $"SELECT tyonum, tyonim, enimi, snimi, ptp, puh, salasana, salt FROM henkilokunta WHERE kayttajatunnus = \"{username}\"";
+                    query = $"SELECT tyonum, tyonim, enimi, snimi, kayttajatunnus, ptp, puh FROM henkilokunta WHERE tyonum = \"{asnum}\"";
                 }
                 else
                 {
-                    query = $"SELECT asnum, enimi, snimi, loso, pno, ptp, puh, salasana, salt FROM asiakas WHERE kayttajatunnus = \"{username}\"";
+                    query = $"SELECT asnum, enimi, snimi, kayttajatunnus, loso, pno, ptp, puh FROM asiakas WHERE asnum = \"{asnum}\"";
                 }
 
                 using MySqlCommand command = new(query, db.connection);
@@ -130,26 +143,23 @@ namespace Kirjasto_ohjelma
                 {
                     asnum = isStaff ? reader.GetString("tyonum") : reader.GetString("asnum");
 
-                    kayttajatunnus.Text = _username;
-                    enimi.Text = reader.GetString("enimi");
-                    snimi.Text = reader.GetString("snimi");
-
-                    hashedPassword = reader.GetString("salasana");
-                    saltHex = reader.GetString("salt");
-                    ptp.Text = reader.GetString("ptp");
-                    puh.Text = reader.GetString("puh");
+                    accDetails[0] = reader.GetString("enimi");
+                    accDetails[1] = reader.GetString("snimi");
+                    accDetails[2] = reader.GetString("kayttajatunnus");
 
                     if (isStaff)
                     {
-                        tyonim.Text = reader.GetString("tyonim");
-                        vaihdaPno.Visible = false;
+                        accDetails[3] = reader.GetString("ptp");
+                        accDetails[4] = reader.GetString("puh");
 
+                        tyonim.Text = reader.GetString("tyonim");
                     }
                     else
                     {
-                        pno.Text = reader.GetString("pno");
-                        loso.Text = reader.GetString("loso");
-                        vaihdaPno.Visible = true;
+                        accDetails[3] = reader.GetString("loso");
+                        accDetails[4] = reader.GetString("pno");
+                        accDetails[5] = reader.GetString("ptp");
+                        accDetails[6] = reader.GetString("puh");
                     }
                 }
             }
@@ -162,28 +172,41 @@ namespace Kirjasto_ohjelma
                 db.CloseConnection();
             }
 
-            for (int i = 0; i < information.Length; i++)
+            // Lisätään eventhandlerit ja Näytetään oikea nappi tietojen muuttamiseen
+
+            for (int i = 0; i < informations.Count; i++)
             {
-                if (information[i].Text == "NotSpecified" || information[i].Text == "Ei Määritetty" || information[i].Text == "00000")
+                //MessageBox.Show($"Information[{i}].Name: {informations[i].Name}\r\nInformation[{i}].Text: {informations[i].Text}\r\naccDetails[{i}]: {accDetails[i]}");
+
+                if (accDetails[i] == "NotSpecified" || accDetails[i].ToLower() == "ei määritetty" || accDetails[i] == "00000")
                 {
-                    information[i].Text = "ei määritetty";
+                    informations[i].Text = "Ei määritetty";
 
                     infoButtons[i].Text = "Määritä";
-                    infoButtons[i].Width += 5;
-                    infoButtons[i].Left -= 5;
+                    infoButtons[i].Width = 60;
                 }
                 else
                 {
+                    FormManager.ShowPartOrFullText(informations[i], 16, accDetails[i], toolTip);
+
                     infoButtons[i].Text = "Vaihda";
-                    infoButtons[i].Size = new Size(60, 25);
+                    infoButtons[i].Width = 55;
+                    //infoButtons[i].Size = new Size(60, 25);
                 }
-                infoButtons[i].Click += ChangeValue_Click;
+
+                if (!hasClickEventAttached.ContainsKey(infoButtons[i]))
+                {
+                    infoButtons[i].Click += ChangeValue_Click;
+                    hasClickEventAttached.Add(infoButtons[i], true);
+                }
             }
         }
 
         private void LoadLoans(string asnum)
         {
-            List<String[]> loans = new();
+            // Haetaan käyttäjän lainaukset tietokannasta
+
+            List<String[]> loansDetails = new();
 
             try
             {
@@ -206,7 +229,7 @@ namespace Kirjasto_ohjelma
                                 pvm
                     };
 
-                    loans.Add(loan);
+                    loansDetails.Add(loan);
                 }
             }
             catch (Exception ex)
@@ -218,23 +241,30 @@ namespace Kirjasto_ohjelma
                 db.CloseConnection();
             }
 
-            LoadLoanRows(loans);
+            LoadLoanRows(loansDetails);
         }
 
-        private void LoadLoanRows(List<string[]> lainanums)
+        private void LoadLoanRows(List<string[]> loansDetails)
         {
-            List<string[]> loanRows = new();
+            // Haetaan lainarivit tietokannasta
+
+            List<List<string[]>> loans = new();
+            List<string> dates = new();
 
             try
             {
                 db.OpenConnection();
 
-                foreach (string[] lainanum in lainanums)
+                foreach (string[] loan in loansDetails)
                 {
-                    string lainariviQuery = $"SELECT lr.rivinum, k.nimi FROM lainarivi lr INNER JOIN lainakohde lk ON lk.tunnus = lr.kohdetun INNER JOIN kirja k ON k.isbn = lk.ktun WHERE lr.ltunnus = \"{lainanum[0]}\"";
+                    string lainanum = loan[0];
+
+                    string lainariviQuery = $"SELECT lr.rivinum, k.nimi FROM lainarivi lr INNER JOIN lainakohde lk ON lk.tunnus = lr.kohdetun INNER JOIN kirja k ON k.isbn = lk.ktun WHERE lr.ltunnus = \"{lainanum}\"";
 
                     using MySqlCommand lainariviCommand = new(lainariviQuery, db.connection);
                     using MySqlDataReader lainariviReader = lainariviCommand.ExecuteReader();
+
+                    List<string[]> loanRows = new();
 
                     while (lainariviReader.Read())
                     {
@@ -246,6 +276,10 @@ namespace Kirjasto_ohjelma
 
                         loanRows.Add(loanRow);
                     }
+
+                    loans.Add(loanRows);
+
+                    dates.Add(loan[1]);
                 }
             }
             catch (Exception ex)
@@ -257,110 +291,96 @@ namespace Kirjasto_ohjelma
                 db.CloseConnection();
             }
 
-            displayLoans(lainanums, loanRows);
+            // Näytetään lainaukset käyttöliittymässä
+
+            DisplayLoans(loans, dates);
         }
 
-        private void displayLoans(List<string[]> loans, List<string[]> loanRows)
+        private void DisplayLoans(List<List<string[]>> loans, List<string> dates)
         {
-            int loanCount = 0;
+            int i;
 
-            for (int i = 1; i < loans.Count; i++)
+            if (loans.Count > 0)
             {
-                Panel lainausPanel = new()
-                {
-                    Name = "lainausPanel" + i,
-                    Size = new Size(460, 200),
-                    BackColor = Color.FromArgb(255, 241, 220),
-                    BorderStyle = BorderStyle.FixedSingle,
-                };
-                lainausPanel.Location = new Point((lainauksetPanel.Width - lainausPanel.Width) / 2, 30);
-
-                Label lainausLabel = new()
-                {
-                    Name = "lainausLabel" + i,
-                    Text = "Lainaus: " + loans[i][1]
-                };
-                lainausLabel.Location = new Point((lainausPanel.Width - lainausLabel.Width) / 2, 10);
-
-                lainausPanel.Controls.Add(lainausLabel);
-                lainauksetPanel.Controls.Add(lainausPanel);
-
-                lainauksetPanel.Height += 490;
-
-                for (int j = 1; j < loanRows.Count; j++)
-                {
-                    Panel lainariviPanel = new()
-                    {
-                        Name = "lainarivi" + j,
-                        Size = new Size(460, 100),
-                        BackColor = Color.Transparent,
-                        BorderStyle = BorderStyle.FixedSingle,
-                    };
-
-                    Label rivinumLabel = new()
-                    {
-                        Name = "rivinumLabel" + j,
-                        Text = "Rivi: " + loanRows[j][0]
-                    };
-                    rivinumLabel.Location = new Point(lainariviPanel.Left + 10, (lainariviPanel.Height - rivinumLabel.Height) / 2);
-                    lainariviPanel.Controls.Add(rivinumLabel);
-
-                    Label kirjanNimiLabel = new()
-                    {
-                        Name = "kirjanNimiLabel" + j,
-                        Text = loanRows[j][1],
-                        Location = new Point(rivinumLabel.Right + 10, rivinumLabel.Top)
-                    };
-                    lainariviPanel.Controls.Add(kirjanNimiLabel);
-
-                    Control lainaPanel = lainauksetPanel.Controls[j - 1];
-
-                    lainaPanel.Controls.Add(lainariviPanel);
-                    lainaPanel.Height += lainariviPanel.Height + 30;
-                }
-                loanCount++;
+                eiLainauksia.Visible = false;
             }
-            eiLainauksia.Visible = loanCount > 0;
-        }
 
-        private void ChangePassword_Click(object sender, EventArgs e)
-        {
+            for (i = 0; i < loans.Count; i++)
+            {
+                Panel loanPanel = new()
+                {
+                    Name = "loanPanel" + (i + 1),
+                    Size = new Size(460, 60),
+                    BackColor = Color.Tan,
+                    BorderStyle = BorderStyle.FixedSingle
+                };
 
-        }
+                int loanPanelY;
 
-        private void ChangeUsername_Click(object sender, EventArgs e)
-        {
+                if (i > 0)
+                {
+                    loanPanelY = lainauksetPanel.Controls[i].Bottom + 10;
+                }
+                else
+                {
+                    loanPanelY = 30;
+                }
 
-        }
+                loanPanel.Location = new Point((lainauksetPanel.Width - loanPanel.Width) / 2, loanPanelY);
 
-        private void ChangeFirstName_Click(object sender, EventArgs e)
-        {
+                string date = dates[i];
 
-        }
+                Label loanLabel = new()
+                {
+                    Name = $"loanLabel{(i + 1)}",
+                    Text = $"Lainaus {i + 1}: {date}",
+                    Location = new Point(10, 10),
+                    Font = new Font("Impact", 12F),
+                    AutoSize = true
+                };
 
-        private void ChangeLastName_Click(object sender, EventArgs e)
-        {
+                loanPanel.Controls.Add(loanLabel);
+                lainauksetPanel.Controls.Add(loanPanel);
 
-        }
+                for (int j = 0; j < loans[i].Count; j++)
+                {
+                    Panel loanRowPanel = new()
+                    {
+                        Name = $"loanRowPanel{j + 1}",
+                        Size = new Size(loanPanel.Width - 30, 30),
+                        BackColor = Color.FromArgb(255, 241, 220),
+                        Font = new Font("Impact", 10F)
+                    };
+                    loanRowPanel.Location = new Point((loanPanel.Width - loanRowPanel.Width) / 2, loanLabel.Bottom + 15 + j * 35);
 
-        private void ChangeAddress_Click(object sender, EventArgs e)
-        {
+                    Label rowNumberLabel = new()
+                    {
+                        Name = $"rowNumberLabel{j + 1}",
+                        Text = $"Kirja: {j + 1}",
+                        AutoSize = true
+                    };
+                    rowNumberLabel.Location = new Point(10, (loanRowPanel.Height - rowNumberLabel.Height) / 2);
 
-        }
+                    loanRowPanel.Controls.Add(rowNumberLabel);
 
-        private void ChangeCity_Click(object sender, EventArgs e)
-        {
+                    Label bookNameLabel = new()
+                    {
+                        Name = $"bookNameLabel{j + 1}",
+                        Text = loans[i][j][1],
+                        Location = new Point(rowNumberLabel.Right + 10, rowNumberLabel.Top),
+                        AutoSize = true
+                    };
+                    loanRowPanel.Controls.Add(bookNameLabel);
 
-        }
+                    loanPanel.Controls.Add(loanRowPanel);
+                    loanPanel.Height += loanRowPanel.Height + 5;
+                }
+            }
 
-        private void ChangePhoneNumber_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ChangePostalCode_Click(object sender, EventArgs e)
-        {
-
+            lainauksetPanel.Height = lainauksetPanel.Controls[i].Bottom + 30;
+            Menu.Height = lainauksetPanel.Bottom - Header.Height + 30;
+            footer.Top = lainauksetPanel.Bottom + 30;
+            //this.Height = footer.Bottom;
         }
 
         private void Logo_Click(object sender, EventArgs e)
@@ -373,9 +393,67 @@ namespace Kirjasto_ohjelma
             FormManager.OpenUserList(this);
         }
 
-        private void timerAccDe_Tick(object sender, EventArgs e)
+        private void TimerAccDe_Tick(object sender, EventArgs e)
         {
             FormManager.timerTick(timerAcc, Menu);
+        }
+
+        private void footerLogo_Click(object sender, EventArgs e)
+        {
+            this.AutoScrollPosition = Point.Empty;
+        }
+
+        private void Design()
+        {
+            // Muotoillaan käyttöliittymä kirjautuneen käyttäjän oikeuksien sekä 
+            // tarkasteltavan käyttäjän tilityypin mukaan
+
+            asiakkaat.Visible = User.IsStaff;
+
+            //MessageBox.Show($"asiakkaat.Visible: {asiakkaat.Visible}\r\nUser.IsStaff: {User.IsStaff}");
+
+            kirjat.Top = asiakkaat.Visible ? asiakkaat.Bottom + 10 : asiakkaat.Top;
+            kirjaudu_ulos.Top = kirjat.Bottom + 10;
+
+            if (isStaff)
+            {
+                informations.Remove(pno);
+                infoButtons.Remove(vaihdaPno);
+                informations.Remove(loso);
+                infoButtons.Remove(vaihdaLoso);
+
+                ptpPanel.Top = lisatiedot.Bottom + 5;
+                puhPanel.Top = ptpPanel.Bottom + 5;
+                tyonimPanel.Top = puhPanel.Bottom + 5;
+
+                tilinTiedotPanel.Height = tyonimPanel.Bottom + 30;
+
+                losoPanel.Visible = false;
+                pnoPanel.Visible = false;
+            }
+            else
+            {
+                tyonimPanel.Visible = false;
+
+                tilinTiedotPanel.Height = puhPanel.Bottom + 30;
+            }
+
+            if (User.Asnum != _asnum)
+            {
+                foreach (Button btn in infoButtons)
+                {
+                    btn.Visible = false;
+                }
+
+                vaihdaSalasana.Visible = false;
+            }
+            else
+            {
+                vaihdaSalasana.Click += ChangeValue_Click;
+            }
+
+            lainaukset.Top = tilinTiedotPanel.Bottom + 50;
+            lainauksetPanel.Top = lainaukset.Bottom + 50;
         }
     }
 }

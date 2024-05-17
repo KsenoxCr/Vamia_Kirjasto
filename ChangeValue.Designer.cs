@@ -41,9 +41,9 @@
             // 
             closeBtn.BackgroundImage = (Image)resources.GetObject("closeBtn.BackgroundImage");
             closeBtn.BackgroundImageLayout = ImageLayout.Zoom;
-            closeBtn.Location = new Point(208, 12);
+            closeBtn.Location = new Point(219, 12);
             closeBtn.Name = "closeBtn";
-            closeBtn.Size = new Size(30, 30);
+            closeBtn.Size = new Size(19, 18);
             closeBtn.TabIndex = 9;
             closeBtn.TabStop = false;
             closeBtn.Click += Close_Click;
@@ -107,7 +107,7 @@
             Controls.Add(uusiLabel);
             Controls.Add(closeBtn);
             FormBorderStyle = FormBorderStyle.None;
-            MaximumSize = new Size(250, 150);
+            MaximumSize = new Size(250, 400);
             MinimumSize = new Size(250, 150);
             Name = "ChangeValue";
             StartPosition = FormStartPosition.CenterScreen;

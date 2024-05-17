@@ -29,7 +29,7 @@ namespace Kirjasto_ohjelma
         private readonly DatabaseAccess db = DatabaseAccess.GetInstance();
 
         private static Register _instance = null;
-        private static readonly object _lock = new object();
+        private static readonly object _lock = new();
 
         private const int keySize = 64;
         private const int iterations = 350000;
@@ -42,11 +42,12 @@ namespace Kirjasto_ohjelma
             this.FormClosing += FormManager.FormClosing;
 
             FormManager.AddMouseEnterAndLeave(new System.Windows.Forms.Label[] { tuki, palautteet });
-
         }
 
         public static Register Instance
         {
+            // Tehdään rekisteröitymissivusta singleton
+
             get
             {
                 lock (_lock)
@@ -60,25 +61,43 @@ namespace Kirjasto_ohjelma
             }
         }
 
-        private void menuButton_Click(object sender, EventArgs e)
+        private void Register_Load(object sender, EventArgs e)
         {
+            FormManager.AddPlaceholder(kayttajatunnus, "käyttäjätunnus");
+            FormManager.AddPlaceholder(etunimi, "etunimi");
+            FormManager.AddPlaceholder(sukunimi, "sukunimi");
+            FormManager.AddPlaceholder(salasana, "salasana");
+            FormManager.AddPlaceholder(salasanaUudelleen, "salasana uudelleen");
+        }
+
+        private void MenuButton_Click(object sender, EventArgs e)
+        {
+            // Avataan tai suljetaan valikko
+
             FormManager.ToggleMenu(Menu, timerRegister);
         }
-        private void timerRegister_Tick(object sender, EventArgs e)
+
+        private void TimerRegister_Tick(object sender, EventArgs e)
         {
+            // Valikon animaation ajastin
+
             FormManager.timerTick(timerRegister, Menu);
         }
 
-        private void logo_Click(object sender, EventArgs e)
+        private void Logo_Click(object sender, EventArgs e)
         {
+            // Palataan kirjautumissivulle
+
             FormManager.OpenLogin(this);
         }
 
-        private void luoTunnusBtn_Click(object sender, EventArgs e)
+        private void LuoTunnusBtn_Click(object sender, EventArgs e)
         {
-            string username = FormManager.ValidateUsername(kayttajatunnus.Text.ToLower());
-            string firstname = FormManager.ValidateName(etunimi.Text.ToLower(), "etunimi");
-            string surname = FormManager.ValidateName(sukunimi.Text.ToLower(), "sukunimi");
+            // Luodaan uusi käyttäjä ja tallennetaan se tietokantaan
+
+            string username = FormManager.ValidateName(kayttajatunnus.Text.ToLower(), "käyttäjätunnus", kayttajatunnus);
+            string firstname = FormManager.ValidateName(etunimi.Text.ToLower(), "etunimi", etunimi);
+            string surname = FormManager.ValidateName(sukunimi.Text.ToLower(), "sukunimi", sukunimi);
             string password = FormManager.ValidatePassword(salasana.Text);
             string passwordAgain = salasanaUudelleen.Text;
 
@@ -134,20 +153,27 @@ namespace Kirjasto_ohjelma
             }
         }
 
-        private string FirstCharToUpper(string input)
+        private static string FirstCharToUpper(string input)
         {
+            // Ensimmäinen kirjain isoksi ja loput pieneksi
+
             return char.ToUpper(input[0]) + input.Substring(1).ToLower();
         }
 
-        private void tuki_Click(object sender, EventArgs e)
+        private void Tuki_Click(object sender, EventArgs e)
         {
+            // Avataan tukisivu
+
             FormManager.OpenContact("tuki");
         }
 
-        private void palautteet_Click(object sender, EventArgs e)
+        private void Palautteet_Click(object sender, EventArgs e)
         {
+            // Avataan palautesivu
+
             FormManager.OpenContact("palaute");
         }
+
         public string CreateAsnum()
         {
             //Luodaan uusi asiakasnumero
@@ -161,9 +187,9 @@ namespace Kirjasto_ohjelma
             {
                 db.OpenConnection();
 
-                string queryLastAsnum = "SELECT asnum FROM Asiakas WHERE asnum <> \"XXXXXXX\" ORDER BY SUBSTRING(asnum, -2) DESC, CAST(SUBSTRING(asnum, 3) AS UNSIGNED) DESC LIMIT 1;";
+                string queryLastAsnum = "SELECT asnum FROM Asiakas WHERE asnum <> \"TTXXXXX\" ORDER BY SUBSTRING(asnum, -2) DESC, CAST(SUBSTRING(asnum, 3) AS UNSIGNED) DESC LIMIT 1;";
 
-                using MySqlCommand command = new MySqlCommand(queryLastAsnum, db.connection);
+                using MySqlCommand command = new(queryLastAsnum, db.connection);
                 using MySqlDataReader reader = command.ExecuteReader();
 
                 if (reader.Read())
@@ -219,6 +245,8 @@ namespace Kirjasto_ohjelma
 
         private string HashPasword(string password, out byte[] salt)
         {
+            // Hashataan salasana
+
             salt = RandomNumberGenerator.GetBytes(keySize);
 
             var hash = Rfc2898DeriveBytes.Pbkdf2(

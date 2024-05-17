@@ -41,8 +41,8 @@ namespace Kirjasto_ohjelma
             kirjauduSisäänBtn = new Button();
             Password = new Label();
             username = new Label();
-            InputPassword = new TextBox();
-            InputUsername = new TextBox();
+            salasana = new TextBox();
+            kayttajatunnus = new TextBox();
             Menu = new Panel();
             label2 = new Label();
             palautteet = new Label();
@@ -112,8 +112,8 @@ namespace Kirjasto_ohjelma
             KirjauduSisaan.Controls.Add(kirjauduSisäänBtn);
             KirjauduSisaan.Controls.Add(Password);
             KirjauduSisaan.Controls.Add(username);
-            KirjauduSisaan.Controls.Add(InputPassword);
-            KirjauduSisaan.Controls.Add(InputUsername);
+            KirjauduSisaan.Controls.Add(salasana);
+            KirjauduSisaan.Controls.Add(kayttajatunnus);
             KirjauduSisaan.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
             KirjauduSisaan.Location = new Point(267, 203);
             KirjauduSisaan.Name = "KirjauduSisaan";
@@ -146,7 +146,7 @@ namespace Kirjasto_ohjelma
             Password.AutoSize = true;
             Password.BackColor = Color.Transparent;
             Password.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            Password.Location = new Point(24, 94);
+            Password.Location = new Point(19, 94);
             Password.Name = "Password";
             Password.Size = new Size(64, 18);
             Password.TabIndex = 3;
@@ -157,32 +157,30 @@ namespace Kirjasto_ohjelma
             username.AutoSize = true;
             username.BackColor = Color.Transparent;
             username.Font = new Font("Impact", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            username.Location = new Point(24, 49);
+            username.Location = new Point(19, 49);
             username.Name = "username";
             username.Size = new Size(97, 18);
             username.TabIndex = 2;
             username.Text = "Käyttäjätunnus:";
             // 
-            // InputPassword
+            // salasana
             // 
-            InputPassword.Cursor = Cursors.Hand;
-            InputPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            InputPassword.Location = new Point(124, 88);
-            InputPassword.Name = "InputPassword";
-            InputPassword.PasswordChar = '*';
-            InputPassword.Size = new Size(100, 29);
-            InputPassword.TabIndex = 1;
-            InputPassword.Text = "Työntekijä0501!";
+            salasana.Cursor = Cursors.Hand;
+            salasana.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            salasana.Location = new Point(119, 88);
+            salasana.Name = "salasana";
+            salasana.PasswordChar = '*';
+            salasana.Size = new Size(111, 29);
+            salasana.TabIndex = 1;
             // 
-            // InputUsername
+            // kayttajatunnus
             // 
-            InputUsername.Cursor = Cursors.Hand;
-            InputUsername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            InputUsername.Location = new Point(124, 43);
-            InputUsername.Name = "InputUsername";
-            InputUsername.Size = new Size(100, 29);
-            InputUsername.TabIndex = 0;
-            InputUsername.Text = "Akseli_M";
+            kayttajatunnus.Cursor = Cursors.Hand;
+            kayttajatunnus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            kayttajatunnus.Location = new Point(119, 43);
+            kayttajatunnus.Name = "kayttajatunnus";
+            kayttajatunnus.Size = new Size(111, 29);
+            kayttajatunnus.TabIndex = 0;
             // 
             // Menu
             // 
@@ -309,6 +307,7 @@ namespace Kirjasto_ohjelma
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Etusivu";
+            Load += Login_Load;
             Header.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -328,10 +327,10 @@ namespace Kirjasto_ohjelma
         private Panel Header;
         private GroupBox KirjauduSisaan;
         private PictureBox pictureBox1;
-        private TextBox InputUsername;
+        private TextBox kayttajatunnus;
         private Label Password;
         private Label username;
-        private TextBox InputPassword;
+        private TextBox salasana;
         private PictureBox menuButton;
         private Panel panel2;
         private Panel panel3;

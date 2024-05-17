@@ -32,8 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             tervetuloa = new Label();
             Header = new Panel();
-            pictureBox3 = new PictureBox();
-            hae = new TextBox();
             panel2 = new Panel();
             panel3 = new Panel();
             pictureBox1 = new PictureBox();
@@ -44,12 +42,12 @@
             asiakkaat = new Label();
             oma_tili = new Label();
             kirjauduUlos = new Label();
-            label2 = new Label();
+            CopyrightLabel = new Label();
             ehdota_kirjaa = new Label();
             palautteet = new Label();
             tuki = new Label();
             label4 = new Label();
-            haeIsompi = new TextBox();
+            haeKirjojaTB = new TextBox();
             Search = new PictureBox();
             haeKirjoja = new Label();
             selaaKirjoja = new Label();
@@ -63,9 +61,7 @@
             jarjestysCB = new ComboBox();
             wholeUsername = new ToolTip(components);
             timerHome = new System.Windows.Forms.Timer(components);
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             Header.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).BeginInit();
@@ -92,34 +88,13 @@
             // Header
             // 
             Header.BackColor = Color.FromArgb(255, 241, 220);
-            Header.Controls.Add(pictureBox3);
-            Header.Controls.Add(hae);
             Header.Controls.Add(panel2);
             Header.Controls.Add(pictureBox1);
             Header.Controls.Add(menuButton);
-            Header.Location = new Point(-30, -182);
+            Header.Location = new Point(0, 0);
             Header.Name = "Header";
-            Header.Size = new Size(860, 80);
+            Header.Size = new Size(798, 80);
             Header.TabIndex = 8;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.White;
-            pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
-            pictureBox3.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox3.Location = new Point(706, 30);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(23, 23);
-            pictureBox3.TabIndex = 16;
-            pictureBox3.TabStop = false;
-            // 
-            // hae
-            // 
-            hae.Location = new Point(610, 30);
-            hae.Name = "hae";
-            hae.PlaceholderText = "Etsi";
-            hae.Size = new Size(119, 23);
-            hae.TabIndex = 4;
             // 
             // panel2
             // 
@@ -139,7 +114,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(160, 20);
+            pictureBox1.Location = new Point(217, 20);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(302, 38);
             pictureBox1.TabIndex = 3;
@@ -163,11 +138,11 @@
             Menu.Controls.Add(asiakkaat);
             Menu.Controls.Add(oma_tili);
             Menu.Controls.Add(kirjauduUlos);
-            Menu.Controls.Add(label2);
+            Menu.Controls.Add(CopyrightLabel);
             Menu.Controls.Add(ehdota_kirjaa);
             Menu.Controls.Add(palautteet);
             Menu.Controls.Add(tuki);
-            Menu.Location = new Point(0, 0);
+            Menu.Location = new Point(-125, 79);
             Menu.Name = "Menu";
             Menu.Size = new Size(125, 1600);
             Menu.TabIndex = 13;
@@ -188,7 +163,7 @@
             lisaa_kirja.AutoSize = true;
             lisaa_kirja.Cursor = Cursors.Hand;
             lisaa_kirja.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lisaa_kirja.Location = new Point(10, 308);
+            lisaa_kirja.Location = new Point(12, 308);
             lisaa_kirja.Name = "lisaa_kirja";
             lisaa_kirja.Size = new Size(76, 20);
             lisaa_kirja.TabIndex = 24;
@@ -200,7 +175,7 @@
             asiakkaat.AutoSize = true;
             asiakkaat.Cursor = Cursors.Hand;
             asiakkaat.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            asiakkaat.Location = new Point(10, 278);
+            asiakkaat.Location = new Point(12, 278);
             asiakkaat.Name = "asiakkaat";
             asiakkaat.Size = new Size(73, 20);
             asiakkaat.TabIndex = 23;
@@ -229,15 +204,15 @@
             kirjauduUlos.Text = "Kirjaudu Ulos";
             kirjauduUlos.Click += LogOut_Click;
             // 
-            // label2
+            // CopyrightLabel
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(10, 1500);
-            label2.Name = "label2";
-            label2.Size = new Size(48, 16);
-            label2.TabIndex = 3;
-            label2.Text = "Vamia ©";
+            CopyrightLabel.AutoSize = true;
+            CopyrightLabel.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            CopyrightLabel.Location = new Point(10, 400);
+            CopyrightLabel.Name = "CopyrightLabel";
+            CopyrightLabel.Size = new Size(48, 16);
+            CopyrightLabel.TabIndex = 3;
+            CopyrightLabel.Text = "Vamia ©";
             // 
             // ehdota_kirjaa
             // 
@@ -277,26 +252,27 @@
             label4.AutoSize = true;
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Elephant", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(247, 8);
+            label4.Location = new Point(241, 95);
             label4.Name = "label4";
-            label4.Size = new Size(328, 18);
+            label4.Size = new Size(342, 18);
             label4.TabIndex = 15;
-            label4.Text = "Uppoudu äänikirjojen kiehtovaan maailmaan!\r\n";
+            label4.Text = "Uppoudu kirjallisuuden kiehtovaan maailmaan!\r\n";
             // 
-            // haeIsompi
+            // haeKirjojaTB
             // 
-            haeIsompi.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            haeIsompi.Location = new Point(280, 122);
-            haeIsompi.Name = "haeIsompi";
-            haeIsompi.PlaceholderText = "Etsi";
-            haeIsompi.Size = new Size(259, 34);
-            haeIsompi.TabIndex = 17;
+            haeKirjojaTB.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            haeKirjojaTB.Location = new Point(274, 197);
+            haeKirjojaTB.Name = "haeKirjojaTB";
+            haeKirjojaTB.PlaceholderText = "Etsi";
+            haeKirjojaTB.Size = new Size(259, 34);
+            haeKirjojaTB.TabIndex = 17;
+            haeKirjojaTB.TextChanged += haeKirjojaTB_TextChanged;
             // 
             // Search
             // 
             Search.BackgroundImage = (Image)resources.GetObject("Search.BackgroundImage");
             Search.BorderStyle = BorderStyle.FixedSingle;
-            Search.Location = new Point(505, 122);
+            Search.Location = new Point(499, 197);
             Search.Name = "Search";
             Search.Size = new Size(34, 34);
             Search.TabIndex = 18;
@@ -307,7 +283,7 @@
             haeKirjoja.AutoSize = true;
             haeKirjoja.BackColor = Color.Transparent;
             haeKirjoja.Font = new Font("Elephant", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            haeKirjoja.Location = new Point(300, 73);
+            haeKirjoja.Location = new Point(294, 148);
             haeKirjoja.Name = "haeKirjoja";
             haeKirjoja.Size = new Size(138, 29);
             haeKirjoja.TabIndex = 19;
@@ -318,7 +294,7 @@
             selaaKirjoja.AutoSize = true;
             selaaKirjoja.BackColor = Color.Transparent;
             selaaKirjoja.Font = new Font("Impact", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            selaaKirjoja.Location = new Point(300, 20);
+            selaaKirjoja.Location = new Point(172, 18);
             selaaKirjoja.Name = "selaaKirjoja";
             selaaKirjoja.Size = new Size(135, 29);
             selaaKirjoja.TabIndex = 2;
@@ -330,9 +306,9 @@
             footer.BackColor = Color.FromArgb(255, 241, 220);
             footer.Controls.Add(pictureBox15);
             footer.Controls.Add(panel16);
-            footer.Location = new Point(1, 1418);
+            footer.Location = new Point(0, 500);
             footer.Name = "footer";
-            footer.Size = new Size(860, 80);
+            footer.Size = new Size(795, 80);
             footer.TabIndex = 17;
             // 
             // pictureBox15
@@ -344,6 +320,7 @@
             pictureBox15.Size = new Size(181, 46);
             pictureBox15.TabIndex = 4;
             pictureBox15.TabStop = false;
+            pictureBox15.Click += FooterLogo_Click;
             // 
             // panel16
             // 
@@ -364,10 +341,10 @@
             // 
             kirjaFlowLayoutPanel.BackColor = Color.FromArgb(125, 255, 241, 220);
             kirjaFlowLayoutPanel.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            kirjaFlowLayoutPanel.Location = new Point(125, 342);
+            kirjaFlowLayoutPanel.Location = new Point(117, 342);
             kirjaFlowLayoutPanel.Margin = new Padding(3, 2, 3, 2);
             kirjaFlowLayoutPanel.Name = "kirjaFlowLayoutPanel";
-            kirjaFlowLayoutPanel.Size = new Size(560, 292);
+            kirjaFlowLayoutPanel.Size = new Size(560, 224);
             kirjaFlowLayoutPanel.TabIndex = 22;
             // 
             // selausAsetukset
@@ -376,7 +353,7 @@
             selausAsetukset.Controls.Add(jarjestys);
             selausAsetukset.Controls.Add(jarjestysCB);
             selausAsetukset.Controls.Add(selaaKirjoja);
-            selausAsetukset.Location = new Point(125, 253);
+            selausAsetukset.Location = new Point(117, 253);
             selausAsetukset.Margin = new Padding(3, 2, 3, 2);
             selausAsetukset.Name = "selausAsetukset";
             selausAsetukset.Size = new Size(560, 94);
@@ -387,7 +364,7 @@
             jarjestys.AutoSize = true;
             jarjestys.BackColor = Color.Transparent;
             jarjestys.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            jarjestys.Location = new Point(284, 62);
+            jarjestys.Location = new Point(340, 62);
             jarjestys.Name = "jarjestys";
             jarjestys.Size = new Size(68, 20);
             jarjestys.TabIndex = 4;
@@ -397,13 +374,13 @@
             // jarjestysCB
             // 
             jarjestysCB.FormattingEnabled = true;
-            jarjestysCB.Items.AddRange(new object[] { "A-Z", "Z-A", "Kirjailija A-Z", "Kirjailija Z-A ", "Sivut ↑", "Sivut ↓", "Julkaistu ↑", "Julkaistu ↓" });
-            jarjestysCB.Location = new Point(362, 62);
+            jarjestysCB.Items.AddRange(new object[] { "A-Ö", "Ö-A", "Kirjailija A-Ö", "Kirjailija Ö-A ", "Sivut ↑", "Sivut ↓", "Julkaistu ↑", "Julkaistu ↓" });
+            jarjestysCB.Location = new Point(429, 62);
             jarjestysCB.Margin = new Padding(3, 2, 3, 2);
             jarjestysCB.Name = "jarjestysCB";
             jarjestysCB.Size = new Size(116, 23);
             jarjestysCB.TabIndex = 3;
-            jarjestysCB.Text = "A-Z";
+            jarjestysCB.Text = "A-Ö";
             jarjestysCB.SelectedIndexChanged += JarjestysCB_SelectedIndexChanged;
             // 
             // timerHome
@@ -411,24 +388,20 @@
             timerHome.Interval = 25;
             timerHome.Tick += TimerHome_Tick;
             // 
-            // backgroundWorker1
-            // 
-            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
-            // 
             // Home
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(800, 791);
+            ClientSize = new Size(800, 661);
             Controls.Add(selausAsetukset);
             Controls.Add(kirjaFlowLayoutPanel);
             Controls.Add(footer);
             Controls.Add(haeKirjoja);
             Controls.Add(Search);
             Controls.Add(label4);
-            Controls.Add(haeIsompi);
+            Controls.Add(haeKirjojaTB);
             Controls.Add(Menu);
             Controls.Add(tervetuloa);
             Controls.Add(Header);
@@ -440,8 +413,6 @@
             Text = "Kirjasto";
             Load += Home_Load;
             Header.ResumeLayout(false);
-            Header.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)menuButton).EndInit();
@@ -465,14 +436,12 @@
         private PictureBox pictureBox1;
         private PictureBox menuButton;
         private Panel Menu;
-        private Label label2;
+        private Label CopyrightLabel;
         private Label ehdota_kirjaa;
         private Label palautteet;
         private Label tuki;
-        private TextBox hae;
         private Label label4;
-        private PictureBox pictureBox3;
-        private TextBox haeIsompi;
+        private TextBox haeKirjojaTB;
         private PictureBox Search;
         private Label haeKirjoja;
         private Label selaaKirjoja;
@@ -491,6 +460,5 @@
         private Label username;
         private ToolTip wholeUsername;
         private System.Windows.Forms.Timer timerHome;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
